@@ -1,0 +1,2728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAP Operations Reference — Plant 1730</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ── */
+:root {
+  --bg:        #0D1117;
+  --bg2:       #161b22;
+  --bg3:       #1c2230;
+  --border:    #2a3040;
+  --green:     #39b54a;
+  --green-dim: #1e3a22;
+  --green-glow:#39b54a44;
+  --teal:      #1a9e6e;
+  --teal-dim:  #0e2d22;
+  --amber:     #c8a84b;
+  --amber-dim: #2d2510;
+  --coral:     #e05c3a;
+  --coral-dim: #2d150e;
+  --blue:      #4a9eff;
+  --blue-dim:  #0e1f35;
+  --purple:    #9b6dff;
+  --txt:       #e8e6e0;
+  --txt2:      #a8a49c;
+  --txt3:      #6b6660;
+  --mono:      'JetBrains Mono', monospace;
+  --sans:      'Inter', sans-serif;
+  --sidebar-w: 230px;
+  --radius:    6px;
+}
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--txt);
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.6;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── SIDEBAR ── */
+#sidebar {
+  width: var(--sidebar-w);
+  min-height: 100vh;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  position: fixed;
+  top: 0; left: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  overflow-y: auto;
+}
+
+.sidebar-brand {
+  padding: 20px 18px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-brand .plant {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--green);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.sidebar-brand h1 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--txt);
+  line-height: 1.3;
+}
+
+.nav-section {
+  padding: 14px 12px 4px;
+}
+.nav-section-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--txt3);
+  padding: 0 6px;
+  margin-bottom: 4px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--txt2);
+  transition: background 0.15s, color 0.15s;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+.nav-item:hover { background: var(--bg3); color: var(--txt); }
+.nav-item.active { background: var(--green-dim); color: var(--green); }
+.nav-item .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+.nav-item.active .dot { opacity: 1; }
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 14px 18px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--txt3);
+  line-height: 1.5;
+}
+
+/* ── MAIN CONTENT ── */
+#main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  min-height: 100vh;
+}
+
+.page { display: none; }
+.page.active { display: block; }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  padding: 36px 40px 28px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.page-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--green);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.page-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--txt);
+  margin-bottom: 4px;
+}
+.page-sub {
+  font-size: 13px;
+  color: var(--txt2);
+}
+
+/* ── CONTENT AREA ── */
+.content { padding: 32px 40px; max-width: 1100px; }
+
+/* ── FLOW DIAGRAM ── */
+.flow-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+.flow-step {
+  display: flex;
+  gap: 0;
+  position: relative;
+}
+
+.flow-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 52px;
+  flex-shrink: 0;
+}
+
+.step-num {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--bg3);
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--txt2);
+  flex-shrink: 0;
+  transition: border-color 0.3s, color 0.3s, background 0.3s;
+  z-index: 2;
+}
+.flow-step.checkpoint .step-num { border-color: var(--amber); color: var(--amber); }
+.flow-step.process .step-num   { border-color: var(--green); color: var(--green); }
+.flow-step.teco .step-num      { border-color: var(--purple); color: var(--purple); }
+
+.flow-line {
+  width: 2px;
+  flex: 1;
+  background: var(--border);
+  margin: 2px 0;
+  min-height: 20px;
+}
+.flow-step.checkpoint .flow-line { background: var(--amber); opacity: 0.35; }
+.flow-step.process .flow-line    { background: var(--green); opacity: 0.35; }
+
+.flow-card {
+  flex: 1;
+  margin: 0 0 16px 12px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  transition: border-color 0.2s;
+}
+.flow-card:hover { border-color: var(--txt3); }
+.flow-step.checkpoint .flow-card { border-left: 3px solid var(--amber); }
+.flow-step.process .flow-card    { border-left: 3px solid var(--green); }
+.flow-step.teco .flow-card       { border-left: 3px solid var(--purple); }
+
+.flow-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.flow-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--txt);
+}
+.tcode {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  background: var(--bg3);
+  color: var(--blue);
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.flow-card-desc {
+  font-size: 13px;
+  color: var(--txt2);
+  line-height: 1.55;
+}
+
+.checkpoint-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--amber);
+  background: var(--amber-dim);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+
+/* ── RCA BRANCH ── */
+.rca-branch {
+  margin: -4px 0 16px 64px;
+  background: var(--coral-dim);
+  border: 1px solid var(--coral);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  position: relative;
+}
+.rca-branch::before {
+  content: '';
+  position: absolute;
+  left: -18px; top: 16px;
+  width: 18px; height: 2px;
+  background: var(--coral);
+  opacity: 0.5;
+}
+.rca-branch-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--coral);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.rca-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.rca-col-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--txt3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+.rca-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.rca-list li {
+  font-size: 12px;
+  color: var(--txt2);
+  padding-left: 14px;
+  position: relative;
+}
+.rca-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--coral);
+  font-size: 11px;
+}
+.rca-list li.resolution::before { color: var(--green); content: '✓'; }
+
+/* ── DATA CHECKPOINT ── */
+.checkpoint-panel {
+  background: var(--bg2);
+  border: 1px solid var(--amber);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin: 8px 0 16px 64px;
+}
+.checkpoint-panel-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--amber);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+  display: flex; align-items: center; gap: 6px;
+}
+.checkpoint-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px;
+}
+.checkpoint-item {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 10px 12px;
+}
+.checkpoint-item .ci-tcode {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--blue);
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.checkpoint-item .ci-nav {
+  font-size: 10px;
+  color: var(--txt3);
+  margin-bottom: 4px;
+  font-style: italic;
+}
+.checkpoint-item .ci-what {
+  font-size: 12px;
+  color: var(--txt2);
+  line-height: 1.4;
+}
+.checkpoint-item .ci-look {
+  font-size: 11px;
+  color: var(--green);
+  margin-top: 4px;
+}
+
+/* ── SECTION DIVIDER ── */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 32px 0 24px;
+}
+.section-divider-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.section-divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── MIGO TABLE ── */
+.migo-section { margin-bottom: 32px; }
+.migo-section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.migo-row {
+  display: grid;
+  grid-template-columns: 54px 54px 1fr;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 6px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.migo-row:hover { border-color: var(--txt3); }
+.migo-mt {
+  padding: 12px 10px;
+  background: var(--bg3);
+  border-right: 1px solid var(--border);
+  text-align: center;
+}
+.migo-mt .mt-num {
+  font-family: var(--mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--blue);
+  line-height: 1;
+}
+.migo-mt .mt-lbl {
+  font-size: 9px;
+  color: var(--txt3);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 3px;
+}
+.migo-rev {
+  padding: 12px 10px;
+  background: var(--bg3);
+  border-right: 1px solid var(--border);
+  text-align: center;
+}
+.migo-rev .mt-num { color: var(--coral); }
+.migo-body {
+  padding: 12px 16px;
+  background: var(--bg2);
+}
+.migo-body .mb-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--txt);
+  margin-bottom: 4px;
+}
+.migo-body .mb-scenario {
+  font-size: 12px;
+  color: var(--txt2);
+  line-height: 1.55;
+}
+.migo-body .mb-scenario strong { color: var(--amber); font-weight: 500; }
+.migo-body .mb-scenario .res  { color: var(--green); }
+.migo-body .mb-warn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--coral);
+  margin-top: 4px;
+}
+
+/* ── DATA CHECKPOINTS PAGE ── */
+.dcp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.dcp-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.dcp-card:hover { border-color: var(--green); transform: translateY(-1px); }
+.dcp-card-header {
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.dcp-card-icon {
+  width: 32px; height: 32px;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.dcp-card-tcode {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--blue);
+}
+.dcp-card-name {
+  font-size: 12px;
+  color: var(--txt2);
+}
+.dcp-card-body { padding: 14px 16px; }
+.dcp-nav {
+  font-size: 11px;
+  color: var(--txt3);
+  font-style: italic;
+  margin-bottom: 8px;
+  padding: 6px 10px;
+  background: var(--bg3);
+  border-radius: 4px;
+  border-left: 2px solid var(--border);
+}
+.dcp-purpose {
+  font-size: 13px;
+  color: var(--txt2);
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+.dcp-look-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--txt3);
+  margin-bottom: 5px;
+}
+.dcp-look-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.dcp-look-list li {
+  font-size: 12px;
+  color: var(--txt2);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.4;
+}
+.dcp-look-list li::before {
+  content: '⚑';
+  position: absolute; left: 0;
+  font-size: 10px;
+  color: var(--green);
+}
+.dcp-freq {
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+.dcp-freq.daily  { background: var(--coral-dim);  color: var(--coral); }
+.dcp-freq.weekly { background: var(--amber-dim);  color: var(--amber); }
+.dcp-freq.monthly{ background: var(--green-dim);  color: var(--green); }
+.dcp-freq.adhoc  { background: var(--bg3);        color: var(--txt3); }
+
+/* ── LEGEND ── */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 28px;
+  padding: 14px 18px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: var(--txt2);
+}
+.legend-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── TAGS ── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-right: 4px;
+}
+.tag.green  { background: var(--green-dim);  color: var(--green); }
+.tag.amber  { background: var(--amber-dim);  color: var(--amber); }
+.tag.coral  { background: var(--coral-dim);  color: var(--coral); }
+.tag.blue   { background: var(--blue-dim);   color: var(--blue); }
+.tag.purple { background: #1e1535;           color: var(--purple); }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--txt3); }
+
+/* ── DIAGRAM PAGES ── */
+.diagram-wrap {
+  padding: 32px 40px;
+  overflow-x: auto;
+}
+.diagram-wrap svg {
+  display: block;
+  width: 100%;
+  max-width: 960px;
+  height: auto;
+  font-family: var(--sans);
+}
+/* SVG text defaults */
+.diagram-wrap svg text { font-family: 'Inter', sans-serif; }
+.diagram-wrap svg .mono { font-family: 'JetBrains Mono', monospace; }
+
+/* Diagram legend bar */
+.diag-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 12px 20px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--txt2);
+}
+.diag-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.diag-legend-swatch {
+  width: 24px; height: 10px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.diag-legend-line {
+  width: 24px; height: 2px;
+  flex-shrink: 0;
+}
+</style>
+</head>
+<body>
+
+<!-- ── SIDEBAR ── -->
+<nav id="sidebar">
+  <div class="sidebar-brand">
+    <div class="plant">Plant 1730 · Novus Foods</div>
+    <h1>SAP Operations<br>Reference</h1>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Process Flows</div>
+    <button class="nav-item active" onclick="showPage('production')">
+      <span class="dot"></span>Production Floor
+    </button>
+    <button class="nav-item" onclick="showPage('receiving')">
+      <span class="dot"></span>Receiving
+    </button>
+    <button class="nav-item" onclick="showPage('shipping')">
+      <span class="dot"></span>Shipping
+    </button>
+    <button class="nav-item" onclick="showPage('cyclecounts')">
+      <span class="dot"></span>Cycle Counts
+    </button>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Workflow Diagrams</div>
+    <button class="nav-item" onclick="showPage('diag-production')">
+      <span class="dot"></span>⬡ Production Diagram
+    </button>
+    <button class="nav-item" onclick="showPage('diag-receiving')">
+      <span class="dot"></span>⬡ Receiving Diagram
+    </button>
+    <button class="nav-item" onclick="showPage('diag-shipping')">
+      <span class="dot"></span>⬡ Shipping Diagram
+    </button>
+    <button class="nav-item" onclick="showPage('diag-cyclecounts')">
+      <span class="dot"></span>⬡ Cycle Count Diagram
+    </button>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Reference</div>
+    <button class="nav-item" onclick="showPage('checkpoints')">
+      <span class="dot"></span>Data Checkpoints
+    </button>
+    <button class="nav-item" onclick="showPage('migo')">
+      <span class="dot"></span>MIGO Quick Ref
+    </button>
+  </div>
+
+  <div class="sidebar-footer">
+    IC Lead Reference Tool<br>
+    SAP EWM / IM · S/4HANA
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE 1 — PRODUCTION FLOOR
+═══════════════════════════════════════════════════════ -->
+<main id="main">
+<div id="page-production" class="page active">
+  <div class="page-header">
+    <div class="page-eyebrow">Process Flow · 10 Steps</div>
+    <div class="page-title">Production Floor Execution</div>
+    <div class="page-sub">Process Order release through TECO — with RCA branches at every failure point</div>
+  </div>
+  <div class="content">
+
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>Process step</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div>Checkpoint — verify before proceeding</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--coral)"></div>RCA branch — failure investigation</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div>Order close / settlement</div>
+    </div>
+
+    <div class="flow-wrap">
+
+      <!-- STEP 1 -->
+      <div class="flow-step process">
+        <div class="flow-left">
+          <div class="step-num">1</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-card-top">
+            <div class="flow-card-title">Process Order Released</div>
+            <div class="tcode">COR2</div>
+          </div>
+          <div class="flow-card-desc">Planner changes status to <strong>REL</strong>. This is the ignition — it activates reservations and signals the warehouse that components are needed. Orders are typically created in advance via MRP and released on or near the production day.</div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="flow-step process">
+        <div class="flow-left">
+          <div class="step-num">2</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-card-top">
+            <div class="flow-card-title">Reservations Auto-Generated</div>
+            <div class="tcode">MB26</div>
+          </div>
+          <div class="flow-card-desc">SAP auto-creates reservations for all BOM components when the order is created or released. These are soft holds — they signal demand but don't move stock. View open reservations in <code style="color:var(--blue);font-family:var(--mono);font-size:11px">MB26</code> filtered by order or material.</div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="flow-step process">
+        <div class="flow-left">
+          <div class="step-num">3</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-card-top">
+            <div class="flow-card-title">Warehouse Tasks Assigned</div>
+            <div class="tcode">CO27 / LT0A</div>
+          </div>
+          <div class="flow-card-desc">Transfer Orders and worklist items are generated. Warehouse team sees what needs to be staged. <code style="color:var(--blue);font-family:var(--mono);font-size:11px">CO27</code> is the component staging worklist for Process Orders — the primary tool in food manufacturing. <code style="color:var(--blue);font-family:var(--mono);font-size:11px">LT0A</code> for WM-managed TOs.</div>
+        </div>
+      </div>
+
+      <!-- STEP 4 — CHECKPOINT -->
+      <div class="flow-step checkpoint">
+        <div class="flow-left">
+          <div class="step-num">4</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-card">
+          <div class="checkpoint-badge">⚑ Checkpoint</div>
+          <div class="flow-card-top">
+            <div class="flow-card-title">Components Staged to Line</div>
+            <div class="tcode">MB26</div>
+          </div>
+          <div class="flow-card-desc">Physical staging. Verify material number, quantity, and unit of measure against the reservation before issuing. Any mismatch here compounds downstream. Do not allow staging of QI or blocked stock.</div>
+        </div>
+      </div>
+      <div class="rca-branch">
+        <div class="rca-branch-title">⚡ RCA — Staging Error</div>
+        <div class="rca-grid">
+          <div>
+            <div class="rca-col-label">Root Cause Questions</div>
+            <ul class="rca-list">
+              <li>Is the BOM quantity correct? (CS03)</li>
+              <li>Was the right reservation used?</li>
+              <li>UoM mismatch — cases vs. lbs?</li>
+              <li>Wrong material pulled from shelf?</li>
+            </ul>
+          </div>
+          <div>
+            <div class="rca-col-label">Resolution Path</div>
+            <ul class="rca-list">
+              <li class="resolution">Correct staging physically before GI</li>
+              <li class="resolution">If GI already posted: reverse MT 262</li>
+              <li class="resolution">BOM error → escalate to MM/PP team</li>
+              <li class="resolution">Document in IC log with reason code</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="flow-step process">
+        <div class="flow-left">
+          <div class="step-num">5</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-card-top">
+            <div class="flow-card-title">Goods Issue Posted — Components</div>
+            <div class="tcode">MIGO · MT 261</div>
+          </div>
+          <div class="flow-card-desc">Components are formally issued to the Process Order. RM stock decreases. Cost charged to order. In many plants this happens via backflush automatically during production confirmation — if backflush is active, a manual MT 261 should not also be posted (double-posting risk).</div>
+        </div>
+      </div>
+
+      <!-- STEP 6 -->
+      <div class="flow-step process">
+        <div class="flow-left">
+          <div class="step-num">6</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-card-top">
+            <div class="flow-card-title">Production Execution</div>
+            <div class="tcode">Floor</div>
+          </div>
+          <div class="flow-card-desc">Physical manufacture. Components are consumed, salsa is produced. SAP is not directly involved at this step — but any deviation (recipe change, unexpected scrap, rework) must be documented here to be recorded correctly in the next steps.</div>
+        </div>
+      </div>
+
+      <!-- STEP 7 — CHECKPOINT -->
+      <div class="flow-step checkpoint">
+        <div class="flow-left">
+          <div class="step-num">7</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-card">
+          <div class="checkpoint-badge">⚑ Checkpoint</div>
+          <div class="flow-card-top">
+            <div class="flow-card-title">Yield Check</div>
+            <div class="tcode">COR3</div>
+          </div>
+          <div class="flow-card-desc">Compare actual output quantity to Process Order expected quantity before posting GR. Any significant variance should be investigated now — once GR is posted and order is settled, tracing the root cause becomes significantly harder.</div>
+        </div>
+      </div>
+      <div class="rca-branch">
+        <div class="rca-branch-title">⚡ RCA — Yield Variance</div>
+        <div class="rca-grid">
+          <div>
+            <div class="rca-col-label">Root Cause Questions</div>
+            <ul class="rca-list">
+              <li>Was scrap recorded during run?</li>
+              <li>Did recipe deviation occur?</li>
+              <li>Scale/weigh calibration accurate?</li>
+              <li>Was a batch reworked without posting?</li>
+              <li>Was overissue of components posted?</li>
+            </ul>
+          </div>
+          <div>
+            <div class="rca-col-label">Resolution Path</div>
+            <ul class="rca-list">
+              <li class="resolution">Post scrap entry if applicable (MT 551)</li>
+              <li class="resolution">Record rework batch in order confirmation</li>
+              <li class="resolution">Recipe deviation → escalate to QA</li>
+              <li class="resolution">Overissue → reverse with MT 262</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 8 -->
+      <div class="flow-step process">
+        <div class="flow-left">
+          <div class="step-num">8</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-card-top">
+            <div class="flow-card-title">GR of Finished Goods</div>
+            <div class="tcode">MIGO · MT 101</div>
+          </div>
+          <div class="flow-card-desc">Finished goods are received into FG storage location against the Process Order. FG stock increases. SAP values the GR at standard cost and begins tracking the variance between actual costs and standard. Must match confirmed yield quantity.</div>
+        </div>
+      </div>
+
+      <!-- STEP 9 — CHECKPOINT -->
+      <div class="flow-step checkpoint">
+        <div class="flow-left">
+          <div class="step-num">9</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-card">
+          <div class="checkpoint-badge">⚑ Checkpoint</div>
+          <div class="flow-card-top">
+            <div class="flow-card-title">Putaway & Stock Verification</div>
+            <div class="tcode">MMBE</div>
+          </div>
+          <div class="flow-card-desc">Confirm FG stock increased in the correct storage location. Verify in <code style="color:var(--blue);font-family:var(--mono);font-size:11px">MMBE</code> immediately after posting. Common error: GR posted to RM storage location instead of FG location — caught here before cycle count finds it.</div>
+        </div>
+      </div>
+      <div class="rca-branch">
+        <div class="rca-branch-title">⚡ RCA — Wrong Putaway Location</div>
+        <div class="rca-grid">
+          <div>
+            <div class="rca-col-label">Root Cause Questions</div>
+            <ul class="rca-list">
+              <li>Did GR post to correct storage location?</li>
+              <li>Was wrong location selected in MIGO?</li>
+              <li>Does material master default to wrong location?</li>
+            </ul>
+          </div>
+          <div>
+            <div class="rca-col-label">Resolution Path</div>
+            <ul class="rca-list">
+              <li class="resolution">Reverse GR with MT 102</li>
+              <li class="resolution">Repost MT 101 to correct location</li>
+              <li class="resolution">Or transfer via MT 311 (loc → loc)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 10 -->
+      <div class="flow-step teco">
+        <div class="flow-left">
+          <div class="step-num">10</div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-card-top">
+            <div class="flow-card-title">Order Confirmed & TECO</div>
+            <div class="tcode">COR2 → KO88</div>
+          </div>
+          <div class="flow-card-desc">
+            <span class="tag purple">TECO</span> Technically Complete — closes order to further movements. Does <em>not</em> require variances to be resolved beforehand. Settlement run (<code style="color:var(--blue);font-family:var(--mono);font-size:11px">KO88</code> individual / <code style="color:var(--blue);font-family:var(--mono);font-size:11px">CO88</code> mass) then posts variance to Finance. Investigate large variances <em>before</em> TECO — tracing root cause post-settlement is significantly harder.
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /flow-wrap -->
+  </div><!-- /content -->
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE 2 — RECEIVING
+═══════════════════════════════════════════════════════ -->
+<div id="page-receiving" class="page">
+  <div class="page-header">
+    <div class="page-eyebrow">Process Flow · 8 Steps</div>
+    <div class="page-title">Inbound Receiving</div>
+    <div class="page-sub">Purchase Order through Invoice Verification — raw material receipt with RCA branches</div>
+  </div>
+  <div class="content">
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>Process step</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div>Checkpoint — verify before proceeding</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--coral)"></div>RCA branch</div>
+    </div>
+    <div class="flow-wrap">
+
+      <div class="flow-step process">
+        <div class="flow-left"><div class="step-num">1</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+          <div class="flow-card-top"><div class="flow-card-title">Purchase Order Exists</div><div class="tcode">ME23N</div></div>
+          <div class="flow-card-desc">Created by Purchasing in <code style="color:var(--blue);font-family:var(--mono);font-size:11px">ME21N</code>. As IC Lead, use <code style="color:var(--blue);font-family:var(--mono);font-size:11px">ME23N</code> to view and validate the PO before any truck arrives — confirm material number, expected quantity, unit of measure, and vendor. Never receive against a PO you haven't reviewed.</div>
+        </div>
+      </div>
+
+      <div class="flow-step checkpoint">
+        <div class="flow-left"><div class="step-num">2</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+          <div class="checkpoint-badge">⚑ Checkpoint — At Dock</div>
+          <div class="flow-card-top"><div class="flow-card-title">Delivery Arrives — Physical Verification</div><div class="tcode">ME23N</div></div>
+          <div class="flow-card-desc">Before any SAP posting: verify material, quantity, condition, and vendor against the PO. This is the golden window — catching discrepancies here prevents all downstream document chain issues. Once MT 101 is posted, corrections require reversals.</div>
+        </div>
+      </div>
+      <div class="rca-branch">
+        <div class="rca-branch-title">⚡ RCA — Dock Discrepancy</div>
+        <div class="rca-grid">
+          <div>
+            <div class="rca-col-label">Common Discrepancies</div>
+            <ul class="rca-list">
+              <li>Wrong material delivered</li>
+              <li>Short shipment (fewer units than PO)</li>
+              <li>Damaged or out-of-spec goods</li>
+              <li>PO quantity mismatch</li>
+            </ul>
+          </div>
+          <div>
+            <div class="rca-col-label">Resolution Path</div>
+            <ul class="rca-list">
+              <li class="resolution">Short ship: post partial GR for actual qty</li>
+              <li class="resolution">Wrong material: do NOT post. Contact Purchasing</li>
+              <li class="resolution">Damaged: post MT 103 (blocked stock)</li>
+              <li class="resolution">QA accepts: MT 105. Reject: MT 122</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step process">
+        <div class="flow-left"><div class="step-num">3</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+          <div class="flow-card-top"><div class="flow-card-title">Post Goods Receipt</div><div class="tcode">MIGO · MT 101</div></div>
+          <div class="flow-card-desc">Reference the PO number. System creates a Material Document (inventory record) and an Accounting Document (debit inventory, credit GR/IR). Post for the quantity actually received, not the PO quantity if they differ. Same-day posting is non-negotiable.</div>
+        </div>
+      </div>
+
+      <div class="flow-step checkpoint">
+        <div class="flow-left"><div class="step-num">4</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+          <div class="checkpoint-badge">⚑ Checkpoint — Post-Posting Validation</div>
+          <div class="flow-card-top"><div class="flow-card-title">Validate Material Document</div><div class="tcode">MB03 / MB51</div></div>
+          <div class="flow-card-desc">Immediately after posting, verify the material document: quantity, unit of measure, storage location, and batch (if applicable). Use <code style="color:var(--blue);font-family:var(--mono);font-size:11px">MB03</code> for individual doc or <code style="color:var(--blue);font-family:var(--mono);font-size:11px">MB51</code> for daily list filtered to MT 101.</div>
+        </div>
+      </div>
+      <div class="rca-branch">
+        <div class="rca-branch-title">⚡ RCA — Posting Error</div>
+        <div class="rca-grid">
+          <div>
+            <div class="rca-col-label">Root Cause Questions</div>
+            <ul class="rca-list">
+              <li>Was UoM correct? (cases vs. lbs)</li>
+              <li>Correct storage location selected?</li>
+              <li>Was correct PO line referenced?</li>
+              <li>Was quantity entered correctly?</li>
+            </ul>
+          </div>
+          <div>
+            <div class="rca-col-label">Resolution Path</div>
+            <ul class="rca-list">
+              <li class="resolution">Reverse immediately with MT 102</li>
+              <li class="resolution">Repost with corrected values</li>
+              <li class="resolution">Document reason in IC log</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step checkpoint">
+        <div class="flow-left"><div class="step-num">5</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+          <div class="checkpoint-badge">⚑ Checkpoint — Stock Confirmation</div>
+          <div class="flow-card-top"><div class="flow-card-title">Confirm Stock Updated in IM</div><div class="tcode">MMBE</div></div>
+          <div class="flow-card-desc">Run <code style="color:var(--blue);font-family:var(--mono);font-size:11px">MMBE</code> for the received material and confirm unrestricted stock increased in the correct storage location. Cross-reference with physical count on the floor. This is your reconciliation before the material leaves your sight.</div>
+        </div>
+      </div>
+
+      <div class="flow-step process">
+        <div class="flow-left"><div class="step-num">6</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+          <div class="flow-card-top"><div class="flow-card-title">Physical Putaway</div><div class="tcode">Physical</div></div>
+          <div class="flow-card-desc">Material is stored in the designated location. Material is now available for reservations. If location differs from what was posted in MIGO, resolve via <code style="color:var(--blue);font-family:var(--mono);font-size:11px">MT 311</code> transfer before production needs it.</div>
+        </div>
+      </div>
+
+      <div class="flow-step process">
+        <div class="flow-left"><div class="step-num">7</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+          <div class="flow-card-top"><div class="flow-card-title">Invoice Verification</div><div class="tcode">MIRO (AP)</div></div>
+          <div class="flow-card-desc">AP posts 3-way match: PO price / GR quantity / vendor invoice. Your GR accuracy directly determines whether this step flows or blocks. If invoice is blocked, the root cause almost always traces back to Step 3 or 4. AP will come to IC — have your MB51 ready.</div>
+        </div>
+      </div>
+      <div class="rca-branch">
+        <div class="rca-branch-title">⚡ RCA — 3-Way Match Failure</div>
+        <div class="rca-grid">
+          <div>
+            <div class="rca-col-label">Root Cause Questions</div>
+            <ul class="rca-list">
+              <li>GR qty ≠ invoice qty?</li>
+              <li>GR not yet posted?</li>
+              <li>PO price different from invoice price?</li>
+              <li>Wrong PO referenced on invoice?</li>
+            </ul>
+          </div>
+          <div>
+            <div class="rca-col-label">Resolution Path</div>
+            <ul class="rca-list">
+              <li class="resolution">Missing GR → post MT 101 immediately</li>
+              <li class="resolution">Wrong qty → reverse MT 102, repost</li>
+              <li class="resolution">Price variance → Purchasing updates PO</li>
+              <li class="resolution">Wrong PO → AP corrects in MIRO</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step checkpoint">
+        <div class="flow-left"><div class="step-num">8</div></div>
+        <div class="flow-card">
+          <div class="checkpoint-badge">⚑ IC Daily Routine</div>
+          <div class="flow-card-top"><div class="flow-card-title">Open GR Daily Check</div><div class="tcode">MB51</div></div>
+          <div class="flow-card-desc">Run every day end-of-shift: <code style="color:var(--blue);font-family:var(--mono);font-size:11px">MB51</code> → filter Movement Type 101 → today's date. Any physical receipt that occurred today must appear here. Unposted GRs = phantom shortage in production + blocked AP invoice. This single check prevents the majority of receiving discrepancies.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE 3 — SHIPPING
+═══════════════════════════════════════════════════════ -->
+<div id="page-shipping" class="page">
+  <div class="page-header">
+    <div class="page-eyebrow">Process Flow · 8 Steps</div>
+    <div class="page-title">Outbound Shipping</div>
+    <div class="page-sub">Sales Order through Billing — finished goods shipment with RCA branches</div>
+  </div>
+  <div class="content">
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>Process step</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div>Checkpoint — verify before proceeding</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--coral)"></div>RCA branch</div>
+    </div>
+    <div class="flow-wrap">
+
+      <div class="flow-step process">
+        <div class="flow-left"><div class="step-num">1</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+          <div class="flow-card-top"><div class="flow-card-title">Sales Order Exists</div><div class="tcode">VA03</div></div>
+          <div class="flow-card-desc">Created by Sales in <code style="color:var(--blue);font-family:var(--mono);font-size:11px">VA01</code>. Drives MRP demand. View in <code style="color:var(--blue);font-family:var(--mono);font-size:11px">VA03</code> to confirm material, quantity, customer, and requested delivery date before any warehouse action begins.</div>
+        </div>
+      </div>
+
+      <div class="flow-step process">
+        <div class="flow-left"><div class="step-num">2</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+          <div class="flow-card-top"><div class="flow-card-title">Outbound Delivery Created</div><div class="tcode">VL01N</div></div>
+          <div class="flow-card-desc">Delivery document generated referencing the SO. This is the shipping instruction document. Triggers the picking requirement. In an IM-only environment, no system TOs are generated — picking is a physical act against the delivery document.</div>
+        </div>
+      </div>
+
+      <div class="flow-step checkpoint">
+        <div class="flow-left"><div class="step-num">3</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+          <div class="checkpoint-badge">⚑ Checkpoint — Before Picking</div>
+          <div class="flow-card-top"><div class="flow-card-title">Stock Availability Check</div><div class="tcode">MMBE</div></div>
+          <div class="flow-card-desc">Verify FG stock in <code style="color:var(--blue);font-family:var(--mono);font-size:11px">MMBE</code> before any picking begins. A shortage discovered after the truck is loaded is a crisis. Discovered at Step 3, it's a planning conversation.</div>
+        </div>
+      </div>
+      <div class="rca-branch">
+        <div class="rca-branch-title">⚡ RCA — Stock Shortage</div>
+        <div class="rca-grid">
+          <div>
+            <div class="rca-col-label">Root Cause Questions</div>
+            <ul class="rca-list">
+              <li>Was FG GR posted from production?</li>
+              <li>Is FG in wrong storage location?</li>
+              <li>Was a prior GI posted in error?</li>
+              <li>Is stock in QI or blocked status?</li>
+            </ul>
+          </div>
+          <div>
+            <div class="rca-col-label">Resolution Path</div>
+            <ul class="rca-list">
+              <li class="resolution">MMBE — check all storage locations</li>
+              <li class="resolution">MB51 MT 101 — confirm FG GR was posted</li>
+              <li class="resolution">Transfer from correct location (MT 311)</li>
+              <li class="resolution">Escalate to production if truly short</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step process">
+        <div class="flow-left"><div class="step-num">4</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+          <div class="flow-card-top"><div class="flow-card-title">Picking</div><div class="tcode">VL06O</div></div>
+          <div class="flow-card-desc">Physical pull from FG storage location. In IM-only, no system TO is generated — warehouse team physically picks against the delivery document. Monitor open deliveries in <code style="color:var(--blue);font-family:var(--mono);font-size:11px">VL06O</code>.</div>
+        </div>
+      </div>
+
+      <div class="flow-step checkpoint">
+        <div class="flow-left"><div class="step-num">5</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+          <div class="checkpoint-badge">⚑ Checkpoint — Before Loading</div>
+          <div class="flow-card-top"><div class="flow-card-title">Load Verification</div><div class="tcode">Delivery Doc</div></div>
+          <div class="flow-card-desc">Before the truck door closes: verify material number, quantity, and customer on the physical load matches the delivery document exactly. This is the last correction window before GI is posted. Wrong SKU or short load discovered here = easy fix. Discovered after GI = reversal required.</div>
+        </div>
+      </div>
+      <div class="rca-branch">
+        <div class="rca-branch-title">⚡ RCA — Load Error</div>
+        <div class="rca-grid">
+          <div>
+            <div class="rca-col-label">Root Cause Questions</div>
+            <ul class="rca-list">
+              <li>Wrong SKU picked from floor?</li>
+              <li>Short load — fewer cases than delivery?</li>
+              <li>Wrong customer pallet mixed in?</li>
+            </ul>
+          </div>
+          <div>
+            <div class="rca-col-label">Resolution Path</div>
+            <ul class="rca-list">
+              <li class="resolution">Stop and correct before posting GI</li>
+              <li class="resolution">Amend delivery document if needed</li>
+              <li class="resolution">Only post GI after load is verified</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step process">
+        <div class="flow-left"><div class="step-num">6</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+          <div class="flow-card-top"><div class="flow-card-title">Post Goods Issue</div><div class="tcode">VL02N · MT 601</div></div>
+          <div class="flow-card-desc">This is the transaction that removes FG from book inventory. Must be posted the same moment the truck leaves — or before. Creates the accounting document (debit COGS, credit inventory). Unlocks billing. A delivery that exists but has no GI post is the #1 source of phantom FG stock.</div>
+        </div>
+      </div>
+
+      <div class="flow-step checkpoint">
+        <div class="flow-left"><div class="step-num">7</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+          <div class="checkpoint-badge">⚑ IC Daily Routine</div>
+          <div class="flow-card-top"><div class="flow-card-title">Open Delivery Daily Check</div><div class="tcode">VL06O</div></div>
+          <div class="flow-card-desc">Run end-of-shift: <code style="color:var(--blue);font-family:var(--mono);font-size:11px">VL06O</code> → filter open deliveries where GI not posted. Any delivery older than same-day without a GI post is a risk. If truck left, post GI immediately. If in question, physically verify before posting.</div>
+        </div>
+      </div>
+      <div class="rca-branch">
+        <div class="rca-branch-title">⚡ RCA — GI Never Posted</div>
+        <div class="rca-grid">
+          <div>
+            <div class="rca-col-label">What Happens Without GI Post</div>
+            <ul class="rca-list">
+              <li>Book shows FG that physically left</li>
+              <li>Billing is blocked — customer not invoiced</li>
+              <li>Cycle count will find phantom surplus</li>
+              <li>AP/Finance will escalate</li>
+            </ul>
+          </div>
+          <div>
+            <div class="rca-col-label">Resolution Path</div>
+            <ul class="rca-list">
+              <li class="resolution">VL06O → find open delivery</li>
+              <li class="resolution">Confirm truck left (driver manifest)</li>
+              <li class="resolution">Post GI via VL02N immediately</li>
+              <li class="resolution">If truck returned: MT 602 reversal first</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step process">
+        <div class="flow-left"><div class="step-num">8</div></div>
+        <div class="flow-card">
+          <div class="flow-card-top"><div class="flow-card-title">Billing Document Created</div><div class="tcode">VF01 (Finance)</div></div>
+          <div class="flow-card-desc">Finance creates customer invoice in <code style="color:var(--blue);font-family:var(--mono);font-size:11px">VF01</code>. Fully dependent on GI being posted. Billing due list visible in <code style="color:var(--blue);font-family:var(--mono);font-size:11px">VF04</code>. If blocked, root cause is almost always a missing or incorrect GI — trace back to Step 6.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE 4 — CYCLE COUNTS
+═══════════════════════════════════════════════════════ -->
+<div id="page-cyclecounts" class="page">
+  <div class="page-header">
+    <div class="page-eyebrow">Process Flow · 7 Steps</div>
+    <div class="page-title">Cycle Count Program</div>
+    <div class="page-sub">Fiori-based physical inventory — scheduled cycle count through variance analysis</div>
+  </div>
+  <div class="content">
+
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>Process step</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div>Checkpoint / decision</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div>Monthly analysis</div>
+    </div>
+
+    <div style="background:var(--amber-dim);border:1px solid var(--amber);border-radius:var(--radius);padding:12px 16px;margin-bottom:24px;font-size:13px;color:var(--txt2);">
+      <strong style="color:var(--amber)">⚑ Prerequisite:</strong> Cycle count indicators (A/B/C/D) must be set on material masters in <code style="color:var(--blue);font-family:var(--mono);font-size:11px">MM02</code> → Plant Data / Storage 1 → CC Phys. Inv. Ind. Without these, the "Create Physical Inventory… Cycle Counting" Fiori tile returns no materials. Request mass update via your SAP team using <code style="color:var(--blue);font-family:var(--mono);font-size:11px">MM17</code>.
+    </div>
+
+    <div class="flow-wrap">
+
+      <div class="flow-step process">
+        <div class="flow-left"><div class="step-num">1</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+          <div class="flow-card-top"><div class="flow-card-title">Generate Count Documents</div><div class="tcode">Fiori: Create PI… Cycle Counting</div></div>
+          <div class="flow-card-desc">Enter Plant 1730 and storage location. SAP compares every material's last count date against its A/B/C/D indicator frequency and auto-creates PI documents for all materials due. This replaces manual <code style="color:var(--blue);font-family:var(--mono);font-size:11px">MI01</code> creation entirely. Run weekly.</div>
+        </div>
+      </div>
+
+      <div class="flow-step process">
+        <div class="flow-left"><div class="step-num">2</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+          <div class="flow-card-top"><div class="flow-card-title">Distribute to Counters</div><div class="tcode">Fiori: Print PI Documents</div></div>
+          <div class="flow-card-desc">Print count sheets <em>without</em> system quantities visible (blind count). Preferred: assign counters direct Fiori tablet access for real-time floor entry — eliminates paper and transcription errors. Assign by storage location zone.</div>
+        </div>
+      </div>
+
+      <div class="flow-step checkpoint">
+        <div class="flow-left"><div class="step-num">3</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+          <div class="checkpoint-badge">⚑ Checkpoint — Blind Count</div>
+          <div class="flow-card-top"><div class="flow-card-title">Physical Count (Blind)</div><div class="tcode">Fiori: Count PI (List)</div></div>
+          <div class="flow-card-desc">Counters must not see book quantity before entering their count — this is a basic audit control. If system is showing book quantities, flag to your SAP team as a configuration issue. Blank entries are acceptable if unsure — never guess. Use the List view for batch efficiency across multiple materials.</div>
+        </div>
+      </div>
+
+      <div class="flow-step checkpoint">
+        <div class="flow-left"><div class="step-num">4</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+          <div class="checkpoint-badge">⚑ Checkpoint — Supervisory Review</div>
+          <div class="flow-card-top"><div class="flow-card-title">Review Variances</div><div class="tcode">Fiori: Process PI Count Results</div></div>
+          <div class="flow-card-desc">Do not post immediately. Review all variances against a tolerance threshold. For each variance above tolerance, ask: Was there a GI or GR posted today that may have moved the book? Is the unit of measure correct? Did the counter count the right material? Investigate before posting — posted variances create accounting entries.</div>
+        </div>
+      </div>
+      <div class="rca-branch">
+        <div class="rca-branch-title">⚡ RCA — Count Variance Investigation</div>
+        <div class="rca-grid">
+          <div>
+            <div class="rca-col-label">Root Cause Questions</div>
+            <ul class="rca-list">
+              <li>Unposted GI or GR from today?</li>
+              <li>Wrong UoM counted? (cases vs. lbs)</li>
+              <li>Counter counted wrong material?</li>
+              <li>Material in wrong location?</li>
+              <li>BOM over/underissue pattern?</li>
+            </ul>
+          </div>
+          <div>
+            <div class="rca-col-label">Resolution Path</div>
+            <ul class="rca-list">
+              <li class="resolution">Check MB51 for same-day movements first</li>
+              <li class="resolution">Trigger recount (Fiori: Change PI Doc)</li>
+              <li class="resolution">Different counter for recount — never same person</li>
+              <li class="resolution">Post variance with reason code once confirmed</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step process">
+        <div class="flow-left"><div class="step-num">5</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+          <div class="flow-card-top"><div class="flow-card-title">Recount if Needed</div><div class="tcode">Fiori: Change PI Document</div></div>
+          <div class="flow-card-desc">Flag suspicious documents for recount. A second, independent counter resets the entry. Never let the original counter recount their own variance. Two independent counts that agree is the standard for posting an unexplained variance.</div>
+        </div>
+      </div>
+
+      <div class="flow-step process">
+        <div class="flow-left"><div class="step-num">6</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+          <div class="flow-card-top"><div class="flow-card-title">Post Differences</div><div class="tcode">Fiori: Process Physical Inventory</div></div>
+          <div class="flow-card-desc">Post the confirmed differences. <strong style="color:var(--amber)">Always apply reason codes.</strong> This is the difference between a count history and a diagnostic dataset. Without reason codes, you have numbers. With reason codes, you have evidence of where your upstream process is breaking down.</div>
+        </div>
+      </div>
+
+      <div class="flow-step teco">
+        <div class="flow-left"><div class="step-num">7</div></div>
+        <div class="flow-card">
+          <div class="flow-card-top"><div class="flow-card-title">Monthly Trend Analysis</div><div class="tcode">Fiori: Manage PI Documents</div></div>
+          <div class="flow-card-desc">
+            <span class="tag purple">Monthly</span> Review count history filtered by reason code and material. A material that appears in every cycle count is a process problem upstream — not a counting problem. Reason code clusters reveal the failure type:
+            <ul style="margin-top:8px;padding-left:16px;font-size:12px;color:var(--txt2);display:flex;flex-direction:column;gap:3px;">
+              <li><strong style="color:var(--green)">Unposted GI/GR</strong> → posting discipline issue in production or receiving</li>
+              <li><strong style="color:var(--green)">Wrong location</strong> → putaway process or label clarity issue</li>
+              <li><strong style="color:var(--green)">BOM variance</strong> → recipe or master data issue</li>
+              <li><strong style="color:var(--green)">Recurring surplus</strong> → possible unreported returns or by-products</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE 5 — DATA CHECKPOINTS
+═══════════════════════════════════════════════════════ -->
+<div id="page-checkpoints" class="page">
+  <div class="page-header">
+    <div class="page-eyebrow">IC Reference · Navigation Guide</div>
+    <div class="page-title">Data Checkpoints</div>
+    <div class="page-sub">Every transaction you need to find, compare, and investigate discrepancies — with exact navigation paths</div>
+  </div>
+  <div class="content">
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;margin-bottom:28px;font-size:13px;color:var(--txt2);line-height:1.6;">
+      Navigation syntax: <code style="color:var(--blue);font-family:var(--mono);font-size:11px">/n[TCODE]</code> in the SAP GUI command field jumps directly to any transaction. In Fiori, search the tile name in the launchpad search bar.
+    </div>
+
+    <div class="section-divider">
+      <div class="section-divider-label" style="color:var(--coral)">🔴 Daily — Run Every Shift</div>
+      <div class="section-divider-line"></div>
+    </div>
+    <div class="dcp-grid">
+
+      <div class="dcp-card">
+        <div class="dcp-card-header">
+          <div class="dcp-card-icon" style="background:var(--blue-dim)">📋</div>
+          <div><div class="dcp-card-tcode">MB51</div><div class="dcp-card-name">Material Document List</div></div>
+        </div>
+        <div class="dcp-card-body">
+          <div class="dcp-nav">SAP GUI: /nMB51 → Enter Plant, Movement Type, Date Range → Execute</div>
+          <div class="dcp-purpose">Your primary audit trail. Shows every goods movement for a material, plant, or movement type over a date range. The single most-used IC transaction.</div>
+          <div class="dcp-look-label">Look for</div>
+          <ul class="dcp-look-list">
+            <li>MT 101 today — any physical receipt without a corresponding document?</li>
+            <li>MT 261 — component issues that don't match BOM quantities</li>
+            <li>MT 601 — GIs posted for deliveries that should still be open</li>
+            <li>MT 501/521 — ad-hoc receipts without PO/Order reference (process gap)</li>
+            <li>Duplicate material documents for same material/date</li>
+          </ul>
+          <div class="dcp-freq daily">● Daily</div>
+        </div>
+      </div>
+
+      <div class="dcp-card">
+        <div class="dcp-card-header">
+          <div class="dcp-card-icon" style="background:var(--green-dim)">📦</div>
+          <div><div class="dcp-card-tcode">MMBE</div><div class="dcp-card-name">Stock Overview</div></div>
+        </div>
+        <div class="dcp-card-body">
+          <div class="dcp-nav">SAP GUI: /nMMBE → Enter Material + Plant → Execute → Expand all levels</div>
+          <div class="dcp-purpose">Snapshot of current stock across all storage locations, stock types (unrestricted, QI, blocked), and special stocks. Your ground truth for what SAP thinks you have right now.</div>
+          <div class="dcp-look-label">Look for</div>
+          <ul class="dcp-look-list">
+            <li>Stock in wrong storage location (FG in RM location or vice versa)</li>
+            <li>Unexpected QI or blocked stock — items awaiting disposition</li>
+            <li>Zero stock on a material that production just received</li>
+            <li>Negative stock — a posting error that must be resolved immediately</li>
+            <li>Compare unrestricted vs. physical count for spot checks</li>
+          </ul>
+          <div class="dcp-freq daily">● Daily</div>
+        </div>
+      </div>
+
+      <div class="dcp-card">
+        <div class="dcp-card-header">
+          <div class="dcp-card-icon" style="background:var(--teal-dim)">🚚</div>
+          <div><div class="dcp-card-tcode">VL06O</div><div class="dcp-card-name">Outbound Delivery Monitor</div></div>
+        </div>
+        <div class="dcp-card-body">
+          <div class="dcp-nav">SAP GUI: /nVL06O → Select "For Goods Issue" → Enter Plant + Date → Execute</div>
+          <div class="dcp-purpose">Shows all outbound deliveries by status. The critical filter is deliveries where GI has not been posted — these represent trucks that may have physically left but book inventory is still showing the product.</div>
+          <div class="dcp-look-label">Look for</div>
+          <ul class="dcp-look-list">
+            <li>Any delivery created today with no GI post by end of shift</li>
+            <li>Deliveries from yesterday or prior with open GI status</li>
+            <li>Deliveries with picking confirmed but GI missing</li>
+            <li>Deliveries with status errors or processing locks</li>
+          </ul>
+          <div class="dcp-freq daily">● Daily</div>
+        </div>
+      </div>
+
+      <div class="dcp-card">
+        <div class="dcp-card-header">
+          <div class="dcp-card-icon" style="background:var(--amber-dim)">🔍</div>
+          <div><div class="dcp-card-tcode">MB26</div><div class="dcp-card-name">Open Reservations</div></div>
+        </div>
+        <div class="dcp-card-body">
+          <div class="dcp-nav">SAP GUI: /nMB26 → Enter Plant + Storage Location + Date → Execute</div>
+          <div class="dcp-purpose">Shows all open reservations (unfulfilled component demand from Process Orders). Critical for understanding what production needs today and whether stock is available to fulfill it.</div>
+          <div class="dcp-look-label">Look for</div>
+          <ul class="dcp-look-list">
+            <li>Reservations for today's orders with insufficient unrestricted stock</li>
+            <li>Old open reservations for completed or cancelled orders (should be zero'd)</li>
+            <li>Reservations referencing materials in QI or blocked stock</li>
+            <li>Duplicate reservations for same order/component</li>
+          </ul>
+          <div class="dcp-freq daily">● Daily</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="section-divider">
+      <div class="section-divider-label" style="color:var(--amber)">🟡 Weekly — Scheduled Review</div>
+      <div class="section-divider-line"></div>
+    </div>
+    <div class="dcp-grid">
+
+      <div class="dcp-card">
+        <div class="dcp-card-header">
+          <div class="dcp-card-icon" style="background:var(--blue-dim)">📄</div>
+          <div><div class="dcp-card-tcode">ME2M</div><div class="dcp-card-name">Purchase Orders by Material</div></div>
+        </div>
+        <div class="dcp-card-body">
+          <div class="dcp-nav">SAP GUI: /nME2M → Enter Material + Plant → Scope: "Open POs" → Execute</div>
+          <div class="dcp-purpose">Lists all open POs for a material. Lets you compare expected inbound deliveries against current stock levels — forward-looking IC view.</div>
+          <div class="dcp-look-label">Look for</div>
+          <ul class="dcp-look-list">
+            <li>POs with delivery date passed but no GR posted</li>
+            <li>Open PO quantities that would cause overstock if received</li>
+            <li>POs with partial GR where balance is still open unexpectedly</li>
+          </ul>
+          <div class="dcp-freq weekly">● Weekly</div>
+        </div>
+      </div>
+
+      <div class="dcp-card">
+        <div class="dcp-card-header">
+          <div class="dcp-card-icon" style="background:var(--teal-dim)">⚙️</div>
+          <div><div class="dcp-card-tcode">CO27</div><div class="dcp-card-name">Material Staging for Orders</div></div>
+        </div>
+        <div class="dcp-card-body">
+          <div class="dcp-nav">SAP GUI: /nCO27 → Enter Plant + Production Date Range → Execute</div>
+          <div class="dcp-purpose">Component staging worklist for Process Orders. Shows what has been staged vs. what is still needed. Used by warehouse team but IC Lead should review weekly to spot systematic staging gaps.</div>
+          <div class="dcp-look-label">Look for</div>
+          <ul class="rca-list" style="list-style:none;display:flex;flex-direction:column;gap:3px;padding-left:0;">
+            <li style="font-size:12px;color:var(--txt2);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--green)">⚑</span>Components with shortage indicator</li>
+            <li style="font-size:12px;color:var(--txt2);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--green)">⚑</span>Orders staging from QI stock (should not happen)</li>
+            <li style="font-size:12px;color:var(--txt2);padding-left:14px;position:relative;"><span style="position:absolute;left:0;color:var(--green)">⚑</span>Repeated staging failures on same material</li>
+          </ul>
+          <div class="dcp-freq weekly">● Weekly</div>
+        </div>
+      </div>
+
+      <div class="dcp-card">
+        <div class="dcp-card-header">
+          <div class="dcp-card-icon" style="background:var(--green-dim)">📊</div>
+          <div><div class="dcp-card-tcode">MB52</div><div class="dcp-card-name">Warehouse Stocks of Material</div></div>
+        </div>
+        <div class="dcp-card-body">
+          <div class="dcp-nav">SAP GUI: /nMB52 → Enter Plant + Storage Location → Execute</div>
+          <div class="dcp-purpose">Lists all materials with stock in a given storage location, including value. Broader than MMBE — use for a full inventory snapshot of a location rather than a single material lookup.</div>
+          <div class="dcp-look-label">Look for</div>
+          <ul class="dcp-look-list">
+            <li>Materials with stock in locations they shouldn't be in</li>
+            <li>Zero-stock materials that had activity this week</li>
+            <li>High-value materials for prioritizing A-indicator cycle counts</li>
+          </ul>
+          <div class="dcp-freq weekly">● Weekly</div>
+        </div>
+      </div>
+
+      <div class="dcp-card">
+        <div class="dcp-card-header">
+          <div class="dcp-card-icon" style="background:var(--amber-dim)">🔄</div>
+          <div><div class="dcp-card-tcode">COR3</div><div class="dcp-card-name">Display Process Order</div></div>
+        </div>
+        <div class="dcp-card-body">
+          <div class="dcp-nav">SAP GUI: /nCOR3 → Enter Order Number → Review Components tab + Quantities tab</div>
+          <div class="dcp-purpose">Full detail view of a Process Order — planned vs. actual quantities for components and finished goods. Essential for investigating yield variances and consumption discrepancies before TECO.</div>
+          <div class="dcp-look-label">Look for</div>
+          <ul class="dcp-look-list">
+            <li>Actual GI qty vs. planned component qty — overissue or underissue</li>
+            <li>Actual GR qty vs. order confirmed qty — yield gap</li>
+            <li>Orders in REL status past their scheduled end date</li>
+            <li>Orders with zero GR qty but GI already posted — production never completed</li>
+          </ul>
+          <div class="dcp-freq weekly">● Weekly</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="section-divider">
+      <div class="section-divider-label" style="color:var(--green)">🟢 Monthly — Trend & Analysis</div>
+      <div class="section-divider-line"></div>
+    </div>
+    <div class="dcp-grid">
+
+      <div class="dcp-card">
+        <div class="dcp-card-header">
+          <div class="dcp-card-icon" style="background:var(--purple)" style="color:white">📈</div>
+          <div><div class="dcp-card-tcode">MI24</div><div class="dcp-card-name">Physical Inventory Differences</div></div>
+        </div>
+        <div class="dcp-card-body">
+          <div class="dcp-nav">SAP GUI: /nMI24 → Enter Plant + Fiscal Year → Execute</div>
+          <div class="dcp-purpose">Historical report of all posted cycle count variances. The most powerful IC analytical tool — reveals which materials consistently have discrepancies, which reason codes are most common, and the dollar value of inventory adjustments.</div>
+          <div class="dcp-look-label">Look for</div>
+          <ul class="dcp-look-list">
+            <li>Same material appearing in multiple count periods — systemic process issue</li>
+            <li>Dominant reason codes — identifies upstream failure type</li>
+            <li>High-value variance materials — need more frequent cycle count</li>
+            <li>Trend direction — variances growing or shrinking over time?</li>
+          </ul>
+          <div class="dcp-freq monthly">● Monthly</div>
+        </div>
+      </div>
+
+      <div class="dcp-card">
+        <div class="dcp-card-header">
+          <div class="dcp-card-icon" style="background:var(--blue-dim)">💰</div>
+          <div><div class="dcp-card-tcode">MB5L</div><div class="dcp-card-name">Stock Values by Account</div></div>
+        </div>
+        <div class="dcp-card-body">
+          <div class="dcp-nav">SAP GUI: /nMB5L → Enter Plant + Posting Date → Execute</div>
+          <div class="dcp-purpose">Reconciles book inventory value at the IM level against the G/L accounts. Finance uses this for period close — IC uses it to confirm that inventory postings align with what Finance is seeing. Discrepancies here signal a posting configuration or valuation issue.</div>
+          <div class="dcp-look-label">Look for</div>
+          <ul class="dcp-look-list">
+            <li>IM value ≠ G/L value — indicates unposted or mis-valued movements</li>
+            <li>Large unexplained variance accounts</li>
+            <li>Negative stock values (always an error)</li>
+          </ul>
+          <div class="dcp-freq monthly">● Monthly</div>
+        </div>
+      </div>
+
+      <div class="dcp-card">
+        <div class="dcp-card-header">
+          <div class="dcp-card-icon" style="background:var(--green-dim)">🗂️</div>
+          <div><div class="dcp-card-tcode">MB5B</div><div class="dcp-card-name">Stocks for Posting Date</div></div>
+        </div>
+        <div class="dcp-card-body">
+          <div class="dcp-nav">SAP GUI: /nMB5B → Enter Plant + Key Date → Execute</div>
+          <div class="dcp-purpose">Shows what stock looked like on any specific past date. Use for end-of-month reconciliation, investigating when a discrepancy first appeared, or auditing stock levels at period close.</div>
+          <div class="dcp-look-label">Look for</div>
+          <ul class="dcp-look-list">
+            <li>Compare end-of-month stock to finance reports</li>
+            <li>Identify when a discrepancy first appeared by comparing periods</li>
+            <li>Reconcile physical annual inventory against system at key date</li>
+          </ul>
+          <div class="dcp-freq monthly">● Monthly</div>
+        </div>
+      </div>
+
+      <div class="dcp-card">
+        <div class="dcp-card-header">
+          <div class="dcp-card-icon" style="background:var(--coral-dim)">⚠️</div>
+          <div><div class="dcp-card-tcode">MB5M</div><div class="dcp-card-name">Expiration Date / Shelf Life</div></div>
+        </div>
+        <div class="dcp-card-body">
+          <div class="dcp-nav">SAP GUI: /nMB5M → Enter Plant + Expiry Date Range → Execute</div>
+          <div class="dcp-purpose">Lists all batches approaching or past their expiry date. Critical for food manufacturing — expired product still showing as unrestricted stock is both a food safety risk and a phantom stock problem.</div>
+          <div class="dcp-look-label">Look for</div>
+          <ul class="dcp-look-list">
+            <li>Batches past best-by with unrestricted status — must scrap (MT 551) or transfer to blocked</li>
+            <li>RM batches expiring within 30 days — alert production planning</li>
+            <li>FG batches approaching customer shelf-life requirements</li>
+          </ul>
+          <div class="dcp-freq monthly">● Monthly</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="section-divider">
+      <div class="section-divider-label" style="color:var(--txt3)">⚪ Ad Hoc — Investigation Tools</div>
+      <div class="section-divider-line"></div>
+    </div>
+    <div class="dcp-grid">
+
+      <div class="dcp-card">
+        <div class="dcp-card-header">
+          <div class="dcp-card-icon" style="background:var(--bg3)">🔎</div>
+          <div><div class="dcp-card-tcode">MB03</div><div class="dcp-card-name">Display Material Document</div></div>
+        </div>
+        <div class="dcp-card-body">
+          <div class="dcp-nav">SAP GUI: /nMB03 → Enter Material Document Number + Year → Execute</div>
+          <div class="dcp-purpose">Full detail view of a single goods movement document. Use when you have a specific document number and need to see exactly what was posted — quantity, UoM, storage location, user, timestamp.</div>
+          <div class="dcp-look-label">Look for</div>
+          <ul class="dcp-look-list">
+            <li>Verify posting accuracy after a GR or GI</li>
+            <li>Identify the user who posted a suspicious movement</li>
+            <li>Get the document number needed for a reversal</li>
+          </ul>
+          <div class="dcp-freq adhoc">○ Ad Hoc</div>
+        </div>
+      </div>
+
+      <div class="dcp-card">
+        <div class="dcp-card-header">
+          <div class="dcp-card-icon" style="background:var(--bg3)">🛒</div>
+          <div><div class="dcp-card-tcode">ME23N</div><div class="dcp-card-name">Display Purchase Order</div></div>
+        </div>
+        <div class="dcp-card-body">
+          <div class="dcp-nav">SAP GUI: /nME23N → Enter PO Number → Review item details + GR history tab</div>
+          <div class="dcp-purpose">Full PO detail including GR history tab — shows every receipt posted against this PO, quantities, and dates. Essential for investigating receiving discrepancies and 3-way match failures.</div>
+          <div class="dcp-look-label">Look for</div>
+          <ul class="dcp-look-list">
+            <li>GR history tab — cumulative received vs. PO quantity</li>
+            <li>Open quantity still to be delivered</li>
+            <li>Over-delivery tolerance settings</li>
+          </ul>
+          <div class="dcp-freq adhoc">○ Ad Hoc</div>
+        </div>
+      </div>
+
+      <div class="dcp-card">
+        <div class="dcp-card-header">
+          <div class="dcp-card-icon" style="background:var(--bg3)">📝</div>
+          <div><div class="dcp-card-tcode">MI22</div><div class="dcp-card-name">PI Documents for Material</div></div>
+        </div>
+        <div class="dcp-card-body">
+          <div class="dcp-nav">SAP GUI: /nMI22 → Enter Material + Plant → Execute</div>
+          <div class="dcp-purpose">Shows all physical inventory documents ever created for a specific material. Use to build count history, identify when a material was last counted, and spot recurring variance patterns over time.</div>
+          <div class="dcp-look-label">Look for</div>
+          <ul class="dcp-look-list">
+            <li>Last count date — is A-indicator material being counted frequently enough?</li>
+            <li>Recurring variance direction (always short or always over)</li>
+            <li>Count frequency gaps — materials falling through the schedule</li>
+          </ul>
+          <div class="dcp-freq adhoc">○ Ad Hoc</div>
+        </div>
+      </div>
+
+      <div class="dcp-card">
+        <div class="dcp-card-header">
+          <div class="dcp-card-icon" style="background:var(--bg3)">🗃️</div>
+          <div><div class="dcp-card-tcode">MD04</div><div class="dcp-card-name">Stock/Requirements List</div></div>
+        </div>
+        <div class="dcp-card-body">
+          <div class="dcp-nav">SAP GUI: /nMD04 → Enter Material + Plant → Execute</div>
+          <div class="dcp-purpose">The planning view — shows current stock, open reservations, incoming receipts (POs), and demand (Process Orders) in a single timeline. The best single view for understanding why a material might be short or over-stocked.</div>
+          <div class="dcp-look-label">Look for</div>
+          <ul class="dcp-look-list">
+            <li>Negative available quantity on near-term date — shortage risk</li>
+            <li>Excess stock with no upcoming demand — obsolescence risk</li>
+            <li>Reservations without a corresponding PO or opening stock</li>
+            <li>Use alongside MMBE to compare planning view to actual stock</li>
+          </ul>
+          <div class="dcp-freq adhoc">○ Ad Hoc</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE 6 — MIGO QUICK REF
+═══════════════════════════════════════════════════════ -->
+<div id="page-migo" class="page">
+  <div class="page-header">
+    <div class="page-eyebrow">Quick Reference · All Movement Types</div>
+    <div class="page-title">MIGO Movement Type Reference</div>
+    <div class="page-sub">Every movement type with reversal counterpart and real-world troubleshooting scenario</div>
+  </div>
+  <div class="content">
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;margin-bottom:24px;font-size:13px;color:var(--txt2);">
+      <span style="color:var(--blue);font-family:var(--mono);font-size:12px;font-weight:700">Rule:</span> The reversal is always the next even number. MT 101 → reversed by MT 102. MT 261 → reversed by MT 262. Always reference the original material document number when reversing.
+    </div>
+
+    <!-- GR INBOUND -->
+    <div class="migo-section">
+      <div class="migo-section-header" style="background:var(--blue-dim);color:var(--blue)">
+        📥 Goods Receipt — Inbound
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">101</div><div class="mt-lbl">GR/PO</div></div>
+        <div class="migo-rev"><div class="mt-num">102</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">GR against Purchase Order or Production Order</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Receiving team posts GR for 500 cases of tomato paste but only 450 physically arrived. Book now shows 500. <span class="res">→ MB51 filter MT 101 same day. Reverse with MT 102. Repost for actual 450. Contact Purchasing re: short shipment.</span></div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">103</div><div class="mt-lbl">GR Blocked</div></div>
+        <div class="migo-rev"><div class="mt-num">104</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">GR into GR Blocked Stock — not valuated</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Jalapeño delivery arrives with torn packaging — quality uncertain. Cannot accept into unrestricted. <span class="res">→ Post MT 103 (blocked). QA inspects. Accept: MT 105 releases to unrestricted. Reject: MT 124 returns to vendor.</span></div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">105</div><div class="mt-lbl">Release</div></div>
+        <div class="migo-rev"><div class="mt-num">106</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">Release GR Blocked Stock to Unrestricted</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> QA clears jalapeños from MT 103 receipt. Need to release for production reservations. <span class="res">→ Post MT 105 referencing original MT 103 document. Stock moves to unrestricted and becomes visible in MB26.</span></div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">122</div><div class="mt-lbl">Return</div></div>
+        <div class="migo-rev"><div class="mt-num">123</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">Return Delivery to Vendor from Unrestricted Stock</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> 200 lbs of onion powder accepted, but lab finds moisture content out-of-spec 3 days later. <span class="res">→ Post MT 122 ref. original PO GR. Stock reduces. GR/IR clears. AP issues debit memo to vendor.</span></div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">161</div><div class="mt-lbl">Returns PO</div></div>
+        <div class="migo-rev"><div class="mt-num">162</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">GR for Returns Purchase Order</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Vendor sends replacement for previously returned batch. A dedicated Returns PO was issued by Purchasing. <span class="res">→ Post MT 161 against the Returns PO (not original). Clean audit trail separate from original PO.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GR WITHOUT REFERENCE -->
+    <div class="migo-section">
+      <div class="migo-section-header" style="background:#1e1535;color:var(--purple)">
+        📋 Goods Receipt — Without Reference <span style="font-size:10px;font-weight:400;margin-left:8px;opacity:0.7">Use cautiously — bypasses audit controls</span>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">501</div><div class="mt-lbl">GR no PO</div></div>
+        <div class="migo-rev"><div class="mt-num">502</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">GR without PO Reference — Unrestricted Stock</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Vendor delivers free product samples with no PO. Need in inventory for QA testing. <span class="res">→ Post MT 501.</span> <span class="mb-warn">⚠ No 3-way match. No financial liability. IC Lead: frequent 501s = purchasing process gap. Investigate any 501 that isn't a sample or emergency.</span></div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">521</div><div class="mt-lbl">GR no Order</div></div>
+        <div class="migo-rev"><div class="mt-num">522</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">GR without Production Order Reference</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> FG produced during system outage. Process Order could not be confirmed. <span class="res">→ Post MT 521 as emergency. Then post MT 261 manually against order once system restored.</span> <span class="mb-warn">⚠ Double-posting risk — always reconcile after.</span></div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">561</div><div class="mt-lbl">Init. Stock</div></div>
+        <div class="migo-rev"><div class="mt-num">562</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">Initial Entry of Stock Balances</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> New material master created for new sauce SKU. Physical count shows 300 cases on hand but no SAP history. <span class="res">→ Post MT 561 for opening balance.</span> <span class="mb-warn">⚠ ONLY for go-live or new material setup. NEVER use 561 to correct a discrepancy — use a cycle count PI document instead.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GOODS ISSUE -->
+    <div class="migo-section">
+      <div class="migo-section-header" style="background:var(--green-dim);color:var(--green)">
+        📤 Goods Issue — Consumption
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">201</div><div class="mt-lbl">GI Cost Ctr</div></div>
+        <div class="migo-rev"><div class="mt-num">202</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">GI to Cost Center</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Maintenance team pulls cleaning chemicals from warehouse for equipment sanitization. Not production consumption. <span class="res">→ Post MT 201 to maintenance cost center. Posts to cost center expense, not COGS.</span> IC Lead: watch for frequent 201s on production materials — may signal unauthorized consumption bypassing Process Order.</div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">261</div><div class="mt-lbl">GI Order</div></div>
+        <div class="migo-rev"><div class="mt-num">262</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">GI to Process / Production Order — Primary</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Backflush failed for a batch. System shows components still in stock but they were physically consumed. Cycle count finds shortage. <span class="res">→ Post MT 261 manually against Process Order for exact consumed quantity. If overissued: MT 262 to reverse excess. Cross-reference BOM quantity in COR3.</span></div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">251</div><div class="mt-lbl">GI Sale</div></div>
+        <div class="migo-rev"><div class="mt-num">252</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">GI for Sale without Sales Order</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Customer picks up product at plant gate — no formal SO in SD. <span class="res">→ Post MT 251. Reduces FG stock. Posts to COGS.</span> <span class="mb-warn">⚠ Bypasses SD billing. IC Lead: frequent 251s = sales orders being circumvented. Escalate.</span></div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">291</div><div class="mt-lbl">GI Any Acct</div></div>
+        <div class="migo-rev"><div class="mt-num">292</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">GI for Any Account Assignment</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Product donated to community event or used for trade show samples. No standard cost object applies. <span class="res">→ Post MT 291 with appropriate GL account.</span> IC Lead: track carefully — no upstream document to validate against. All 291s should have management approval.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SHIPPING -->
+    <div class="migo-section">
+      <div class="migo-section-header" style="background:var(--teal-dim);color:var(--teal)">
+        🚛 Shipping — Outbound
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">601</div><div class="mt-lbl">GI Delivery</div></div>
+        <div class="migo-rev"><div class="mt-num">602</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">GI for Outbound Delivery (SD)</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Truck departs with 1,000 cases. Next day IC finds book is 1,000 cases too high — GI never posted. <span class="res">→ VL06O: find open delivery. Confirm truck left via driver manifest. Post GI via VL02N.</span> <span class="mb-warn">⚠ If truck returned: MT 602 reversal first. This is the #1 phantom stock cause.</span></div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">451</div><div class="mt-lbl">Cust Return</div></div>
+        <div class="migo-rev"><div class="mt-num">452</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">Customer Returns without Shipping Document</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Customer returns 50 damaged cases with no formal Returns Order. <span class="res">→ Post MT 451 to blocked stock. QA inspects. Saleable: MT 453 transfer to unrestricted. Unsaleable: MT 551 scrap.</span> IC: all 451s must be dispositioned — never leave in blocked stock indefinitely.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STOCK TRANSFERS -->
+    <div class="migo-section">
+      <div class="migo-section-header" style="background:var(--amber-dim);color:var(--amber)">
+        🔀 Stock Transfers
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">301</div><div class="mt-lbl">Plant→Plant</div></div>
+        <div class="migo-rev"><div class="mt-num">302</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">Plant to Plant Transfer (one step)</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Excess tomato paste at Plant 1730 needs to move to sister plant. <span class="res">→ Post MT 301. Stock leaves 1730 immediately and appears at receiving plant. One accounting document. IC must verify receiving plant confirms the transfer.</span></div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">309</div><div class="mt-lbl">Mat→Mat</div></div>
+        <div class="migo-rev"><div class="mt-num">310</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">Material to Material Transfer (Reclass)</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> 500 lbs of "Tomato Paste Grade A" received but should have been "Grade B" (different material number). <span class="res">→ Post MT 309 to move quantity from wrong to correct material number. Cleanest way to fix a material master error at receipt. Triggers accounting entry for cost difference.</span></div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">311</div><div class="mt-lbl">Loc→Loc</div></div>
+        <div class="migo-rev"><div class="mt-num">312</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">Storage Location to Storage Location Transfer</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> 200 cases of finished salsa putaway to RM location by mistake. Cycle count reveals mispost. <span class="res">→ Post MT 311 to move from RM to FG location. Same plant, one step.</span> IC: if this happens repeatedly, investigate putaway process or label clarity — it's a systemic issue.</div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">321</div><div class="mt-lbl">QI→Unrest.</div></div>
+        <div class="migo-rev"><div class="mt-num">322</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">Quality Inspection Stock → Unrestricted</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Incoming jalapeños in QI stock. Lab clears them. Need for production. <span class="res">→ Post MT 321 to move from QI to unrestricted. Reservations can now be fulfilled.</span> IC: never allow production to consume QI stock — only unrestricted is valid for production use.</div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">343</div><div class="mt-lbl">Blk→Unrest.</div></div>
+        <div class="migo-rev"><div class="mt-num">344</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">Blocked Stock → Unrestricted</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> 300 cases in blocked stock after customer complaint investigation. Investigation closed — no issue found. <span class="res">→ Post MT 343 to release to unrestricted. Requires QA/management sign-off.</span> IC: flag all blocked stock items sitting >30 days without disposition decision.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRAPPING -->
+    <div class="migo-section">
+      <div class="migo-section-header" style="background:var(--coral-dim);color:var(--coral)">
+        🗑️ Scrapping <span style="font-size:10px;font-weight:400;margin-left:8px;opacity:0.7">Always get management approval — direct P&amp;L impact</span>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">551</div><div class="mt-lbl">Scrap Unrest.</div></div>
+        <div class="migo-rev"><div class="mt-num">552</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">Scrap from Unrestricted Stock</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Cycle count finds 50 cases of salsa past best-by date. Must dispose per food safety policy. <span class="res">→ Post MT 551. Reduces inventory. Posts to scrap/loss expense account. Document lot number, expiry date, and disposal method for food safety audit trail.</span></div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">553</div><div class="mt-lbl">Scrap QI</div></div>
+        <div class="migo-rev"><div class="mt-num">554</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">Scrap from Quality Inspection Stock</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Pepper batch in QI stock fails lab test — mycotoxin levels above limit. Must be destroyed. <span class="res">→ Post MT 553 directly from QI. Do not release to unrestricted first. Coordinate with QA for certificate of destruction.</span></div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">555</div><div class="mt-lbl">Scrap Blk.</div></div>
+        <div class="migo-rev"><div class="mt-num">556</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">Scrap from Blocked Stock</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Product in blocked stock after production deviation. Investigation: cannot rework or sell. <span class="res">→ Post MT 555 from blocked stock. Finance posts to scrap account.</span> IC: if 553/555 recurs on same material from same vendor, escalate to Purchasing as supplier quality issue.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /page-migo -->
+
+<!-- ══════════════════════════════════════════════════════
+     CI FLOWCHART DIAGRAMS — all four processes
+═══════════════════════════════════════════════════════ -->
+<div id="page-diag-production" class="page">
+  <div class="page-header">
+    <div class="page-eyebrow">CI Flowchart · Production Floor</div>
+    <div class="page-title">Production Execution — Process Flow</div>
+    <div class="page-sub">Classic CI flowchart · Decision diamonds · RCA branches · Roles by row</div>
+  </div>
+  <div style="padding:0 0 32px 0; overflow-x:auto;">
+    <!-- TAB BAR -->
+    <div style="display:flex;gap:0;border-bottom:2px solid #2a3040;background:#161b22;padding:0 32px;">
+      <button onclick="switchDiag('production')" id="dtab-production" style="padding:12px 20px;font-size:13px;font-weight:600;color:#39b54a;background:none;border:none;border-bottom:2px solid #39b54a;margin-bottom:-2px;cursor:pointer;font-family:'Inter',sans-serif;">Production</button>
+      <button onclick="switchDiag('receiving')"  id="dtab-receiving"  style="padding:12px 20px;font-size:13px;font-weight:600;color:#6b6660;background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;font-family:'Inter',sans-serif;">Receiving</button>
+      <button onclick="switchDiag('shipping')"   id="dtab-shipping"   style="padding:12px 20px;font-size:13px;font-weight:600;color:#6b6660;background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;font-family:'Inter',sans-serif;">Shipping</button>
+      <button onclick="switchDiag('cyclecounts')" id="dtab-cyclecounts" style="padding:12px 20px;font-size:13px;font-weight:600;color:#6b6660;background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;font-family:'Inter',sans-serif;">Cycle Counts</button>
+    </div>
+    <!-- LEGEND -->
+    <div style="display:flex;flex-wrap:wrap;gap:18px;padding:12px 32px;background:#161b22;border-bottom:1px solid #2a3040;font-size:12px;color:#a8a49c;">
+      <span style="display:flex;align-items:center;gap:7px;"><span style="width:20px;height:12px;background:#1e3a22;border:1.5px solid #39b54a;border-radius:3px;display:inline-block"></span>Process step</span>
+      <span style="display:flex;align-items:center;gap:7px;"><span style="width:20px;height:12px;background:#2d2510;border:1.5px solid #c8a84b;border-radius:3px;display:inline-block"></span>Checkpoint</span>
+      <span style="display:flex;align-items:center;gap:7px;"><span style="width:16px;height:16px;background:#2d150e;border:1.5px solid #e05c3a;transform:rotate(45deg);display:inline-block"></span>Decision</span>
+      <span style="display:flex;align-items:center;gap:7px;"><span style="width:20px;height:12px;background:#2d150e;border:1.5px solid #e05c3a;border-radius:3px;display:inline-block"></span>RCA branch</span>
+      <span style="display:flex;align-items:center;gap:7px;"><span style="width:20px;height:12px;background:#1e1535;border:1.5px solid #9b6dff;border-radius:3px;display:inline-block"></span>Settlement / close</span>
+      <span style="display:flex;align-items:center;gap:7px;"><span style="width:24px;height:2px;background:#4a9eff;display:inline-block"></span>Normal flow</span>
+      <span style="display:flex;align-items:center;gap:7px;"><span style="width:24px;height:2px;background:#e05c3a;display:inline-block;opacity:0.7"></span>Failure / RCA path</span>
+    </div>
+
+    <!-- DIAGRAM PANELS -->
+    <div id="dpanel-production" style="display:block;padding:28px 32px;overflow-x:auto;">
+      <svg viewBox="0 0 1340 860" xmlns="http://www.w3.org/2000/svg" style="min-width:900px;width:100%;height:auto;font-family:'Inter',sans-serif;">
+        <defs>
+          <marker id="p-ab" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#4a9eff"/></marker>
+          <marker id="p-ac" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#e05c3a"/></marker>
+          <marker id="p-ag" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#39b54a"/></marker>
+        </defs>
+        <rect width="1340" height="860" fill="#0D1117"/>
+
+        <!-- SWIM LANE BACKGROUNDS -->
+        <!-- Row labels -->
+        <rect x="0" y="40" width="80" height="130" fill="#161b22" rx="0"/>
+        <text x="40" y="108" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,108)" font-weight="600" letter-spacing="1">PLANNER</text>
+        <rect x="0" y="170" width="80" height="130" fill="#0D1117" rx="0"/>
+        <text x="40" y="238" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,238)" font-weight="600" letter-spacing="1">WAREHOUSE</text>
+        <rect x="0" y="300" width="80" height="130" fill="#161b22" rx="0"/>
+        <text x="40" y="368" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,368)" font-weight="600" letter-spacing="1">PRODUCTION</text>
+        <rect x="0" y="430" width="80" height="130" fill="#0D1117" rx="0"/>
+        <text x="40" y="498" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,498)" font-weight="600" letter-spacing="1">IC LEAD</text>
+        <rect x="0" y="560" width="80" height="290" fill="#161b22" rx="0"/>
+        <text x="40" y="710" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,710)" font-weight="600" letter-spacing="1">RCA / RESOLUTION</text>
+
+        <!-- Lane dividers -->
+        <line x1="80" y1="40" x2="1340" y2="40" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="170" x2="1340" y2="170" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="300" x2="1340" y2="300" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="430" x2="1340" y2="430" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="560" x2="1340" y2="560" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="850" x2="1340" y2="850" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="40" x2="80" y2="850" stroke="#2a3040" stroke-width="1"/>
+
+        <!-- ─── STEP 1: Process Order Released (Planner lane) ─── -->
+        <rect x="100" y="62" width="140" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
+        <rect x="100" y="62" width="140" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
+        <text x="170" y="75" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 1</text>
+        <text x="170" y="92" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Process Order</text>
+        <text x="170" y="107" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Released</text>
+        <rect x="112" y="108" width="56" height="16" rx="3" fill="#0e1f35"/>
+        <text x="140" y="119" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">COR2</text>
+
+        <!-- flow right → Step 2 -->
+        <line x1="240" y1="90" x2="278" y2="90" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#p-ab)"/>
+
+        <!-- ─── STEP 2: Reservations (Planner lane) ─── -->
+        <rect x="280" y="62" width="140" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
+        <rect x="280" y="62" width="140" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
+        <text x="350" y="75" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 2</text>
+        <text x="350" y="92" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Reservations</text>
+        <text x="350" y="107" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Auto-Generated</text>
+        <rect x="292" y="108" width="56" height="16" rx="3" fill="#0e1f35"/>
+        <text x="320" y="119" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">MB26</text>
+
+        <!-- flow down → Step 3 (Warehouse lane) -->
+        <line x1="350" y1="118" x2="350" y2="192" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#p-ab)"/>
+
+        <!-- ─── STEP 3: Warehouse Tasks (Warehouse lane) ─── -->
+        <rect x="280" y="192" width="140" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
+        <rect x="280" y="192" width="140" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
+        <text x="350" y="205" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 3</text>
+        <text x="350" y="222" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Warehouse Tasks</text>
+        <text x="350" y="237" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Assigned</text>
+        <rect x="284" y="238" width="84" height="16" rx="3" fill="#0e1f35"/>
+        <text x="326" y="249" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">CO27/LT0A</text>
+
+        <!-- flow right → Step 4 checkpoint -->
+        <line x1="420" y1="220" x2="458" y2="220" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#p-ab)"/>
+
+        <!-- ─── STEP 4: CHECKPOINT — Components Staged (Warehouse) ─── -->
+        <rect x="460" y="192" width="150" height="66" rx="5" fill="#2d2510" stroke="#c8a84b" stroke-width="2"/>
+        <rect x="460" y="192" width="150" height="14" rx="5" fill="#c8a84b" opacity="0.35"/>
+        <text x="535" y="205" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="700">⚑ CHECKPOINT</text>
+        <text x="535" y="222" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Components</text>
+        <text x="535" y="237" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Staged to Line</text>
+        <text x="535" y="251" font-size="10" fill="#a8a49c" text-anchor="middle">Verify qty, UoM, material</text>
+
+        <!-- DECISION DIAMOND — correct? -->
+        <polygon points="535,272 565,292 535,312 505,292" fill="#2d2510" stroke="#c8a84b" stroke-width="1.5"/>
+        <text x="535" y="289" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="600">Correct?</text>
+        <line x1="535" y1="258" x2="535" y2="272" stroke="#c8a84b" stroke-width="1.5"/>
+        <!-- YES → right -->
+        <line x1="565" y1="292" x2="618" y2="292" stroke="#39b54a" stroke-width="1.5" marker-end="url(#p-ag)"/>
+        <text x="590" y="287" font-size="9" fill="#39b54a" text-anchor="middle">YES</text>
+        <!-- NO → down to RCA -->
+        <line x1="535" y1="312" x2="535" y2="580" stroke="#e05c3a" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#p-ac)"/>
+        <text x="543" y="450" font-size="9" fill="#e05c3a">NO</text>
+
+        <!-- ─── STEP 5: Goods Issue 261 (Warehouse lane, YES path) ─── -->
+        <rect x="620" y="192" width="140" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
+        <rect x="620" y="192" width="140" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
+        <text x="690" y="205" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 5</text>
+        <text x="690" y="222" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Goods Issue</text>
+        <text x="690" y="237" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">MT 261</text>
+        <rect x="634" y="238" width="84" height="16" rx="3" fill="#0e1f35"/>
+        <text x="676" y="249" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">MIGO·261</text>
+        <!-- connect from YES -->
+        <line x1="690" y1="270" x2="690" y2="322" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#p-ab)"/>
+
+        <!-- ─── STEP 6: Production Execution (Production lane) ─── -->
+        <rect x="620" y="322" width="140" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
+        <rect x="620" y="322" width="140" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
+        <text x="690" y="335" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 6</text>
+        <text x="690" y="352" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Production</text>
+        <text x="690" y="367" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Execution</text>
+        <line x1="690" y1="378" x2="690" y2="432" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#p-ab)"/>
+
+        <!-- ─── STEP 7: CHECKPOINT — Yield Check (Production lane) ─── -->
+        <rect x="620" y="432" width="150" height="66" rx="5" fill="#2d2510" stroke="#c8a84b" stroke-width="2"/>
+        <rect x="620" y="432" width="150" height="14" rx="5" fill="#c8a84b" opacity="0.35"/>
+        <text x="695" y="445" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="700">⚑ CHECKPOINT</text>
+        <text x="695" y="462" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Yield Check</text>
+        <text x="695" y="477" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Actual vs. Order</text>
+        <text x="695" y="491" font-size="10" fill="#a8a49c" text-anchor="middle">COR3 comparison</text>
+
+        <!-- DECISION DIAMOND -->
+        <polygon points="695,510 725,530 695,550 665,530" fill="#2d2510" stroke="#c8a84b" stroke-width="1.5"/>
+        <text x="695" y="527" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="600">Match?</text>
+        <line x1="695" y1="498" x2="695" y2="510" stroke="#c8a84b" stroke-width="1.5"/>
+        <!-- YES → right -->
+        <line x1="725" y1="530" x2="778" y2="530" stroke="#39b54a" stroke-width="1.5" marker-end="url(#p-ag)"/>
+        <text x="750" y="525" font-size="9" fill="#39b54a" text-anchor="middle">YES</text>
+        <!-- NO → down RCA -->
+        <line x1="695" y1="550" x2="695" y2="580" stroke="#e05c3a" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#p-ac)"/>
+        <text x="703" y="568" font-size="9" fill="#e05c3a">NO</text>
+
+        <!-- ─── STEP 8: GR Finished Goods (Production lane YES) ─── -->
+        <rect x="780" y="450" width="140" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
+        <rect x="780" y="450" width="140" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
+        <text x="850" y="463" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 8</text>
+        <text x="850" y="480" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">GR Finished Goods</text>
+        <text x="850" y="495" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">MT 101</text>
+        <rect x="794" y="496" width="84" height="16" rx="3" fill="#0e1f35"/>
+        <text x="836" y="507" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">MIGO·101</text>
+
+        <!-- ─── STEP 9: CHECKPOINT — IC Verify Putaway ─── -->
+        <line x1="920" y1="478" x2="958" y2="478" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#p-ab)"/>
+        <rect x="960" y="452" width="150" height="66" rx="5" fill="#2d2510" stroke="#c8a84b" stroke-width="2"/>
+        <rect x="960" y="452" width="150" height="14" rx="5" fill="#c8a84b" opacity="0.35"/>
+        <text x="1035" y="465" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="700">⚑ IC CHECKPOINT</text>
+        <text x="1035" y="482" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Putaway &amp;</text>
+        <text x="1035" y="497" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Stock Verify</text>
+        <text x="1035" y="511" font-size="10" fill="#a8a49c" text-anchor="middle">MMBE confirmation</text>
+        <!-- DECISION -->
+        <polygon points="1035,530 1065,550 1035,570 1005,550" fill="#2d2510" stroke="#c8a84b" stroke-width="1.5"/>
+        <text x="1035" y="547" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="600">Correct loc?</text>
+        <line x1="1035" y1="518" x2="1035" y2="530" stroke="#c8a84b" stroke-width="1.5"/>
+        <!-- YES → right -->
+        <line x1="1065" y1="550" x2="1118" y2="550" stroke="#39b54a" stroke-width="1.5" marker-end="url(#p-ag)"/>
+        <text x="1090" y="545" font-size="9" fill="#39b54a" text-anchor="middle">YES</text>
+        <!-- NO → down -->
+        <line x1="1035" y1="570" x2="1035" y2="580" stroke="#e05c3a" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#p-ac)"/>
+        <text x="1043" y="577" font-size="9" fill="#e05c3a">NO</text>
+
+        <!-- ─── STEP 10: TECO / Settlement ─── -->
+        <rect x="1120" y="462" width="150" height="70" rx="5" fill="#1e1535" stroke="#9b6dff" stroke-width="2"/>
+        <rect x="1120" y="462" width="150" height="14" rx="5" fill="#9b6dff" opacity="0.3"/>
+        <text x="1195" y="475" font-size="9" fill="#9b6dff" text-anchor="middle" font-weight="600">STEP 10</text>
+        <text x="1195" y="493" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">TECO &amp;</text>
+        <text x="1195" y="508" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Settlement</text>
+        <rect x="1132" y="519" width="106" height="16" rx="3" fill="#0e1f35"/>
+        <text x="1185" y="530" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">COR2 → KO88</text>
+
+        <!-- ═══ RCA LANE ═══ -->
+        <!-- RCA 1: Staging Error -->
+        <rect x="460" y="580" width="210" height="96" rx="5" fill="#2d150e" stroke="#e05c3a" stroke-width="1.5"/>
+        <text x="565" y="600" font-size="10" fill="#e05c3a" text-anchor="middle" font-weight="700">RCA: Staging Error</text>
+        <text x="475" y="618" font-size="10" fill="#a8a49c">→ BOM qty wrong? (CS03)</text>
+        <text x="475" y="634" font-size="10" fill="#a8a49c">→ UoM mismatch? (cases/lbs)</text>
+        <text x="475" y="650" font-size="10" fill="#a8a49c">→ Wrong material pulled?</text>
+        <text x="475" y="666" font-size="11" fill="#39b54a" font-weight="600">✓ Fix physical · Reverse MT 262</text>
+
+        <!-- RCA 2: Yield Variance -->
+        <rect x="620" y="580" width="210" height="96" rx="5" fill="#2d150e" stroke="#e05c3a" stroke-width="1.5"/>
+        <text x="725" y="600" font-size="10" fill="#e05c3a" text-anchor="middle" font-weight="700">RCA: Yield Variance</text>
+        <text x="635" y="618" font-size="10" fill="#a8a49c">→ Scrap not recorded?</text>
+        <text x="635" y="634" font-size="10" fill="#a8a49c">→ Recipe deviation? (QA)</text>
+        <text x="635" y="650" font-size="10" fill="#a8a49c">→ Scale calibration off?</text>
+        <text x="635" y="666" font-size="11" fill="#39b54a" font-weight="600">✓ MT 551 scrap · Reverse 262</text>
+
+        <!-- RCA 3: Wrong Location -->
+        <rect x="960" y="580" width="210" height="96" rx="5" fill="#2d150e" stroke="#e05c3a" stroke-width="1.5"/>
+        <text x="1065" y="600" font-size="10" fill="#e05c3a" text-anchor="middle" font-weight="700">RCA: Wrong Location</text>
+        <text x="975" y="618" font-size="10" fill="#a8a49c">→ GR posted to RM location?</text>
+        <text x="975" y="634" font-size="10" fill="#a8a49c">→ Wrong loc in MIGO?</text>
+        <text x="975" y="650" font-size="10" fill="#a8a49c">→ Material master default?</text>
+        <text x="975" y="666" font-size="11" fill="#39b54a" font-weight="600">✓ Reverse MT 102 · Repost / MT 311</text>
+
+        <!-- IC Daily check bar -->
+        <rect x="100" y="766" width="1220" height="44" rx="5" fill="#0e1f35" stroke="#4a9eff" stroke-width="1" stroke-dasharray="5 3"/>
+        <text x="120" y="784" font-size="10" fill="#4a9eff" font-weight="700" letter-spacing="1">⚑ IC DAILY CHECKS</text>
+        <text x="120" y="800" font-size="11" fill="#a8a49c">MB51 → MT 261: verify component issues match BOM  ·  MB51 → MT 101: confirm FG GR posted same day  ·  MMBE: verify FG stock in correct location after every production run</text>
+      </svg>
+    </div><!-- /dpanel-production -->
+
+    <!-- ════════════ RECEIVING DIAGRAM ════════════ -->
+    <div id="dpanel-receiving" style="display:none;padding:28px 32px;overflow-x:auto;">
+      <svg viewBox="0 0 1340 820" xmlns="http://www.w3.org/2000/svg" style="min-width:900px;width:100%;height:auto;font-family:'Inter',sans-serif;">
+        <defs>
+          <marker id="r-ab" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#4a9eff"/></marker>
+          <marker id="r-ac" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#e05c3a"/></marker>
+          <marker id="r-ag" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#39b54a"/></marker>
+        </defs>
+        <rect width="1340" height="820" fill="#0D1117"/>
+
+        <!-- Swim lane labels -->
+        <rect x="0" y="40" width="80" height="130" fill="#161b22"/><text x="40" y="108" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,108)" font-weight="600" letter-spacing="1">PURCHASING</text>
+        <rect x="0" y="170" width="80" height="130" fill="#0D1117"/><text x="40" y="238" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,238)" font-weight="600" letter-spacing="1">RECEIVING</text>
+        <rect x="0" y="300" width="80" height="130" fill="#161b22"/><text x="40" y="368" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,368)" font-weight="600" letter-spacing="1">IC LEAD</text>
+        <rect x="0" y="430" width="80" height="130" fill="#0D1117"/><text x="40" y="498" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,498)" font-weight="600" letter-spacing="1">AP / FINANCE</text>
+        <rect x="0" y="560" width="80" height="240" fill="#161b22"/><text x="40" y="682" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,682)" font-weight="600" letter-spacing="1">RCA / RESOLUTION</text>
+        <line x1="80" y1="40" x2="1340" y2="40" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="170" x2="1340" y2="170" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="300" x2="1340" y2="300" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="430" x2="1340" y2="430" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="560" x2="1340" y2="560" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="800" x2="1340" y2="800" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="40" x2="80" y2="800" stroke="#2a3040" stroke-width="1"/>
+
+        <!-- STEP 1: PO Exists (Purchasing) -->
+        <rect x="100" y="72" width="130" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
+        <rect x="100" y="72" width="130" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
+        <text x="165" y="85" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 1</text>
+        <text x="165" y="102" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Purchase Order</text>
+        <text x="165" y="117" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Exists</text>
+        <rect x="113" y="118" width="56" height="14" rx="3" fill="#0e1f35"/>
+        <text x="141" y="128" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">ME23N</text>
+        <line x1="230" y1="100" x2="268" y2="100" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#r-ab)"/>
+
+        <!-- STEP 2: CHECKPOINT Dock Verify (Receiving) -->
+        <rect x="270" y="182" width="150" height="66" rx="5" fill="#2d2510" stroke="#c8a84b" stroke-width="2"/>
+        <rect x="270" y="182" width="150" height="14" rx="5" fill="#c8a84b" opacity="0.35"/>
+        <text x="345" y="195" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="700">⚑ CHECKPOINT</text>
+        <text x="345" y="213" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Dock Verification</text>
+        <text x="345" y="228" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Material · Qty · Cond.</text>
+        <text x="345" y="242" font-size="10" fill="#a8a49c" text-anchor="middle">vs. PO before posting</text>
+        <!-- bridge from step 1 (Purchasing) down to Receiving lane -->
+        <line x1="270" y1="100" x2="270" y2="215" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#r-ab)"/>
+
+        <!-- DECISION: Matches PO? -->
+        <polygon points="345,256 380,278 345,300 310,278" fill="#2d2510" stroke="#c8a84b" stroke-width="1.5"/>
+        <text x="345" y="274" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="600">Matches PO?</text>
+        <line x1="345" y1="248" x2="345" y2="256" stroke="#c8a84b" stroke-width="1.5"/>
+        <!-- YES → right -->
+        <line x1="380" y1="278" x2="448" y2="278" stroke="#39b54a" stroke-width="1.5" marker-end="url(#r-ag)"/>
+        <text x="412" y="273" font-size="9" fill="#39b54a" text-anchor="middle">YES</text>
+        <!-- NO → down RCA -->
+        <line x1="345" y1="300" x2="345" y2="580" stroke="#e05c3a" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#r-ac)"/>
+        <text x="353" y="440" font-size="9" fill="#e05c3a">NO</text>
+
+        <!-- STEP 3: Post GR MT 101 (Receiving) -->
+        <rect x="450" y="192" width="130" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
+        <rect x="450" y="192" width="130" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
+        <text x="515" y="205" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 3</text>
+        <text x="515" y="222" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Post GR</text>
+        <text x="515" y="237" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">MT 101</text>
+        <rect x="463" y="238" width="84" height="16" rx="3" fill="#0e1f35"/>
+        <text x="505" y="249" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">MIGO·101</text>
+        <line x1="580" y1="220" x2="618" y2="220" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#r-ab)"/>
+
+        <!-- STEP 4: CHECKPOINT Validate Mat Doc (IC) -->
+        <rect x="620" y="192" width="150" height="66" rx="5" fill="#2d2510" stroke="#c8a84b" stroke-width="2"/>
+        <rect x="620" y="192" width="150" height="14" rx="5" fill="#c8a84b" opacity="0.35"/>
+        <text x="695" y="205" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="700">⚑ IC CHECKPOINT</text>
+        <text x="695" y="222" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Validate Material</text>
+        <text x="695" y="237" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Document</text>
+        <text x="695" y="251" font-size="10" fill="#a8a49c" text-anchor="middle">Qty · UoM · Loc · Batch</text>
+        <!-- bridge to IC lane -->
+        <line x1="695" y1="258" x2="695" y2="320" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#r-ab)"/>
+
+        <!-- DECISION: Doc correct? -->
+        <polygon points="695,320 730,342 695,364 660,342" fill="#2d2510" stroke="#c8a84b" stroke-width="1.5"/>
+        <text x="695" y="338" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="600">Doc correct?</text>
+        <!-- YES right -->
+        <line x1="730" y1="342" x2="798" y2="342" stroke="#39b54a" stroke-width="1.5" marker-end="url(#r-ag)"/>
+        <text x="762" y="337" font-size="9" fill="#39b54a" text-anchor="middle">YES</text>
+        <!-- NO down -->
+        <line x1="695" y1="364" x2="695" y2="580" stroke="#e05c3a" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#r-ac)"/>
+        <text x="703" y="475" font-size="9" fill="#e05c3a">NO</text>
+
+        <!-- STEP 5: CHECKPOINT Confirm Stock MMBE (IC lane) -->
+        <rect x="800" y="312" width="140" height="66" rx="5" fill="#2d2510" stroke="#c8a84b" stroke-width="2"/>
+        <rect x="800" y="312" width="140" height="14" rx="5" fill="#c8a84b" opacity="0.35"/>
+        <text x="870" y="325" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="700">⚑ IC CHECKPOINT</text>
+        <text x="870" y="342" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Confirm Stock</text>
+        <text x="870" y="357" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Updated MMBE</text>
+        <text x="870" y="371" font-size="10" fill="#a8a49c" text-anchor="middle">Unrestricted ↑ correct loc</text>
+        <line x1="870" y1="378" x2="870" y2="452" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#r-ab)"/>
+
+        <!-- STEP 6: Physical Putaway (Receiving lane) -->
+        <rect x="800" y="452" width="140" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
+        <rect x="800" y="452" width="140" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
+        <text x="870" y="465" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 6</text>
+        <text x="870" y="482" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Physical Putaway</text>
+        <text x="870" y="497" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Stock Available</text>
+        <line x1="940" y1="480" x2="978" y2="480" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#r-ab)"/>
+
+        <!-- STEP 7: Invoice Verification AP -->
+        <rect x="980" y="452" width="140" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
+        <rect x="980" y="452" width="140" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
+        <text x="1050" y="465" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 7</text>
+        <text x="1050" y="482" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Invoice Verification</text>
+        <text x="1050" y="497" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">3-Way Match</text>
+        <rect x="994" y="498" width="56" height="14" rx="3" fill="#0e1f35"/>
+        <text x="1022" y="508" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">MIRO</text>
+        <!-- DECISION -->
+        <polygon points="1050,518 1085,540 1050,562 1015,540" fill="#2d2510" stroke="#c8a84b" stroke-width="1.5"/>
+        <text x="1050" y="536" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="600">Match OK?</text>
+        <line x1="1050" y1="508" x2="1050" y2="518" stroke="#c8a84b" stroke-width="1.5"/>
+        <!-- YES right -->
+        <line x1="1085" y1="540" x2="1148" y2="540" stroke="#39b54a" stroke-width="1.5" marker-end="url(#r-ag)"/>
+        <text x="1115" y="535" font-size="9" fill="#39b54a" text-anchor="middle">YES</text>
+        <!-- NO down -->
+        <line x1="1050" y1="562" x2="1050" y2="580" stroke="#e05c3a" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#r-ac)"/>
+        <text x="1058" y="574" font-size="9" fill="#e05c3a">NO</text>
+
+        <!-- STEP 8: Complete -->
+        <rect x="1150" y="462" width="130" height="56" rx="5" fill="#1e1535" stroke="#9b6dff" stroke-width="2"/>
+        <rect x="1150" y="462" width="130" height="14" rx="5" fill="#9b6dff" opacity="0.3"/>
+        <text x="1215" y="475" font-size="9" fill="#9b6dff" text-anchor="middle" font-weight="600">COMPLETE</text>
+        <text x="1215" y="492" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Receipt</text>
+        <text x="1215" y="507" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Processed ✓</text>
+
+        <!-- RCA Lane -->
+        <rect x="270" y="580" width="200" height="90" rx="5" fill="#2d150e" stroke="#e05c3a" stroke-width="1.5"/>
+        <text x="370" y="600" font-size="10" fill="#e05c3a" text-anchor="middle" font-weight="700">RCA: Dock Discrepancy</text>
+        <text x="282" y="618" font-size="10" fill="#a8a49c">→ Short/wrong/damaged?</text>
+        <text x="282" y="634" font-size="10" fill="#a8a49c">→ Contact Purchasing</text>
+        <text x="282" y="650" font-size="11" fill="#39b54a" font-weight="600">✓ Partial GR · MT 103 blocked</text>
+        <text x="282" y="664" font-size="11" fill="#39b54a" font-weight="600">✓ Do NOT post if wrong material</text>
+
+        <rect x="620" y="580" width="200" height="90" rx="5" fill="#2d150e" stroke="#e05c3a" stroke-width="1.5"/>
+        <text x="720" y="600" font-size="10" fill="#e05c3a" text-anchor="middle" font-weight="700">RCA: Posting Error</text>
+        <text x="632" y="618" font-size="10" fill="#a8a49c">→ Wrong UoM? (cases/lbs)</text>
+        <text x="632" y="634" font-size="10" fill="#a8a49c">→ Wrong storage location?</text>
+        <text x="632" y="650" font-size="11" fill="#39b54a" font-weight="600">✓ Reverse MT 102 immediately</text>
+        <text x="632" y="664" font-size="11" fill="#39b54a" font-weight="600">✓ Repost with correct values</text>
+
+        <rect x="980" y="580" width="200" height="90" rx="5" fill="#2d150e" stroke="#e05c3a" stroke-width="1.5"/>
+        <text x="1080" y="600" font-size="10" fill="#e05c3a" text-anchor="middle" font-weight="700">RCA: 3-Way Match Fail</text>
+        <text x="992" y="618" font-size="10" fill="#a8a49c">→ GR not posted same day?</text>
+        <text x="992" y="634" font-size="10" fill="#a8a49c">→ Price variance on PO?</text>
+        <text x="992" y="650" font-size="11" fill="#39b54a" font-weight="600">✓ Post missing GR · MB51 check</text>
+        <text x="992" y="664" font-size="11" fill="#39b54a" font-weight="600">✓ Purchasing updates PO price</text>
+
+        <!-- IC Daily bar -->
+        <rect x="100" y="726" width="1220" height="40" rx="5" fill="#0e1f35" stroke="#4a9eff" stroke-width="1" stroke-dasharray="5 3"/>
+        <text x="120" y="742" font-size="10" fill="#4a9eff" font-weight="700" letter-spacing="1">⚑ IC DAILY: MB51 → MT 101 → today's date. Every physical receipt must have a posted GR before end of shift.</text>
+        <text x="120" y="758" font-size="11" fill="#a8a49c">Unposted GR = phantom inventory shortage + blocked AP invoice. No exceptions on same-day posting.</text>
+      </svg>
+    </div><!-- /dpanel-receiving -->
+
+    <!-- ════════════ SHIPPING DIAGRAM ════════════ -->
+    <div id="dpanel-shipping" style="display:none;padding:28px 32px;overflow-x:auto;">
+      <svg viewBox="0 0 1340 820" xmlns="http://www.w3.org/2000/svg" style="min-width:900px;width:100%;height:auto;font-family:'Inter',sans-serif;">
+        <defs>
+          <marker id="s-ab" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#4a9eff"/></marker>
+          <marker id="s-ac" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#e05c3a"/></marker>
+          <marker id="s-ag" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#39b54a"/></marker>
+        </defs>
+        <rect width="1340" height="820" fill="#0D1117"/>
+
+        <!-- Swim lanes -->
+        <rect x="0" y="40" width="80" height="130" fill="#161b22"/><text x="40" y="108" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,108)" font-weight="600" letter-spacing="1">SALES</text>
+        <rect x="0" y="170" width="80" height="130" fill="#0D1117"/><text x="40" y="238" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,238)" font-weight="600" letter-spacing="1">WAREHOUSE</text>
+        <rect x="0" y="300" width="80" height="130" fill="#161b22"/><text x="40" y="368" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,368)" font-weight="600" letter-spacing="1">IC LEAD</text>
+        <rect x="0" y="430" width="80" height="130" fill="#0D1117"/><text x="40" y="498" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,498)" font-weight="600" letter-spacing="1">FINANCE</text>
+        <rect x="0" y="560" width="80" height="240" fill="#161b22"/><text x="40" y="682" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,682)" font-weight="600" letter-spacing="1">RCA / RESOLUTION</text>
+        <line x1="80" y1="40" x2="1340" y2="40" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="170" x2="1340" y2="170" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="300" x2="1340" y2="300" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="430" x2="1340" y2="430" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="560" x2="1340" y2="560" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="800" x2="1340" y2="800" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="40" x2="80" y2="800" stroke="#2a3040" stroke-width="1"/>
+
+        <!-- STEP 1: Sales Order -->
+        <rect x="100" y="72" width="130" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
+        <rect x="100" y="72" width="130" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
+        <text x="165" y="85" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 1</text>
+        <text x="165" y="102" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Sales Order</text>
+        <text x="165" y="117" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Exists</text>
+        <rect x="113" y="118" width="56" height="14" rx="3" fill="#0e1f35"/>
+        <text x="141" y="128" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">VA03</text>
+        <line x1="230" y1="100" x2="268" y2="100" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#s-ab)"/>
+
+        <!-- STEP 2: Outbound Delivery (Sales) -->
+        <rect x="270" y="72" width="130" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
+        <rect x="270" y="72" width="130" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
+        <text x="335" y="85" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 2</text>
+        <text x="335" y="102" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Outbound</text>
+        <text x="335" y="117" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Delivery Created</text>
+        <rect x="283" y="118" width="56" height="14" rx="3" fill="#0e1f35"/>
+        <text x="311" y="128" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">VL01N</text>
+        <!-- drop to IC lane for stock check -->
+        <line x1="335" y1="128" x2="335" y2="320" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#s-ab)"/>
+
+        <!-- STEP 3: CHECKPOINT Stock Check (IC lane) -->
+        <rect x="270" y="322" width="150" height="66" rx="5" fill="#2d2510" stroke="#c8a84b" stroke-width="2"/>
+        <rect x="270" y="322" width="150" height="14" rx="5" fill="#c8a84b" opacity="0.35"/>
+        <text x="345" y="335" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="700">⚑ IC CHECKPOINT</text>
+        <text x="345" y="353" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Stock Availability</text>
+        <text x="345" y="368" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Check</text>
+        <text x="345" y="382" font-size="10" fill="#a8a49c" text-anchor="middle">MMBE before picking</text>
+        <!-- DECISION -->
+        <polygon points="345,396 380,418 345,440 310,418" fill="#2d2510" stroke="#c8a84b" stroke-width="1.5"/>
+        <text x="345" y="414" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="600">Stock OK?</text>
+        <line x1="345" y1="388" x2="345" y2="396" stroke="#c8a84b" stroke-width="1.5"/>
+        <!-- YES right to warehouse picking -->
+        <line x1="380" y1="418" x2="448" y2="418" stroke="#39b54a" stroke-width="1.5" marker-end="url(#s-ag)"/>
+        <text x="412" y="413" font-size="9" fill="#39b54a" text-anchor="middle">YES</text>
+        <!-- NO down -->
+        <line x1="345" y1="440" x2="345" y2="580" stroke="#e05c3a" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#s-ac)"/>
+        <text x="353" y="510" font-size="9" fill="#e05c3a">NO</text>
+
+        <!-- STEP 4: Picking (Warehouse) — YES path drops back up to warehouse lane -->
+        <rect x="450" y="192" width="130" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
+        <rect x="450" y="192" width="130" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
+        <text x="515" y="205" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 4</text>
+        <text x="515" y="222" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Picking</text>
+        <text x="515" y="237" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Physical Pull</text>
+        <rect x="463" y="238" width="56" height="14" rx="3" fill="#0e1f35"/>
+        <text x="491" y="248" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">VL06O</text>
+        <!-- connect from YES (step up) -->
+        <line x1="515" y1="418" x2="515" y2="248" stroke="#39b54a" stroke-width="1.5" marker-end="url(#s-ag)"/>
+        <line x1="580" y1="220" x2="618" y2="220" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#s-ab)"/>
+
+        <!-- STEP 5: CHECKPOINT Load Verify (Warehouse) -->
+        <rect x="620" y="192" width="150" height="66" rx="5" fill="#2d2510" stroke="#c8a84b" stroke-width="2"/>
+        <rect x="620" y="192" width="150" height="14" rx="5" fill="#c8a84b" opacity="0.35"/>
+        <text x="695" y="205" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="700">⚑ CHECKPOINT</text>
+        <text x="695" y="222" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Load Verification</text>
+        <text x="695" y="237" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Before Truck Leaves</text>
+        <text x="695" y="251" font-size="10" fill="#a8a49c" text-anchor="middle">SKU · Qty · Customer</text>
+        <!-- DECISION -->
+        <polygon points="695,264 730,286 695,308 660,286" fill="#2d2510" stroke="#c8a84b" stroke-width="1.5"/>
+        <text x="695" y="282" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="600">Load correct?</text>
+        <line x1="695" y1="258" x2="695" y2="264" stroke="#c8a84b" stroke-width="1.5"/>
+        <!-- YES right -->
+        <line x1="730" y1="286" x2="798" y2="286" stroke="#39b54a" stroke-width="1.5" marker-end="url(#s-ag)"/>
+        <text x="762" y="281" font-size="9" fill="#39b54a" text-anchor="middle">YES</text>
+        <!-- NO down -->
+        <line x1="695" y1="308" x2="695" y2="580" stroke="#e05c3a" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#s-ac)"/>
+        <text x="703" y="445" font-size="9" fill="#e05c3a">NO</text>
+
+        <!-- STEP 6: Post GI MT 601 (Warehouse) -->
+        <rect x="800" y="192" width="130" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
+        <rect x="800" y="192" width="130" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
+        <text x="865" y="205" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 6</text>
+        <text x="865" y="222" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Post Goods Issue</text>
+        <text x="865" y="237" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">MT 601</text>
+        <rect x="813" y="238" width="84" height="16" rx="3" fill="#0e1f35"/>
+        <text x="855" y="249" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">VL02N·601</text>
+        <line x1="930" y1="220" x2="968" y2="220" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#s-ab)"/>
+
+        <!-- STEP 7: IC Daily Open Delivery Check (IC lane) -->
+        <rect x="970" y="312" width="150" height="66" rx="5" fill="#2d2510" stroke="#c8a84b" stroke-width="2"/>
+        <rect x="970" y="312" width="150" height="14" rx="5" fill="#c8a84b" opacity="0.35"/>
+        <text x="1045" y="325" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="700">⚑ IC DAILY ROUTINE</text>
+        <text x="1045" y="342" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Open Delivery</text>
+        <text x="1045" y="357" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Check</text>
+        <text x="1045" y="371" font-size="10" fill="#a8a49c" text-anchor="middle">VL06O — GI posted?</text>
+        <!-- bridge from step 6 down to IC lane -->
+        <line x1="1045" y1="220" x2="1045" y2="312" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#s-ab)"/>
+        <!-- DECISION -->
+        <polygon points="1045,384 1080,406 1045,428 1010,406" fill="#2d2510" stroke="#c8a84b" stroke-width="1.5"/>
+        <text x="1045" y="402" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="600">GI posted?</text>
+        <line x1="1045" y1="378" x2="1045" y2="384" stroke="#c8a84b" stroke-width="1.5"/>
+        <!-- YES right -->
+        <line x1="1080" y1="406" x2="1148" y2="406" stroke="#39b54a" stroke-width="1.5" marker-end="url(#s-ag)"/>
+        <text x="1112" y="401" font-size="9" fill="#39b54a" text-anchor="middle">YES</text>
+        <!-- NO down -->
+        <line x1="1045" y1="428" x2="1045" y2="580" stroke="#e05c3a" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#s-ac)"/>
+        <text x="1053" y="505" font-size="9" fill="#e05c3a">NO</text>
+
+        <!-- STEP 8: Billing Finance -->
+        <rect x="1150" y="452" width="130" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
+        <rect x="1150" y="452" width="130" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
+        <text x="1215" y="465" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 8</text>
+        <text x="1215" y="482" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Billing Document</text>
+        <text x="1215" y="497" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Created</text>
+        <rect x="1163" y="498" width="56" height="14" rx="3" fill="#0e1f35"/>
+        <text x="1191" y="508" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">VF01</text>
+        <!-- bridge from IC check YES up to Finance lane -->
+        <line x1="1215" y1="406" x2="1215" y2="452" stroke="#39b54a" stroke-width="1.5" marker-end="url(#s-ag)"/>
+
+        <!-- RCA Lane -->
+        <rect x="270" y="580" width="210" height="90" rx="5" fill="#2d150e" stroke="#e05c3a" stroke-width="1.5"/>
+        <text x="375" y="600" font-size="10" fill="#e05c3a" text-anchor="middle" font-weight="700">RCA: Stock Shortage</text>
+        <text x="282" y="618" font-size="10" fill="#a8a49c">→ FG GR not posted?</text>
+        <text x="282" y="634" font-size="10" fill="#a8a49c">→ Wrong location? (MMBE)</text>
+        <text x="282" y="650" font-size="11" fill="#39b54a" font-weight="600">✓ MB51 MT 101 · MT 311 transfer</text>
+
+        <rect x="620" y="580" width="210" height="90" rx="5" fill="#2d150e" stroke="#e05c3a" stroke-width="1.5"/>
+        <text x="725" y="600" font-size="10" fill="#e05c3a" text-anchor="middle" font-weight="700">RCA: Load Error</text>
+        <text x="632" y="618" font-size="10" fill="#a8a49c">→ Wrong SKU? Short load?</text>
+        <text x="632" y="634" font-size="10" fill="#a8a49c">→ Correct before GI post</text>
+        <text x="632" y="650" font-size="11" fill="#39b54a" font-weight="600">✓ Amend delivery · recheck</text>
+
+        <rect x="970" y="580" width="210" height="90" rx="5" fill="#2d150e" stroke="#e05c3a" stroke-width="1.5"/>
+        <text x="1075" y="600" font-size="10" fill="#e05c3a" text-anchor="middle" font-weight="700">RCA: Phantom Stock</text>
+        <text x="982" y="618" font-size="10" fill="#a8a49c">→ Truck left · GI not posted</text>
+        <text x="982" y="634" font-size="10" fill="#a8a49c">→ Book inflated · Billing blocked</text>
+        <text x="982" y="650" font-size="11" fill="#39b54a" font-weight="600">✓ Post GI VL02N · MT 602 if returned</text>
+
+        <!-- IC daily bar -->
+        <rect x="100" y="726" width="1220" height="40" rx="5" fill="#0e1f35" stroke="#4a9eff" stroke-width="1" stroke-dasharray="5 3"/>
+        <text x="120" y="742" font-size="10" fill="#4a9eff" font-weight="700" letter-spacing="1">⚑ IC DAILY: VL06O end of shift — flag any open delivery where GI not posted.</text>
+        <text x="120" y="758" font-size="11" fill="#a8a49c">Truck left + no GI post = phantom FG stock + blocked billing. This is the #1 source of FG book discrepancy.</text>
+      </svg>
+    </div><!-- /dpanel-shipping -->
+
+    <!-- ════════════ CYCLE COUNT DIAGRAM ════════════ -->
+    <div id="dpanel-cyclecounts" style="display:none;padding:28px 32px;overflow-x:auto;">
+      <svg viewBox="0 0 1340 820" xmlns="http://www.w3.org/2000/svg" style="min-width:900px;width:100%;height:auto;font-family:'Inter',sans-serif;">
+        <defs>
+          <marker id="c-ab" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#4a9eff"/></marker>
+          <marker id="c-ac" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#e05c3a"/></marker>
+          <marker id="c-ag" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#39b54a"/></marker>
+          <marker id="c-ap" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#9b6dff"/></marker>
+        </defs>
+        <rect width="1340" height="820" fill="#0D1117"/>
+
+        <!-- Swim lanes -->
+        <rect x="0" y="40" width="80" height="130" fill="#161b22"/><text x="40" y="108" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,108)" font-weight="600" letter-spacing="1">IC LEAD</text>
+        <rect x="0" y="170" width="80" height="130" fill="#0D1117"/><text x="40" y="238" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,238)" font-weight="600" letter-spacing="1">COUNTERS</text>
+        <rect x="0" y="300" width="80" height="130" fill="#161b22"/><text x="40" y="368" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,368)" font-weight="600" letter-spacing="1">IC LEAD</text>
+        <rect x="0" y="430" width="80" height="130" fill="#0D1117"/><text x="40" y="498" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,498)" font-weight="600" letter-spacing="1">ANALYSIS</text>
+        <rect x="0" y="560" width="80" height="240" fill="#161b22"/><text x="40" y="682" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,682)" font-weight="600" letter-spacing="1">RCA / RESOLUTION</text>
+        <line x1="80" y1="40" x2="1340" y2="40" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="170" x2="1340" y2="170" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="300" x2="1340" y2="300" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="430" x2="1340" y2="430" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="560" x2="1340" y2="560" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="800" x2="1340" y2="800" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="40" x2="80" y2="800" stroke="#2a3040" stroke-width="1"/>
+
+        <!-- PREREQ -->
+        <rect x="100" y="52" width="180" height="44" rx="5" fill="#2d2510" stroke="#c8a84b" stroke-width="1" stroke-dasharray="4 3"/>
+        <text x="190" y="68" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="700">PREREQUISITE</text>
+        <text x="190" y="84" font-size="10" fill="#a8a49c" text-anchor="middle">A/B/C/D indicators set</text>
+        <text x="190" y="96" font-size="10" fill="#a8a49c" text-anchor="middle">MM02 → Plant Data/Storage 1</text>
+        <line x1="280" y1="74" x2="318" y2="74" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#c-ab)"/>
+
+        <!-- STEP 1: Generate PI Docs (IC Lead) -->
+        <rect x="320" y="52" width="140" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
+        <rect x="320" y="52" width="140" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
+        <text x="390" y="65" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 1 · Weekly</text>
+        <text x="390" y="82" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Generate PI</text>
+        <text x="390" y="97" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Documents</text>
+        <rect x="334" y="98" width="110" height="14" rx="3" fill="#0e1f35"/>
+        <text x="389" y="108" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">Fiori: Create PI CC</text>
+        <line x1="460" y1="80" x2="498" y2="80" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#c-ab)"/>
+
+        <!-- STEP 2: Distribute (IC Lead) -->
+        <rect x="500" y="52" width="140" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
+        <rect x="500" y="52" width="140" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
+        <text x="570" y="65" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 2</text>
+        <text x="570" y="82" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Distribute to</text>
+        <text x="570" y="97" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Counters</text>
+        <rect x="514" y="98" width="110" height="14" rx="3" fill="#0e1f35"/>
+        <text x="569" y="108" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">Fiori: Print PI</text>
+        <!-- drop to counters lane -->
+        <line x1="570" y1="108" x2="570" y2="192" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#c-ab)"/>
+
+        <!-- STEP 3: CHECKPOINT Blind Count (Counters) -->
+        <rect x="500" y="192" width="150" height="66" rx="5" fill="#2d2510" stroke="#c8a84b" stroke-width="2"/>
+        <rect x="500" y="192" width="150" height="14" rx="5" fill="#c8a84b" opacity="0.35"/>
+        <text x="575" y="205" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="700">⚑ BLIND COUNT</text>
+        <text x="575" y="223" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Physical Count</text>
+        <text x="575" y="238" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">No book qty visible</text>
+        <rect x="514" y="250" width="110" height="14" rx="3" fill="#0e1f35"/>
+        <text x="569" y="260" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">Fiori: Count PI List</text>
+        <!-- back up to IC lane for review -->
+        <line x1="575" y1="258" x2="575" y2="320" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#c-ab)"/>
+
+        <!-- STEP 4: CHECKPOINT Review Variances (IC Lead) -->
+        <rect x="500" y="322" width="150" height="66" rx="5" fill="#2d2510" stroke="#c8a84b" stroke-width="2"/>
+        <rect x="500" y="322" width="150" height="14" rx="5" fill="#c8a84b" opacity="0.35"/>
+        <text x="575" y="335" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="700">⚑ IC REVIEW</text>
+        <text x="575" y="353" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Review Variances</text>
+        <text x="575" y="368" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Apply Tolerance</text>
+        <rect x="510" y="380" width="128" height="14" rx="3" fill="#0e1f35"/>
+        <text x="574" y="390" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">Fiori: Process PI Results</text>
+
+        <!-- DECISION: Within tolerance? -->
+        <polygon points="575,404 615,428 575,452 535,428" fill="#2d2510" stroke="#c8a84b" stroke-width="1.5"/>
+        <text x="575" y="424" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="600">In tolerance?</text>
+        <line x1="575" y1="394" x2="575" y2="404" stroke="#c8a84b" stroke-width="1.5"/>
+        <!-- YES right → post -->
+        <line x1="615" y1="428" x2="768" y2="428" stroke="#39b54a" stroke-width="1.5" marker-end="url(#c-ag)"/>
+        <text x="690" y="423" font-size="9" fill="#39b54a" text-anchor="middle">YES → Post</text>
+        <!-- NO left → recount -->
+        <line x1="535" y1="428" x2="388" y2="428" stroke="#e05c3a" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#c-ac)"/>
+        <text x="460" y="423" font-size="9" fill="#e05c3a" text-anchor="middle">NO → Recount</text>
+
+        <!-- STEP 5: Recount (IC Lead) — NO path -->
+        <rect x="280" y="402" width="100" height="52" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
+        <text x="330" y="418" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 5</text>
+        <text x="330" y="434" font-size="11" fill="#e8e6e0" text-anchor="middle" font-weight="700">Recount</text>
+        <text x="330" y="448" font-size="10" fill="#a8a49c" text-anchor="middle">Different counter</text>
+        <!-- loop back up to counters lane -->
+        <path d="M 330 402 Q 330 330 390 290 Q 440 260 500 225" fill="none" stroke="#4a9eff" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#c-ab)"/>
+        <text x="360" y="340" font-size="9" fill="#4a9eff" opacity="0.7">recount loop</text>
+
+        <!-- STEP 6: Post Differences (IC Lead) -->
+        <rect x="770" y="400" width="140" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
+        <rect x="770" y="400" width="140" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
+        <text x="840" y="413" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 6</text>
+        <text x="840" y="430" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Post Differences</text>
+        <text x="840" y="445" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">+ Reason Codes</text>
+        <rect x="784" y="447" width="110" height="14" rx="3" fill="#0e1f35"/>
+        <text x="839" y="457" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">Fiori: Process PI</text>
+        <text x="840" y="472" font-size="9" fill="#c8a84b" text-anchor="middle">⚑ Always use reason codes</text>
+        <line x1="910" y1="428" x2="968" y2="428" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#c-ab)"/>
+
+        <!-- STEP 7: Monthly Analysis (Analysis lane) -->
+        <rect x="970" y="452" width="160" height="66" rx="5" fill="#1e1535" stroke="#9b6dff" stroke-width="2"/>
+        <rect x="970" y="452" width="160" height="14" rx="5" fill="#9b6dff" opacity="0.3"/>
+        <text x="1050" y="465" font-size="9" fill="#9b6dff" text-anchor="middle" font-weight="600">STEP 7 · Monthly</text>
+        <text x="1050" y="483" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Trend Analysis</text>
+        <text x="1050" y="498" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">by Reason Code</text>
+        <rect x="984" y="510" width="130" height="14" rx="3" fill="#0e1f35"/>
+        <text x="1049" y="520" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">Manage PI / MI24</text>
+        <!-- drop from posting to analysis lane -->
+        <line x1="1050" y1="428" x2="1050" y2="452" stroke="#9b6dff" stroke-width="1.5" marker-end="url(#c-ap)"/>
+        <line x1="1130" y1="485" x2="1198" y2="485" stroke="#9b6dff" stroke-width="1.5" marker-end="url(#c-ap)"/>
+
+        <!-- STEP 8: Adjust CC Indicators -->
+        <rect x="1200" y="462" width="120" height="56" rx="5" fill="#1e1535" stroke="#9b6dff" stroke-width="2"/>
+        <rect x="1200" y="462" width="120" height="14" rx="5" fill="#9b6dff" opacity="0.3"/>
+        <text x="1260" y="475" font-size="9" fill="#9b6dff" text-anchor="middle" font-weight="600">CONTINUOUS</text>
+        <text x="1260" y="492" font-size="11" fill="#e8e6e0" text-anchor="middle" font-weight="700">Adjust CC</text>
+        <text x="1260" y="507" font-size="11" fill="#e8e6e0" text-anchor="middle" font-weight="700">Indicators</text>
+
+        <!-- RCA Lane -->
+        <rect x="500" y="580" width="260" height="110" rx="5" fill="#2d150e" stroke="#e05c3a" stroke-width="1.5"/>
+        <text x="630" y="600" font-size="10" fill="#e05c3a" text-anchor="middle" font-weight="700">RCA: Count Variance Investigation</text>
+        <text x="512" y="618" font-size="10" fill="#a8a49c">→ Unposted GI or GR same day? (MB51)</text>
+        <text x="512" y="634" font-size="10" fill="#a8a49c">→ Wrong UoM counted? (cases vs. lbs)</text>
+        <text x="512" y="650" font-size="10" fill="#a8a49c">→ Material in wrong location? (MMBE)</text>
+        <text x="512" y="666" font-size="11" fill="#39b54a" font-weight="600">✓ Trigger recount (different counter)</text>
+        <text x="512" y="682" font-size="11" fill="#39b54a" font-weight="600">✓ Post variance + reason code after confirmed</text>
+
+        <!-- Pattern box -->
+        <rect x="800" y="580" width="500" height="110" rx="5" fill="#1e1535" stroke="#9b6dff" stroke-width="1.5"/>
+        <text x="1050" y="600" font-size="10" fill="#9b6dff" text-anchor="middle" font-weight="700">Reason Code → Root Cause Pattern</text>
+        <text x="812" y="618" font-size="10" fill="#39b54a" font-weight="600">Unposted GI/GR  </text><text x="892" y="618" font-size="10" fill="#a8a49c">→ Posting discipline failure in production or receiving</text>
+        <text x="812" y="634" font-size="10" fill="#39b54a" font-weight="600">Wrong location    </text><text x="880" y="634" font-size="10" fill="#a8a49c">→ Putaway process or label clarity issue</text>
+        <text x="812" y="650" font-size="10" fill="#39b54a" font-weight="600">BOM variance      </text><text x="876" y="650" font-size="10" fill="#a8a49c">→ Recipe or master data error — escalate to PP/MM</text>
+        <text x="812" y="666" font-size="10" fill="#39b54a" font-weight="600">Recurring surplus  </text><text x="892" y="666" font-size="10" fill="#a8a49c">→ Unreported returns or production by-product</text>
+        <text x="812" y="682" font-size="10" fill="#c8a84b" font-weight="600">Same mat. every cycle </text><text x="916" y="682" font-size="10" fill="#a8a49c">→ Systemic upstream failure — escalate immediately</text>
+
+        <!-- IC bar -->
+        <rect x="100" y="730" width="1220" height="40" rx="5" fill="#0e1f35" stroke="#4a9eff" stroke-width="1" stroke-dasharray="5 3"/>
+        <text x="120" y="746" font-size="10" fill="#4a9eff" font-weight="700" letter-spacing="1">⚑ PROGRAM CADENCE</text>
+        <text x="120" y="762" font-size="11" fill="#a8a49c">A indicators: monthly  ·  B indicators: quarterly  ·  C indicators: annually  ·  Run Fiori "Create PI Cycle Counting" tile weekly to auto-generate all due documents</text>
+      </svg>
+    </div><!-- /dpanel-cyclecounts -->
+
+  </div><!-- /diagram page inner -->
+</div><!-- /page-diag-production (shared container) -->
+
+<!-- These three are alias pages that just switch the tab inside the shared diagram container -->
+<div id="page-diag-receiving" class="page"></div>
+<div id="page-diag-shipping" class="page"></div>
+<div id="page-diag-cyclecounts" class="page"></div>
+</main>
+
+<script>
+function showPage(id) {
+  var diagAlias = {'diag-receiving':'receiving','diag-shipping':'shipping','diag-cyclecounts':'cyclecounts'};
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  if (diagAlias[id]) {
+    document.getElementById('page-diag-production').classList.add('active');
+    switchDiag(diagAlias[id]);
+  } else {
+    document.getElementById('page-' + id).classList.add('active');
+    if (id === 'diag-production') switchDiag('production');
+  }
+  event.currentTarget.classList.add('active');
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
+<script>
+function switchDiag(name) {
+  ['production','receiving','shipping','cyclecounts'].forEach(function(n) {
+    var panel = document.getElementById('dpanel-' + n);
+    var tab   = document.getElementById('dtab-' + n);
+    if (panel) panel.style.display = (n === name) ? 'block' : 'none';
+    if (tab) {
+      tab.style.color       = (n === name) ? '#39b54a' : '#6b6660';
+      tab.style.borderBottomColor = (n === name) ? '#39b54a' : 'transparent';
+    }
+  });
+  // keep sidebar nav on production diagram page for all 4
+  document.querySelectorAll('.nav-item').forEach(function(el) { el.classList.remove('active'); });
+  var active = document.querySelector('[onclick="showPage(\'diag-production\')"]');
+  if (active) active.classList.add('active');
+}
+</script>
