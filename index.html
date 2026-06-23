@@ -2927,7 +2927,11 @@ function plLoad() {
   try { return JSON.parse(localStorage.getItem(PL_KEY) || '[]'); } catch(e) { return []; }
 }
 function plSave2(entries) {
-  localStorage.setItem(PL_KEY, JSON.stringify(entries));
+  try {
+    localStorage.setItem(PL_KEY, JSON.stringify(entries));
+  } catch(e) {
+    alert('Could not save: your browser may be blocking localStorage. Try opening the file from a local server or enabling storage in browser settings.');
+  }
 }
 
 function plSave() {
@@ -3037,8 +3041,8 @@ function plRender() {
           (e.process ? '<span class="pl-badge pl-process-badge">' + e.process + '</span>' : '') +
         '</div>' +
         '<div class="pl-entry-actions">' +
-          '<button class="pl-btn" onclick="plEdit('' + e.id + '')">Edit</button>' +
-          '<button class="pl-btn delete" onclick="plDelete('' + e.id + '')">Delete</button>' +
+          '<button class="pl-btn" onclick="plEdit(\'' + e.id + '\')">Edit</button>' +
+          '<button class="pl-btn delete" onclick="plDelete(\'' + e.id + '\')">Delete</button>' +
         '</div>' +
       '</div>' +
       '<div class="pl-problem-text">' + escHtml(e.problem) + '</div>' +
@@ -3062,8 +3066,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-</body>
-</html>
 <script>
 function switchDiag(name) {
   ['production','receiving','shipping','cyclecounts'].forEach(function(n) {
@@ -3071,13 +3073,15 @@ function switchDiag(name) {
     var tab   = document.getElementById('dtab-' + n);
     if (panel) panel.style.display = (n === name) ? 'block' : 'none';
     if (tab) {
-      tab.style.color       = (n === name) ? '#39b54a' : '#6b6660';
-      tab.style.borderBottomColor = (n === name) ? '#39b54a' : 'transparent';
+      tab.style.color             = (n === name) ? 'var(--green)' : 'var(--txt3)';
+      tab.style.borderBottomColor = (n === name) ? 'var(--green)' : 'transparent';
+      tab.style.fontWeight        = (n === name) ? '700' : '500';
     }
   });
-  // keep sidebar nav on production diagram page for all 4
   document.querySelectorAll('.nav-item').forEach(function(el) { el.classList.remove('active'); });
   var active = document.querySelector('[onclick="showPage(\'diag-production\')"]');
   if (active) active.classList.add('active');
 }
 </script>
+</body>
+</html>
