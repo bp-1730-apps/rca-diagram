@@ -2073,6 +2073,155 @@ body {
       </div>
     </div>
 
+    <!-- STO INTRACOMPANY -->
+    <div class="migo-section">
+      <div class="migo-section-header" style="background:var(--teal-dim);color:var(--teal)">
+        🏭 Stock Transport Orders — Intracompany (Same Company Code)
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">351</div><div class="mt-lbl">STO no SD</div></div>
+        <div class="migo-rev"><div class="mt-num">352</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">GI for STO — Without Shipping / Delivery (Two-Step)</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Plant 1730 needs to transfer excess tomato paste to a sister plant. No outbound delivery created — posting is direct from MIGO. Stock leaves 1730 and appears as stock in transit at the receiving plant. <span class="res">→ Post MT 351 at issuing plant. Receiving plant posts MT 101 to bring into unrestricted. Monitor in-transit via MB5T.</span> <span class="mb-warn">⚠ Receiving plant must post MT 101 before stock is usable. Follow up same day.</span></div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">641</div><div class="mt-lbl">STO + SD</div></div>
+        <div class="migo-rev"><div class="mt-num">642</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">GI for STO with Outbound Delivery via Shipping (Two-Step)</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Planned intracompany transfer of finished salsa from Plant 1730 to a DC. A Stock Transport Order (UB type) exists and an outbound delivery was created via VL10B. <span class="res">→ Post MT 641 via VL02N. Stock moves from 1730 unrestricted to in-transit at receiving plant. Receiving plant posts MT 101 GR to confirm receipt.</span> This is the most common STO movement in plants with SD shipping active. IC Lead: check MB5T daily for aged in-transit stock.</div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">647</div><div class="mt-lbl">STO 1-Step</div></div>
+        <div class="migo-rev"><div class="mt-num">648</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">GI for STO with Delivery — One Step (SD)</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Same as 641 but one-step — when MT 647 posts, SAP auto-generates the MT 101 GR at the receiving plant simultaneously. No separate GR posting required. <span class="res">→ Stock never shows as in-transit. Immediate book transfer.</span> <span class="mb-warn">⚠ No window to catch errors between GI and GR. Use two-step (641) when transfer has QA or quantity-verification requirements.</span></div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">671</div><div class="mt-lbl">STO Return</div></div>
+        <div class="migo-rev"><div class="mt-num">672</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">Returns for STO — Receiving Plant Returns to Issuing Plant</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> DC received 500 cases via MT 641 but found 50 cases damaged on arrival. Need to return those 50 cases to Plant 1730. <span class="res">→ Post MT 671 at receiving plant. Stock moves from receiving plant in-transit back to issuing plant unrestricted. IC at 1730: verify return via MB51 MT 671.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STO INTERCOMPANY -->
+    <div class="migo-section">
+      <div class="migo-section-header" style="background:#ede8fa;color:var(--purple)">
+        🌐 Stock Transport Orders — Intercompany (Cross Company Code)
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">643</div><div class="mt-lbl">X-Co GI</div></div>
+        <div class="migo-rev"><div class="mt-num">644</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">GI for Cross-Company STO with Delivery and SD Billing (Two-Step)</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Transfer from Plant 1730 (Company Code A) to a plant in a different company code. SD billing document is created at issuing plant. <span class="res">→ Post MT 643 via outbound delivery (VL02N). SD billing created. Receiving plant posts MT 101 GR. FI accounting entries post in both company codes.</span> <span class="mb-warn">⚠ Triggers SD billing — coordinate with Finance before posting. GI and GR quantities must match exactly or intercompany reconciliation fails.</span></div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">645</div><div class="mt-lbl">X-Co 1-Step</div></div>
+        <div class="migo-rev"><div class="mt-num">646</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">GI for Cross-Company STO — One Step with Billing</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Same as MT 643 but one-step. GI and GR post simultaneously. SD billing still created. <span class="res">→ MT 645 posts GI; SAP auto-generates MT 101 at receiving plant. No in-transit period.</span> <span class="mb-warn">⚠ Reversal requires coordination between two Finance teams. Use two-step (643) unless one-step is explicitly configured and approved.</span></div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">673</div><div class="mt-lbl">X-Co Rtn</div></div>
+        <div class="migo-rev"><div class="mt-num">674</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">Returns for Cross-Company STO (Two-Step)</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Receiving plant (different company code) needs to return goods received via MT 643. <span class="res">→ MT 673 posts return to issuing plant unrestricted. SD credit memo required. IC Lead: track these — they require FI entries in two company codes and a credit billing document in SD. Never post without Finance coordination.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STOCK TYPES, SPECIAL STOCK, INVENTORY DIFFERENCES -->
+    <div class="migo-section">
+      <div class="migo-section-header" style="background:var(--blue-dim);color:var(--blue)">
+        🔍 Special Stock · Customer Returns (6XX) · Inventory Differences (7XX)
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">411</div><div class="mt-lbl">Spec→Own</div></div>
+        <div class="migo-rev"><div class="mt-num">412</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">Transfer Special Stock (E/K/Q) to Own Unrestricted Stock</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Sales-order stock (E) or consignment stock (K) at plant needs to be transferred to standard unrestricted stock. <span class="res">→ Post MT 411 with the appropriate special stock indicator. Stock reclassifies from special stock to standard unrestricted. Accounting entry reflects the change in valuation category.</span></div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">453</div><div class="mt-lbl">Blk Rtn→Unr</div></div>
+        <div class="migo-rev"><div class="mt-num">454</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">Transfer Customer Return Blocked Stock → Unrestricted</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Cases received via MT 451 or MT 651 customer return sat in blocked stock. QA inspected and cleared them as saleable. <span class="res">→ Post MT 453. Stock moves from blocked returns to unrestricted. Immediately available for resale and visible in cycle counts.</span> <span class="mb-warn">⚠ Food manufacturing: QA written sign-off required before MT 453. Never release returned food product to unrestricted without documented QA clearance.</span></div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">651</div><div class="mt-lbl">Cust Rtn Blk</div></div>
+        <div class="migo-rev"><div class="mt-num">652</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">Customer Returns via Shipping — to Blocked Stock</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Customer ships back pallets of salsa via a formal Returns Order in SD. Returns delivery arrives at dock. <span class="res">→ MT 651 posts GR to blocked stock via returns delivery. QA inspects. Follow with MT 453 (to unrestricted) or MT 555 (scrap) after QA decision.</span> Best practice for food manufacturing — never receive customer returns directly to unrestricted.</div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">653</div><div class="mt-lbl">Cust Rtn Unr</div></div>
+        <div class="migo-rev"><div class="mt-num">654</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">Customer Returns via Shipping — Directly to Unrestricted</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Customer returns verified, undamaged, unopened cases that QA has pre-approved for direct return to sellable stock. <span class="res">→ MT 653 posts return directly to unrestricted. Stock immediately available.</span> <span class="mb-warn">⚠ Food manufacturing: use only with prior QA sign-off. Bypassing blocked stock is a food safety and audit risk.</span></div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">655</div><div class="mt-lbl">Cust Rtn QI</div></div>
+        <div class="migo-rev"><div class="mt-num">656</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">Customer Returns via Shipping — to Quality Inspection Stock</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Returned product requires lab testing — not clearly saleable or scrappable. <span class="res">→ MT 655 posts to QI. QA tests. Release via MT 321 (to unrestricted) or scrap via MT 553 (from QI). Best practice in food manufacturing for any return where shelf life or contamination must be verified.</span></div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">661</div><div class="mt-lbl">Rtn Vend SD</div></div>
+        <div class="migo-rev"><div class="mt-num">662</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">Returns to Vendor via Shipping</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> RM ingredient being returned to vendor with a formal outbound delivery rather than a direct MIGO posting. Returns PO issued by Purchasing. <span class="res">→ MT 661 posts GI for vendor return via outbound delivery. More traceable than MT 122 — creates delivery history and shipping documents. Preferred for large-value returns or where vendor requires logistics documentation.</span></div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">701</div><div class="mt-lbl">Inv Diff</div></div>
+        <div class="migo-rev"><div class="mt-num">702</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">Inventory Difference — Unrestricted Stock (System-Generated)</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> Cycle count variance posted via MI07 or Fiori "Process Physical Inventory." SAP posts MT 701 automatically. <span class="res">→ Never post MT 701 manually. It is always system-generated by a PI document posting.</span> <span class="mb-warn">⚠ If you see MT 701 in MB51 without a corresponding PI document number, it is an unauthorized stock adjustment — investigate immediately and escalate.</span></div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">703</div><div class="mt-lbl">Inv Diff QI</div></div>
+        <div class="migo-rev"><div class="mt-num">704</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">Inventory Difference — Quality Inspection Stock (System-Generated)</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> PI document count variance on QI stock posted. System auto-generates MT 703. <span class="res">→ System-generated only. IC Lead: recurring QI stock variances may indicate materials being moved out of QI without formal MT 321 release — investigate access and posting discipline.</span></div>
+        </div>
+      </div>
+      <div class="migo-row">
+        <div class="migo-mt"><div class="mt-num">707</div><div class="mt-lbl">Inv Diff Blk</div></div>
+        <div class="migo-rev"><div class="mt-num">708</div><div class="mt-lbl">Reverse</div></div>
+        <div class="migo-body">
+          <div class="mb-title">Inventory Difference — Blocked Stock (System-Generated)</div>
+          <div class="mb-scenario"><strong>Scenario:</strong> PI document count variance on blocked stock posted. System auto-generates MT 707. <span class="res">→ System-generated only. IC Lead: blocked stock variances are a red flag — physical access to blocked storage areas should be restricted. Investigate any MT 707 that cannot be tied to a legitimate count difference.</span></div>
+        </div>
+      </div>
+    </div>
+
     <!-- SCRAPPING -->
     <div class="migo-section">
       <div class="migo-section-header" style="background:var(--coral-dim);color:var(--coral)">
