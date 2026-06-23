@@ -7,30 +7,30 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-/* ── TOKENS ── */
+/* ── TOKENS — LIGHT THEME ── */
 :root {
-  --bg:        #0D1117;
-  --bg2:       #161b22;
-  --bg3:       #1c2230;
-  --border:    #2a3040;
-  --green:     #39b54a;
-  --green-dim: #1e3a22;
-  --green-glow:#39b54a44;
-  --teal:      #1a9e6e;
-  --teal-dim:  #0e2d22;
-  --amber:     #c8a84b;
-  --amber-dim: #2d2510;
-  --coral:     #e05c3a;
-  --coral-dim: #2d150e;
-  --blue:      #4a9eff;
-  --blue-dim:  #0e1f35;
-  --purple:    #9b6dff;
-  --txt:       #e8e6e0;
-  --txt2:      #a8a49c;
-  --txt3:      #6b6660;
+  --bg:        #f4f6f9;
+  --bg2:       #ffffff;
+  --bg3:       #eef0f4;
+  --border:    #d4d8e2;
+  --green:     #1a7a2a;
+  --green-dim: #e8f5ea;
+  --green-glow:#1a7a2a22;
+  --teal:      #0e7a56;
+  --teal-dim:  #e0f5ee;
+  --amber:     #8a6200;
+  --amber-dim: #fdf3d0;
+  --coral:     #b83218;
+  --coral-dim: #fce8e3;
+  --blue:      #1558b0;
+  --blue-dim:  #e2ecf8;
+  --purple:    #5c34b0;
+  --txt:       #1a1d24;
+  --txt2:      #46505f;
+  --txt3:      #828899;
   --mono:      'JetBrains Mono', monospace;
   --sans:      'Inter', sans-serif;
-  --sidebar-w: 230px;
+  --sidebar-w: 260px;
   --radius:    6px;
 }
 
@@ -62,7 +62,7 @@ body {
 }
 
 .sidebar-brand {
-  padding: 20px 18px 16px;
+  padding: 18px 20px 14px;
   border-bottom: 1px solid var(--border);
 }
 .sidebar-brand .plant {
@@ -81,39 +81,43 @@ body {
 }
 
 .nav-section {
-  padding: 14px 12px 4px;
+  padding: 12px 12px 2px;
 }
 .nav-section-label {
   font-size: 10px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--txt3);
-  padding: 0 6px;
-  margin-bottom: 4px;
+  padding: 0 8px;
+  margin-bottom: 3px;
 }
 .nav-item {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 7px 10px;
+  padding: 6px 10px;
   border-radius: var(--radius);
   cursor: pointer;
-  font-size: 13px;
+  font-size: 12.5px;
   color: var(--txt2);
-  transition: background 0.15s, color 0.15s;
+  transition: background 0.12s, color 0.12s;
   border: none;
   background: none;
   width: 100%;
   text-align: left;
 }
 .nav-item:hover { background: var(--bg3); color: var(--txt); }
-.nav-item.active { background: var(--green-dim); color: var(--green); }
+.nav-item.active {
+  background: var(--green-dim);
+  color: var(--green);
+  font-weight: 600;
+}
 .nav-item .dot {
-  width: 6px; height: 6px;
+  width: 5px; height: 5px;
   border-radius: 50%;
   background: currentColor;
-  opacity: 0.6;
+  opacity: 0.5;
   flex-shrink: 0;
 }
 .nav-item.active .dot { opacity: 1; }
@@ -132,6 +136,8 @@ body {
   margin-left: var(--sidebar-w);
   flex: 1;
   min-height: 100vh;
+  min-width: 0;
+  overflow-x: hidden;
 }
 
 .page { display: none; }
@@ -139,12 +145,13 @@ body {
 
 /* ── PAGE HEADER ── */
 .page-header {
-  padding: 36px 40px 28px;
+  padding: 24px 48px 20px;
   border-bottom: 1px solid var(--border);
   background: var(--bg2);
   position: sticky;
   top: 0;
   z-index: 50;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
 }
 .page-eyebrow {
   font-family: var(--mono);
@@ -152,13 +159,13 @@ body {
   color: var(--green);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
 }
 .page-title {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--txt);
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
 .page-sub {
   font-size: 13px;
@@ -166,7 +173,11 @@ body {
 }
 
 /* ── CONTENT AREA ── */
-.content { padding: 32px 40px; max-width: 1100px; }
+.content {
+  padding: 28px 48px 48px;
+  max-width: 1200px;
+  width: 100%;
+}
 
 /* ── FLOW DIAGRAM ── */
 .flow-wrap {
@@ -220,12 +231,13 @@ body {
 
 .flow-card {
   flex: 1;
-  margin: 0 0 16px 12px;
+  margin: 0 0 14px 14px;
   background: var(--bg2);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 14px 18px;
+  padding: 14px 20px;
   transition: border-color 0.2s;
+  max-width: 720px;
 }
 .flow-card:hover { border-color: var(--txt3); }
 .flow-step.checkpoint .flow-card { border-left: 3px solid var(--amber); }
@@ -395,8 +407,8 @@ body {
 .section-divider {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin: 32px 0 24px;
+  gap: 14px;
+  margin: 36px 0 20px;
 }
 .section-divider-label {
   font-size: 11px;
@@ -427,13 +439,14 @@ body {
 }
 .migo-row {
   display: grid;
-  grid-template-columns: 54px 54px 1fr;
+  grid-template-columns: 64px 64px 1fr;
   gap: 0;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   margin-bottom: 6px;
   overflow: hidden;
   transition: border-color 0.2s;
+  max-width: 1100px;
 }
 .migo-row:hover { border-color: var(--txt3); }
 .migo-mt {
@@ -492,7 +505,7 @@ body {
 /* ── DATA CHECKPOINTS PAGE ── */
 .dcp-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 16px;
   margin-bottom: 32px;
 }
@@ -632,20 +645,22 @@ body {
 .tag.purple { background: #1e1535;           color: var(--purple); }
 
 /* ── SCROLLBAR ── */
-::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--txt3); }
 
 /* ── DIAGRAM PAGES ── */
 .diagram-wrap {
-  padding: 32px 40px;
+  padding: 24px 48px 36px;
   overflow-x: auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 .diagram-wrap svg {
   display: block;
   width: 100%;
-  max-width: 960px;
+  max-width: 1300px;
   height: auto;
   font-family: var(--sans);
 }
@@ -658,7 +673,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  padding: 12px 20px;
+  padding: 10px 48px;
   background: var(--bg2);
   border-bottom: 1px solid var(--border);
   font-size: 12px;
@@ -670,14 +685,104 @@ body {
   gap: 7px;
 }
 .diag-legend-swatch {
-  width: 24px; height: 10px;
+  width: 20px; height: 10px;
   border-radius: 3px;
   flex-shrink: 0;
 }
 .diag-legend-line {
-  width: 24px; height: 2px;
+  width: 20px; height: 2px;
   flex-shrink: 0;
 }
+
+/* ── PROBLEM LOG ── */
+.pl-entry {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 20px;
+  margin-bottom: 12px;
+  transition: border-color .15s;
+}
+.pl-entry:hover { border-color: var(--green); }
+.pl-entry-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.pl-entry-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.pl-badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.pl-date-badge { background: var(--bg3); color: var(--txt3); }
+.pl-process-badge { background: var(--blue-dim); color: var(--blue); }
+.pl-entry-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.pl-btn {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--bg3);
+  color: var(--txt2);
+  font-family: var(--sans);
+  transition: background .12s;
+}
+.pl-btn:hover { background: var(--border); }
+.pl-btn.delete { color: var(--coral); border-color: var(--coral-dim); background: var(--coral-dim); }
+.pl-btn.delete:hover { background: var(--coral); color: #fff; }
+.pl-problem-text {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--txt);
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+.pl-field {
+  margin-bottom: 7px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.pl-field-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--txt3);
+  margin-bottom: 2px;
+}
+.pl-field-val { color: var(--txt2); }
+.pl-field-val.cause { color: var(--coral); }
+.pl-field-val.resolution { color: var(--green); }
+.pl-tcodes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 2px;
+}
+.pl-tcode-chip {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--blue-dim);
+  color: var(--blue);
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
 </style>
 </head>
 <body>
@@ -728,6 +833,13 @@ body {
     </button>
     <button class="nav-item" onclick="showPage('migo')">
       <span class="dot"></span>MIGO Quick Ref
+    </button>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">My Log</div>
+    <button class="nav-item" onclick="showPage('problemlog')">
+      <span class="dot"></span>📋 Problem Log
     </button>
   </div>
 
@@ -2006,11 +2118,11 @@ body {
   </div>
   <div style="padding:0 0 32px 0; overflow-x:auto;">
     <!-- TAB BAR -->
-    <div style="display:flex;gap:0;border-bottom:2px solid #2a3040;background:#161b22;padding:0 32px;">
-      <button onclick="switchDiag('production')" id="dtab-production" style="padding:12px 20px;font-size:13px;font-weight:600;color:#39b54a;background:none;border:none;border-bottom:2px solid #39b54a;margin-bottom:-2px;cursor:pointer;font-family:'Inter',sans-serif;">Production</button>
-      <button onclick="switchDiag('receiving')"  id="dtab-receiving"  style="padding:12px 20px;font-size:13px;font-weight:600;color:#6b6660;background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;font-family:'Inter',sans-serif;">Receiving</button>
-      <button onclick="switchDiag('shipping')"   id="dtab-shipping"   style="padding:12px 20px;font-size:13px;font-weight:600;color:#6b6660;background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;font-family:'Inter',sans-serif;">Shipping</button>
-      <button onclick="switchDiag('cyclecounts')" id="dtab-cyclecounts" style="padding:12px 20px;font-size:13px;font-weight:600;color:#6b6660;background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;font-family:'Inter',sans-serif;">Cycle Counts</button>
+    <div style="display:flex;gap:0;border-bottom:2px solid var(--border);background:var(--bg2);padding:0 48px;">
+      <button onclick="switchDiag('production')" id="dtab-production" style="padding:12px 20px;font-size:13px;font-weight:600;color:var(--green);background:none;border:none;border-bottom:2px solid var(--green);margin-bottom:-2px;cursor:pointer;font-family:'Inter',sans-serif;">Production</button>
+      <button onclick="switchDiag('receiving')"  id="dtab-receiving"  style="padding:12px 20px;font-size:13px;font-weight:600;color:var(--txt3);background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;font-family:'Inter',sans-serif;">Receiving</button>
+      <button onclick="switchDiag('shipping')"   id="dtab-shipping"   style="padding:12px 20px;font-size:13px;font-weight:600;color:var(--txt3);background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;font-family:'Inter',sans-serif;">Shipping</button>
+      <button onclick="switchDiag('cyclecounts')" id="dtab-cyclecounts" style="padding:12px 20px;font-size:13px;font-weight:600;color:var(--txt3);background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;font-family:'Inter',sans-serif;">Cycle Counts</button>
     </div>
     <!-- LEGEND -->
     <div style="display:flex;flex-wrap:wrap;gap:18px;padding:12px 32px;background:#161b22;border-bottom:1px solid #2a3040;font-size:12px;color:#a8a49c;">
@@ -2024,661 +2136,661 @@ body {
     </div>
 
     <!-- DIAGRAM PANELS -->
-    <div id="dpanel-production" style="display:block;padding:28px 32px;overflow-x:auto;">
-      <svg viewBox="0 0 1340 860" xmlns="http://www.w3.org/2000/svg" style="min-width:900px;width:100%;height:auto;font-family:'Inter',sans-serif;">
+    <div id="dpanel-production" style="display:block;padding:0;overflow-x:auto;">
+      <svg viewBox="0 0 1340 860" xmlns="http://www.w3.org/2000/svg" style="min-width:960px;width:100%;height:auto;font-family:'Inter',sans-serif;">
         <defs>
-          <marker id="p-ab" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#4a9eff"/></marker>
-          <marker id="p-ac" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#e05c3a"/></marker>
-          <marker id="p-ag" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#39b54a"/></marker>
+          <marker id="p-ab" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#1558b0"/></marker>
+          <marker id="p-ac" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#b83218"/></marker>
+          <marker id="p-ag" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#1a7a2a"/></marker>
         </defs>
-        <rect width="1340" height="860" fill="#0D1117"/>
+        <rect width="1340" height="860" fill="#f4f6f9"/>
 
         <!-- SWIM LANE BACKGROUNDS -->
         <!-- Row labels -->
-        <rect x="0" y="40" width="80" height="130" fill="#161b22" rx="0"/>
-        <text x="40" y="108" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,108)" font-weight="600" letter-spacing="1">PLANNER</text>
-        <rect x="0" y="170" width="80" height="130" fill="#0D1117" rx="0"/>
-        <text x="40" y="238" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,238)" font-weight="600" letter-spacing="1">WAREHOUSE</text>
-        <rect x="0" y="300" width="80" height="130" fill="#161b22" rx="0"/>
-        <text x="40" y="368" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,368)" font-weight="600" letter-spacing="1">PRODUCTION</text>
-        <rect x="0" y="430" width="80" height="130" fill="#0D1117" rx="0"/>
-        <text x="40" y="498" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,498)" font-weight="600" letter-spacing="1">IC LEAD</text>
-        <rect x="0" y="560" width="80" height="290" fill="#161b22" rx="0"/>
-        <text x="40" y="710" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,710)" font-weight="600" letter-spacing="1">RCA / RESOLUTION</text>
+        <rect x="0" y="40" width="80" height="130" fill="#ffffff" rx="0"/>
+        <text x="40" y="108" font-size="10" fill="#828899" text-anchor="middle" transform="rotate(-90,40,108)" font-weight="600" letter-spacing="1">PLANNER</text>
+        <rect x="0" y="170" width="80" height="130" fill="#f4f6f9" rx="0"/>
+        <text x="40" y="238" font-size="10" fill="#828899" text-anchor="middle" transform="rotate(-90,40,238)" font-weight="600" letter-spacing="1">WAREHOUSE</text>
+        <rect x="0" y="300" width="80" height="130" fill="#ffffff" rx="0"/>
+        <text x="40" y="368" font-size="10" fill="#828899" text-anchor="middle" transform="rotate(-90,40,368)" font-weight="600" letter-spacing="1">PRODUCTION</text>
+        <rect x="0" y="430" width="80" height="130" fill="#f4f6f9" rx="0"/>
+        <text x="40" y="498" font-size="10" fill="#828899" text-anchor="middle" transform="rotate(-90,40,498)" font-weight="600" letter-spacing="1">IC LEAD</text>
+        <rect x="0" y="560" width="80" height="290" fill="#ffffff" rx="0"/>
+        <text x="40" y="710" font-size="10" fill="#828899" text-anchor="middle" transform="rotate(-90,40,710)" font-weight="600" letter-spacing="1">RCA / RESOLUTION</text>
 
         <!-- Lane dividers -->
-        <line x1="80" y1="40" x2="1340" y2="40" stroke="#2a3040" stroke-width="1"/>
-        <line x1="80" y1="170" x2="1340" y2="170" stroke="#2a3040" stroke-width="1"/>
-        <line x1="80" y1="300" x2="1340" y2="300" stroke="#2a3040" stroke-width="1"/>
-        <line x1="80" y1="430" x2="1340" y2="430" stroke="#2a3040" stroke-width="1"/>
-        <line x1="80" y1="560" x2="1340" y2="560" stroke="#2a3040" stroke-width="1"/>
-        <line x1="80" y1="850" x2="1340" y2="850" stroke="#2a3040" stroke-width="1"/>
-        <line x1="80" y1="40" x2="80" y2="850" stroke="#2a3040" stroke-width="1"/>
+        <line x1="80" y1="40" x2="1340" y2="40" stroke="#d4d8e2" stroke-width="1"/>
+        <line x1="80" y1="170" x2="1340" y2="170" stroke="#d4d8e2" stroke-width="1"/>
+        <line x1="80" y1="300" x2="1340" y2="300" stroke="#d4d8e2" stroke-width="1"/>
+        <line x1="80" y1="430" x2="1340" y2="430" stroke="#d4d8e2" stroke-width="1"/>
+        <line x1="80" y1="560" x2="1340" y2="560" stroke="#d4d8e2" stroke-width="1"/>
+        <line x1="80" y1="850" x2="1340" y2="850" stroke="#d4d8e2" stroke-width="1"/>
+        <line x1="80" y1="40" x2="80" y2="850" stroke="#d4d8e2" stroke-width="1"/>
 
         <!-- ─── STEP 1: Process Order Released (Planner lane) ─── -->
-        <rect x="100" y="62" width="140" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
-        <rect x="100" y="62" width="140" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
-        <text x="170" y="75" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 1</text>
-        <text x="170" y="92" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Process Order</text>
-        <text x="170" y="107" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Released</text>
-        <rect x="112" y="108" width="56" height="16" rx="3" fill="#0e1f35"/>
-        <text x="140" y="119" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">COR2</text>
+        <rect x="100" y="62" width="140" height="56" rx="5" fill="#e8f5ea" stroke="#1a7a2a" stroke-width="1.5"/>
+        <rect x="100" y="62" width="140" height="14" rx="5" fill="#1a7a2a" opacity="0.3"/>
+        <text x="170" y="75" font-size="9" fill="#1a7a2a" text-anchor="middle" font-weight="600">STEP 1</text>
+        <text x="170" y="92" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Process Order</text>
+        <text x="170" y="107" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Released</text>
+        <rect x="112" y="108" width="56" height="16" rx="3" fill="#e2ecf8"/>
+        <text x="140" y="119" font-size="10" fill="#1558b0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">COR2</text>
 
         <!-- flow right → Step 2 -->
-        <line x1="240" y1="90" x2="278" y2="90" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#p-ab)"/>
+        <line x1="240" y1="90" x2="278" y2="90" stroke="#1558b0" stroke-width="1.5" marker-end="url(#p-ab)"/>
 
         <!-- ─── STEP 2: Reservations (Planner lane) ─── -->
-        <rect x="280" y="62" width="140" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
-        <rect x="280" y="62" width="140" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
-        <text x="350" y="75" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 2</text>
-        <text x="350" y="92" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Reservations</text>
-        <text x="350" y="107" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Auto-Generated</text>
-        <rect x="292" y="108" width="56" height="16" rx="3" fill="#0e1f35"/>
-        <text x="320" y="119" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">MB26</text>
+        <rect x="280" y="62" width="140" height="56" rx="5" fill="#e8f5ea" stroke="#1a7a2a" stroke-width="1.5"/>
+        <rect x="280" y="62" width="140" height="14" rx="5" fill="#1a7a2a" opacity="0.3"/>
+        <text x="350" y="75" font-size="9" fill="#1a7a2a" text-anchor="middle" font-weight="600">STEP 2</text>
+        <text x="350" y="92" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Reservations</text>
+        <text x="350" y="107" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Auto-Generated</text>
+        <rect x="292" y="108" width="56" height="16" rx="3" fill="#e2ecf8"/>
+        <text x="320" y="119" font-size="10" fill="#1558b0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">MB26</text>
 
         <!-- flow down → Step 3 (Warehouse lane) -->
-        <line x1="350" y1="118" x2="350" y2="192" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#p-ab)"/>
+        <line x1="350" y1="118" x2="350" y2="192" stroke="#1558b0" stroke-width="1.5" marker-end="url(#p-ab)"/>
 
         <!-- ─── STEP 3: Warehouse Tasks (Warehouse lane) ─── -->
-        <rect x="280" y="192" width="140" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
-        <rect x="280" y="192" width="140" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
-        <text x="350" y="205" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 3</text>
-        <text x="350" y="222" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Warehouse Tasks</text>
-        <text x="350" y="237" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Assigned</text>
-        <rect x="284" y="238" width="84" height="16" rx="3" fill="#0e1f35"/>
-        <text x="326" y="249" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">CO27/LT0A</text>
+        <rect x="280" y="192" width="140" height="56" rx="5" fill="#e8f5ea" stroke="#1a7a2a" stroke-width="1.5"/>
+        <rect x="280" y="192" width="140" height="14" rx="5" fill="#1a7a2a" opacity="0.3"/>
+        <text x="350" y="205" font-size="9" fill="#1a7a2a" text-anchor="middle" font-weight="600">STEP 3</text>
+        <text x="350" y="222" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Warehouse Tasks</text>
+        <text x="350" y="237" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Assigned</text>
+        <rect x="284" y="238" width="84" height="16" rx="3" fill="#e2ecf8"/>
+        <text x="326" y="249" font-size="10" fill="#1558b0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">CO27/LT0A</text>
 
         <!-- flow right → Step 4 checkpoint -->
-        <line x1="420" y1="220" x2="458" y2="220" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#p-ab)"/>
+        <line x1="420" y1="220" x2="458" y2="220" stroke="#1558b0" stroke-width="1.5" marker-end="url(#p-ab)"/>
 
         <!-- ─── STEP 4: CHECKPOINT — Components Staged (Warehouse) ─── -->
-        <rect x="460" y="192" width="150" height="66" rx="5" fill="#2d2510" stroke="#c8a84b" stroke-width="2"/>
-        <rect x="460" y="192" width="150" height="14" rx="5" fill="#c8a84b" opacity="0.35"/>
-        <text x="535" y="205" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="700">⚑ CHECKPOINT</text>
-        <text x="535" y="222" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Components</text>
-        <text x="535" y="237" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Staged to Line</text>
-        <text x="535" y="251" font-size="10" fill="#a8a49c" text-anchor="middle">Verify qty, UoM, material</text>
+        <rect x="460" y="192" width="150" height="66" rx="5" fill="#fdf3d0" stroke="#8a6200" stroke-width="2"/>
+        <rect x="460" y="192" width="150" height="14" rx="5" fill="#8a6200" opacity="0.35"/>
+        <text x="535" y="205" font-size="9" fill="#8a6200" text-anchor="middle" font-weight="700">⚑ CHECKPOINT</text>
+        <text x="535" y="222" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Components</text>
+        <text x="535" y="237" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Staged to Line</text>
+        <text x="535" y="251" font-size="10" fill="#46505f" text-anchor="middle">Verify qty, UoM, material</text>
 
         <!-- DECISION DIAMOND — correct? -->
-        <polygon points="535,272 565,292 535,312 505,292" fill="#2d2510" stroke="#c8a84b" stroke-width="1.5"/>
-        <text x="535" y="289" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="600">Correct?</text>
-        <line x1="535" y1="258" x2="535" y2="272" stroke="#c8a84b" stroke-width="1.5"/>
+        <polygon points="535,272 565,292 535,312 505,292" fill="#fdf3d0" stroke="#8a6200" stroke-width="1.5"/>
+        <text x="535" y="289" font-size="9" fill="#8a6200" text-anchor="middle" font-weight="600">Correct?</text>
+        <line x1="535" y1="258" x2="535" y2="272" stroke="#8a6200" stroke-width="1.5"/>
         <!-- YES → right -->
-        <line x1="565" y1="292" x2="618" y2="292" stroke="#39b54a" stroke-width="1.5" marker-end="url(#p-ag)"/>
-        <text x="590" y="287" font-size="9" fill="#39b54a" text-anchor="middle">YES</text>
+        <line x1="565" y1="292" x2="618" y2="292" stroke="#1a7a2a" stroke-width="1.5" marker-end="url(#p-ag)"/>
+        <text x="590" y="287" font-size="9" fill="#1a7a2a" text-anchor="middle">YES</text>
         <!-- NO → down to RCA -->
-        <line x1="535" y1="312" x2="535" y2="580" stroke="#e05c3a" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#p-ac)"/>
-        <text x="543" y="450" font-size="9" fill="#e05c3a">NO</text>
+        <line x1="535" y1="312" x2="535" y2="580" stroke="#b83218" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#p-ac)"/>
+        <text x="543" y="450" font-size="9" fill="#b83218">NO</text>
 
         <!-- ─── STEP 5: Goods Issue 261 (Warehouse lane, YES path) ─── -->
-        <rect x="620" y="192" width="140" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
-        <rect x="620" y="192" width="140" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
-        <text x="690" y="205" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 5</text>
-        <text x="690" y="222" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Goods Issue</text>
-        <text x="690" y="237" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">MT 261</text>
-        <rect x="634" y="238" width="84" height="16" rx="3" fill="#0e1f35"/>
-        <text x="676" y="249" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">MIGO·261</text>
+        <rect x="620" y="192" width="140" height="56" rx="5" fill="#e8f5ea" stroke="#1a7a2a" stroke-width="1.5"/>
+        <rect x="620" y="192" width="140" height="14" rx="5" fill="#1a7a2a" opacity="0.3"/>
+        <text x="690" y="205" font-size="9" fill="#1a7a2a" text-anchor="middle" font-weight="600">STEP 5</text>
+        <text x="690" y="222" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Goods Issue</text>
+        <text x="690" y="237" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">MT 261</text>
+        <rect x="634" y="238" width="84" height="16" rx="3" fill="#e2ecf8"/>
+        <text x="676" y="249" font-size="10" fill="#1558b0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">MIGO·261</text>
         <!-- connect from YES -->
-        <line x1="690" y1="270" x2="690" y2="322" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#p-ab)"/>
+        <line x1="690" y1="270" x2="690" y2="322" stroke="#1558b0" stroke-width="1.5" marker-end="url(#p-ab)"/>
 
         <!-- ─── STEP 6: Production Execution (Production lane) ─── -->
-        <rect x="620" y="322" width="140" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
-        <rect x="620" y="322" width="140" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
-        <text x="690" y="335" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 6</text>
-        <text x="690" y="352" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Production</text>
-        <text x="690" y="367" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Execution</text>
-        <line x1="690" y1="378" x2="690" y2="432" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#p-ab)"/>
+        <rect x="620" y="322" width="140" height="56" rx="5" fill="#e8f5ea" stroke="#1a7a2a" stroke-width="1.5"/>
+        <rect x="620" y="322" width="140" height="14" rx="5" fill="#1a7a2a" opacity="0.3"/>
+        <text x="690" y="335" font-size="9" fill="#1a7a2a" text-anchor="middle" font-weight="600">STEP 6</text>
+        <text x="690" y="352" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Production</text>
+        <text x="690" y="367" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Execution</text>
+        <line x1="690" y1="378" x2="690" y2="432" stroke="#1558b0" stroke-width="1.5" marker-end="url(#p-ab)"/>
 
         <!-- ─── STEP 7: CHECKPOINT — Yield Check (Production lane) ─── -->
-        <rect x="620" y="432" width="150" height="66" rx="5" fill="#2d2510" stroke="#c8a84b" stroke-width="2"/>
-        <rect x="620" y="432" width="150" height="14" rx="5" fill="#c8a84b" opacity="0.35"/>
-        <text x="695" y="445" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="700">⚑ CHECKPOINT</text>
-        <text x="695" y="462" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Yield Check</text>
-        <text x="695" y="477" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Actual vs. Order</text>
-        <text x="695" y="491" font-size="10" fill="#a8a49c" text-anchor="middle">COR3 comparison</text>
+        <rect x="620" y="432" width="150" height="66" rx="5" fill="#fdf3d0" stroke="#8a6200" stroke-width="2"/>
+        <rect x="620" y="432" width="150" height="14" rx="5" fill="#8a6200" opacity="0.35"/>
+        <text x="695" y="445" font-size="9" fill="#8a6200" text-anchor="middle" font-weight="700">⚑ CHECKPOINT</text>
+        <text x="695" y="462" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Yield Check</text>
+        <text x="695" y="477" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Actual vs. Order</text>
+        <text x="695" y="491" font-size="10" fill="#46505f" text-anchor="middle">COR3 comparison</text>
 
         <!-- DECISION DIAMOND -->
-        <polygon points="695,510 725,530 695,550 665,530" fill="#2d2510" stroke="#c8a84b" stroke-width="1.5"/>
-        <text x="695" y="527" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="600">Match?</text>
-        <line x1="695" y1="498" x2="695" y2="510" stroke="#c8a84b" stroke-width="1.5"/>
+        <polygon points="695,510 725,530 695,550 665,530" fill="#fdf3d0" stroke="#8a6200" stroke-width="1.5"/>
+        <text x="695" y="527" font-size="9" fill="#8a6200" text-anchor="middle" font-weight="600">Match?</text>
+        <line x1="695" y1="498" x2="695" y2="510" stroke="#8a6200" stroke-width="1.5"/>
         <!-- YES → right -->
-        <line x1="725" y1="530" x2="778" y2="530" stroke="#39b54a" stroke-width="1.5" marker-end="url(#p-ag)"/>
-        <text x="750" y="525" font-size="9" fill="#39b54a" text-anchor="middle">YES</text>
+        <line x1="725" y1="530" x2="778" y2="530" stroke="#1a7a2a" stroke-width="1.5" marker-end="url(#p-ag)"/>
+        <text x="750" y="525" font-size="9" fill="#1a7a2a" text-anchor="middle">YES</text>
         <!-- NO → down RCA -->
-        <line x1="695" y1="550" x2="695" y2="580" stroke="#e05c3a" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#p-ac)"/>
-        <text x="703" y="568" font-size="9" fill="#e05c3a">NO</text>
+        <line x1="695" y1="550" x2="695" y2="580" stroke="#b83218" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#p-ac)"/>
+        <text x="703" y="568" font-size="9" fill="#b83218">NO</text>
 
         <!-- ─── STEP 8: GR Finished Goods (Production lane YES) ─── -->
-        <rect x="780" y="450" width="140" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
-        <rect x="780" y="450" width="140" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
-        <text x="850" y="463" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 8</text>
-        <text x="850" y="480" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">GR Finished Goods</text>
-        <text x="850" y="495" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">MT 101</text>
-        <rect x="794" y="496" width="84" height="16" rx="3" fill="#0e1f35"/>
-        <text x="836" y="507" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">MIGO·101</text>
+        <rect x="780" y="450" width="140" height="56" rx="5" fill="#e8f5ea" stroke="#1a7a2a" stroke-width="1.5"/>
+        <rect x="780" y="450" width="140" height="14" rx="5" fill="#1a7a2a" opacity="0.3"/>
+        <text x="850" y="463" font-size="9" fill="#1a7a2a" text-anchor="middle" font-weight="600">STEP 8</text>
+        <text x="850" y="480" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">GR Finished Goods</text>
+        <text x="850" y="495" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">MT 101</text>
+        <rect x="794" y="496" width="84" height="16" rx="3" fill="#e2ecf8"/>
+        <text x="836" y="507" font-size="10" fill="#1558b0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">MIGO·101</text>
 
         <!-- ─── STEP 9: CHECKPOINT — IC Verify Putaway ─── -->
-        <line x1="920" y1="478" x2="958" y2="478" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#p-ab)"/>
-        <rect x="960" y="452" width="150" height="66" rx="5" fill="#2d2510" stroke="#c8a84b" stroke-width="2"/>
-        <rect x="960" y="452" width="150" height="14" rx="5" fill="#c8a84b" opacity="0.35"/>
-        <text x="1035" y="465" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="700">⚑ IC CHECKPOINT</text>
-        <text x="1035" y="482" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Putaway &amp;</text>
-        <text x="1035" y="497" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Stock Verify</text>
-        <text x="1035" y="511" font-size="10" fill="#a8a49c" text-anchor="middle">MMBE confirmation</text>
+        <line x1="920" y1="478" x2="958" y2="478" stroke="#1558b0" stroke-width="1.5" marker-end="url(#p-ab)"/>
+        <rect x="960" y="452" width="150" height="66" rx="5" fill="#fdf3d0" stroke="#8a6200" stroke-width="2"/>
+        <rect x="960" y="452" width="150" height="14" rx="5" fill="#8a6200" opacity="0.35"/>
+        <text x="1035" y="465" font-size="9" fill="#8a6200" text-anchor="middle" font-weight="700">⚑ IC CHECKPOINT</text>
+        <text x="1035" y="482" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Putaway &amp;</text>
+        <text x="1035" y="497" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Stock Verify</text>
+        <text x="1035" y="511" font-size="10" fill="#46505f" text-anchor="middle">MMBE confirmation</text>
         <!-- DECISION -->
-        <polygon points="1035,530 1065,550 1035,570 1005,550" fill="#2d2510" stroke="#c8a84b" stroke-width="1.5"/>
-        <text x="1035" y="547" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="600">Correct loc?</text>
-        <line x1="1035" y1="518" x2="1035" y2="530" stroke="#c8a84b" stroke-width="1.5"/>
+        <polygon points="1035,530 1065,550 1035,570 1005,550" fill="#fdf3d0" stroke="#8a6200" stroke-width="1.5"/>
+        <text x="1035" y="547" font-size="9" fill="#8a6200" text-anchor="middle" font-weight="600">Correct loc?</text>
+        <line x1="1035" y1="518" x2="1035" y2="530" stroke="#8a6200" stroke-width="1.5"/>
         <!-- YES → right -->
-        <line x1="1065" y1="550" x2="1118" y2="550" stroke="#39b54a" stroke-width="1.5" marker-end="url(#p-ag)"/>
-        <text x="1090" y="545" font-size="9" fill="#39b54a" text-anchor="middle">YES</text>
+        <line x1="1065" y1="550" x2="1118" y2="550" stroke="#1a7a2a" stroke-width="1.5" marker-end="url(#p-ag)"/>
+        <text x="1090" y="545" font-size="9" fill="#1a7a2a" text-anchor="middle">YES</text>
         <!-- NO → down -->
-        <line x1="1035" y1="570" x2="1035" y2="580" stroke="#e05c3a" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#p-ac)"/>
-        <text x="1043" y="577" font-size="9" fill="#e05c3a">NO</text>
+        <line x1="1035" y1="570" x2="1035" y2="580" stroke="#b83218" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#p-ac)"/>
+        <text x="1043" y="577" font-size="9" fill="#b83218">NO</text>
 
         <!-- ─── STEP 10: TECO / Settlement ─── -->
-        <rect x="1120" y="462" width="150" height="70" rx="5" fill="#1e1535" stroke="#9b6dff" stroke-width="2"/>
-        <rect x="1120" y="462" width="150" height="14" rx="5" fill="#9b6dff" opacity="0.3"/>
-        <text x="1195" y="475" font-size="9" fill="#9b6dff" text-anchor="middle" font-weight="600">STEP 10</text>
-        <text x="1195" y="493" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">TECO &amp;</text>
-        <text x="1195" y="508" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Settlement</text>
-        <rect x="1132" y="519" width="106" height="16" rx="3" fill="#0e1f35"/>
-        <text x="1185" y="530" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">COR2 → KO88</text>
+        <rect x="1120" y="462" width="150" height="70" rx="5" fill="#ede8fa" stroke="#5c34b0" stroke-width="2"/>
+        <rect x="1120" y="462" width="150" height="14" rx="5" fill="#5c34b0" opacity="0.3"/>
+        <text x="1195" y="475" font-size="9" fill="#5c34b0" text-anchor="middle" font-weight="600">STEP 10</text>
+        <text x="1195" y="493" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">TECO &amp;</text>
+        <text x="1195" y="508" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Settlement</text>
+        <rect x="1132" y="519" width="106" height="16" rx="3" fill="#e2ecf8"/>
+        <text x="1185" y="530" font-size="10" fill="#1558b0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">COR2 → KO88</text>
 
         <!-- ═══ RCA LANE ═══ -->
         <!-- RCA 1: Staging Error -->
-        <rect x="460" y="580" width="210" height="96" rx="5" fill="#2d150e" stroke="#e05c3a" stroke-width="1.5"/>
-        <text x="565" y="600" font-size="10" fill="#e05c3a" text-anchor="middle" font-weight="700">RCA: Staging Error</text>
-        <text x="475" y="618" font-size="10" fill="#a8a49c">→ BOM qty wrong? (CS03)</text>
-        <text x="475" y="634" font-size="10" fill="#a8a49c">→ UoM mismatch? (cases/lbs)</text>
-        <text x="475" y="650" font-size="10" fill="#a8a49c">→ Wrong material pulled?</text>
-        <text x="475" y="666" font-size="11" fill="#39b54a" font-weight="600">✓ Fix physical · Reverse MT 262</text>
+        <rect x="460" y="580" width="210" height="96" rx="5" fill="#fce8e3" stroke="#b83218" stroke-width="1.5"/>
+        <text x="565" y="600" font-size="10" fill="#b83218" text-anchor="middle" font-weight="700">RCA: Staging Error</text>
+        <text x="475" y="618" font-size="10" fill="#46505f">→ BOM qty wrong? (CS03)</text>
+        <text x="475" y="634" font-size="10" fill="#46505f">→ UoM mismatch? (cases/lbs)</text>
+        <text x="475" y="650" font-size="10" fill="#46505f">→ Wrong material pulled?</text>
+        <text x="475" y="666" font-size="11" fill="#1a7a2a" font-weight="600">✓ Fix physical · Reverse MT 262</text>
 
         <!-- RCA 2: Yield Variance -->
-        <rect x="620" y="580" width="210" height="96" rx="5" fill="#2d150e" stroke="#e05c3a" stroke-width="1.5"/>
-        <text x="725" y="600" font-size="10" fill="#e05c3a" text-anchor="middle" font-weight="700">RCA: Yield Variance</text>
-        <text x="635" y="618" font-size="10" fill="#a8a49c">→ Scrap not recorded?</text>
-        <text x="635" y="634" font-size="10" fill="#a8a49c">→ Recipe deviation? (QA)</text>
-        <text x="635" y="650" font-size="10" fill="#a8a49c">→ Scale calibration off?</text>
-        <text x="635" y="666" font-size="11" fill="#39b54a" font-weight="600">✓ MT 551 scrap · Reverse 262</text>
+        <rect x="620" y="580" width="210" height="96" rx="5" fill="#fce8e3" stroke="#b83218" stroke-width="1.5"/>
+        <text x="725" y="600" font-size="10" fill="#b83218" text-anchor="middle" font-weight="700">RCA: Yield Variance</text>
+        <text x="635" y="618" font-size="10" fill="#46505f">→ Scrap not recorded?</text>
+        <text x="635" y="634" font-size="10" fill="#46505f">→ Recipe deviation? (QA)</text>
+        <text x="635" y="650" font-size="10" fill="#46505f">→ Scale calibration off?</text>
+        <text x="635" y="666" font-size="11" fill="#1a7a2a" font-weight="600">✓ MT 551 scrap · Reverse 262</text>
 
         <!-- RCA 3: Wrong Location -->
-        <rect x="960" y="580" width="210" height="96" rx="5" fill="#2d150e" stroke="#e05c3a" stroke-width="1.5"/>
-        <text x="1065" y="600" font-size="10" fill="#e05c3a" text-anchor="middle" font-weight="700">RCA: Wrong Location</text>
-        <text x="975" y="618" font-size="10" fill="#a8a49c">→ GR posted to RM location?</text>
-        <text x="975" y="634" font-size="10" fill="#a8a49c">→ Wrong loc in MIGO?</text>
-        <text x="975" y="650" font-size="10" fill="#a8a49c">→ Material master default?</text>
-        <text x="975" y="666" font-size="11" fill="#39b54a" font-weight="600">✓ Reverse MT 102 · Repost / MT 311</text>
+        <rect x="960" y="580" width="210" height="96" rx="5" fill="#fce8e3" stroke="#b83218" stroke-width="1.5"/>
+        <text x="1065" y="600" font-size="10" fill="#b83218" text-anchor="middle" font-weight="700">RCA: Wrong Location</text>
+        <text x="975" y="618" font-size="10" fill="#46505f">→ GR posted to RM location?</text>
+        <text x="975" y="634" font-size="10" fill="#46505f">→ Wrong loc in MIGO?</text>
+        <text x="975" y="650" font-size="10" fill="#46505f">→ Material master default?</text>
+        <text x="975" y="666" font-size="11" fill="#1a7a2a" font-weight="600">✓ Reverse MT 102 · Repost / MT 311</text>
 
         <!-- IC Daily check bar -->
-        <rect x="100" y="766" width="1220" height="44" rx="5" fill="#0e1f35" stroke="#4a9eff" stroke-width="1" stroke-dasharray="5 3"/>
-        <text x="120" y="784" font-size="10" fill="#4a9eff" font-weight="700" letter-spacing="1">⚑ IC DAILY CHECKS</text>
-        <text x="120" y="800" font-size="11" fill="#a8a49c">MB51 → MT 261: verify component issues match BOM  ·  MB51 → MT 101: confirm FG GR posted same day  ·  MMBE: verify FG stock in correct location after every production run</text>
+        <rect x="100" y="766" width="1220" height="44" rx="5" fill="#e2ecf8" stroke="#1558b0" stroke-width="1" stroke-dasharray="5 3"/>
+        <text x="120" y="784" font-size="10" fill="#1558b0" font-weight="700" letter-spacing="1">⚑ IC DAILY CHECKS</text>
+        <text x="120" y="800" font-size="11" fill="#46505f">MB51 → MT 261: verify component issues match BOM  ·  MB51 → MT 101: confirm FG GR posted same day  ·  MMBE: verify FG stock in correct location after every production run</text>
       </svg>
     </div><!-- /dpanel-production -->
 
     <!-- ════════════ RECEIVING DIAGRAM ════════════ -->
-    <div id="dpanel-receiving" style="display:none;padding:28px 32px;overflow-x:auto;">
-      <svg viewBox="0 0 1340 820" xmlns="http://www.w3.org/2000/svg" style="min-width:900px;width:100%;height:auto;font-family:'Inter',sans-serif;">
+    <div id="dpanel-receiving" style="display:none;padding:0;overflow-x:auto;">
+      <svg viewBox="0 0 1340 820" xmlns="http://www.w3.org/2000/svg" style="min-width:960px;width:100%;height:auto;font-family:'Inter',sans-serif;">
         <defs>
-          <marker id="r-ab" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#4a9eff"/></marker>
-          <marker id="r-ac" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#e05c3a"/></marker>
-          <marker id="r-ag" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#39b54a"/></marker>
+          <marker id="r-ab" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#1558b0"/></marker>
+          <marker id="r-ac" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#b83218"/></marker>
+          <marker id="r-ag" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#1a7a2a"/></marker>
         </defs>
-        <rect width="1340" height="820" fill="#0D1117"/>
+        <rect width="1340" height="820" fill="#f4f6f9"/>
 
         <!-- Swim lane labels -->
-        <rect x="0" y="40" width="80" height="130" fill="#161b22"/><text x="40" y="108" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,108)" font-weight="600" letter-spacing="1">PURCHASING</text>
-        <rect x="0" y="170" width="80" height="130" fill="#0D1117"/><text x="40" y="238" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,238)" font-weight="600" letter-spacing="1">RECEIVING</text>
-        <rect x="0" y="300" width="80" height="130" fill="#161b22"/><text x="40" y="368" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,368)" font-weight="600" letter-spacing="1">IC LEAD</text>
-        <rect x="0" y="430" width="80" height="130" fill="#0D1117"/><text x="40" y="498" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,498)" font-weight="600" letter-spacing="1">AP / FINANCE</text>
-        <rect x="0" y="560" width="80" height="240" fill="#161b22"/><text x="40" y="682" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,682)" font-weight="600" letter-spacing="1">RCA / RESOLUTION</text>
-        <line x1="80" y1="40" x2="1340" y2="40" stroke="#2a3040" stroke-width="1"/>
-        <line x1="80" y1="170" x2="1340" y2="170" stroke="#2a3040" stroke-width="1"/>
-        <line x1="80" y1="300" x2="1340" y2="300" stroke="#2a3040" stroke-width="1"/>
-        <line x1="80" y1="430" x2="1340" y2="430" stroke="#2a3040" stroke-width="1"/>
-        <line x1="80" y1="560" x2="1340" y2="560" stroke="#2a3040" stroke-width="1"/>
-        <line x1="80" y1="800" x2="1340" y2="800" stroke="#2a3040" stroke-width="1"/>
-        <line x1="80" y1="40" x2="80" y2="800" stroke="#2a3040" stroke-width="1"/>
+        <rect x="0" y="40" width="80" height="130" fill="#ffffff"/><text x="40" y="108" font-size="10" fill="#828899" text-anchor="middle" transform="rotate(-90,40,108)" font-weight="600" letter-spacing="1">PURCHASING</text>
+        <rect x="0" y="170" width="80" height="130" fill="#f4f6f9"/><text x="40" y="238" font-size="10" fill="#828899" text-anchor="middle" transform="rotate(-90,40,238)" font-weight="600" letter-spacing="1">RECEIVING</text>
+        <rect x="0" y="300" width="80" height="130" fill="#ffffff"/><text x="40" y="368" font-size="10" fill="#828899" text-anchor="middle" transform="rotate(-90,40,368)" font-weight="600" letter-spacing="1">IC LEAD</text>
+        <rect x="0" y="430" width="80" height="130" fill="#f4f6f9"/><text x="40" y="498" font-size="10" fill="#828899" text-anchor="middle" transform="rotate(-90,40,498)" font-weight="600" letter-spacing="1">AP / FINANCE</text>
+        <rect x="0" y="560" width="80" height="240" fill="#ffffff"/><text x="40" y="682" font-size="10" fill="#828899" text-anchor="middle" transform="rotate(-90,40,682)" font-weight="600" letter-spacing="1">RCA / RESOLUTION</text>
+        <line x1="80" y1="40" x2="1340" y2="40" stroke="#d4d8e2" stroke-width="1"/>
+        <line x1="80" y1="170" x2="1340" y2="170" stroke="#d4d8e2" stroke-width="1"/>
+        <line x1="80" y1="300" x2="1340" y2="300" stroke="#d4d8e2" stroke-width="1"/>
+        <line x1="80" y1="430" x2="1340" y2="430" stroke="#d4d8e2" stroke-width="1"/>
+        <line x1="80" y1="560" x2="1340" y2="560" stroke="#d4d8e2" stroke-width="1"/>
+        <line x1="80" y1="800" x2="1340" y2="800" stroke="#d4d8e2" stroke-width="1"/>
+        <line x1="80" y1="40" x2="80" y2="800" stroke="#d4d8e2" stroke-width="1"/>
 
         <!-- STEP 1: PO Exists (Purchasing) -->
-        <rect x="100" y="72" width="130" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
-        <rect x="100" y="72" width="130" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
-        <text x="165" y="85" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 1</text>
-        <text x="165" y="102" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Purchase Order</text>
-        <text x="165" y="117" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Exists</text>
-        <rect x="113" y="118" width="56" height="14" rx="3" fill="#0e1f35"/>
-        <text x="141" y="128" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">ME23N</text>
-        <line x1="230" y1="100" x2="268" y2="100" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#r-ab)"/>
+        <rect x="100" y="72" width="130" height="56" rx="5" fill="#e8f5ea" stroke="#1a7a2a" stroke-width="1.5"/>
+        <rect x="100" y="72" width="130" height="14" rx="5" fill="#1a7a2a" opacity="0.3"/>
+        <text x="165" y="85" font-size="9" fill="#1a7a2a" text-anchor="middle" font-weight="600">STEP 1</text>
+        <text x="165" y="102" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Purchase Order</text>
+        <text x="165" y="117" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Exists</text>
+        <rect x="113" y="118" width="56" height="14" rx="3" fill="#e2ecf8"/>
+        <text x="141" y="128" font-size="10" fill="#1558b0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">ME23N</text>
+        <line x1="230" y1="100" x2="268" y2="100" stroke="#1558b0" stroke-width="1.5" marker-end="url(#r-ab)"/>
 
         <!-- STEP 2: CHECKPOINT Dock Verify (Receiving) -->
-        <rect x="270" y="182" width="150" height="66" rx="5" fill="#2d2510" stroke="#c8a84b" stroke-width="2"/>
-        <rect x="270" y="182" width="150" height="14" rx="5" fill="#c8a84b" opacity="0.35"/>
-        <text x="345" y="195" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="700">⚑ CHECKPOINT</text>
-        <text x="345" y="213" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Dock Verification</text>
-        <text x="345" y="228" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Material · Qty · Cond.</text>
-        <text x="345" y="242" font-size="10" fill="#a8a49c" text-anchor="middle">vs. PO before posting</text>
+        <rect x="270" y="182" width="150" height="66" rx="5" fill="#fdf3d0" stroke="#8a6200" stroke-width="2"/>
+        <rect x="270" y="182" width="150" height="14" rx="5" fill="#8a6200" opacity="0.35"/>
+        <text x="345" y="195" font-size="9" fill="#8a6200" text-anchor="middle" font-weight="700">⚑ CHECKPOINT</text>
+        <text x="345" y="213" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Dock Verification</text>
+        <text x="345" y="228" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Material · Qty · Cond.</text>
+        <text x="345" y="242" font-size="10" fill="#46505f" text-anchor="middle">vs. PO before posting</text>
         <!-- bridge from step 1 (Purchasing) down to Receiving lane -->
-        <line x1="270" y1="100" x2="270" y2="215" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#r-ab)"/>
+        <line x1="270" y1="100" x2="270" y2="215" stroke="#1558b0" stroke-width="1.5" marker-end="url(#r-ab)"/>
 
         <!-- DECISION: Matches PO? -->
-        <polygon points="345,256 380,278 345,300 310,278" fill="#2d2510" stroke="#c8a84b" stroke-width="1.5"/>
-        <text x="345" y="274" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="600">Matches PO?</text>
-        <line x1="345" y1="248" x2="345" y2="256" stroke="#c8a84b" stroke-width="1.5"/>
+        <polygon points="345,256 380,278 345,300 310,278" fill="#fdf3d0" stroke="#8a6200" stroke-width="1.5"/>
+        <text x="345" y="274" font-size="9" fill="#8a6200" text-anchor="middle" font-weight="600">Matches PO?</text>
+        <line x1="345" y1="248" x2="345" y2="256" stroke="#8a6200" stroke-width="1.5"/>
         <!-- YES → right -->
-        <line x1="380" y1="278" x2="448" y2="278" stroke="#39b54a" stroke-width="1.5" marker-end="url(#r-ag)"/>
-        <text x="412" y="273" font-size="9" fill="#39b54a" text-anchor="middle">YES</text>
+        <line x1="380" y1="278" x2="448" y2="278" stroke="#1a7a2a" stroke-width="1.5" marker-end="url(#r-ag)"/>
+        <text x="412" y="273" font-size="9" fill="#1a7a2a" text-anchor="middle">YES</text>
         <!-- NO → down RCA -->
-        <line x1="345" y1="300" x2="345" y2="580" stroke="#e05c3a" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#r-ac)"/>
-        <text x="353" y="440" font-size="9" fill="#e05c3a">NO</text>
+        <line x1="345" y1="300" x2="345" y2="580" stroke="#b83218" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#r-ac)"/>
+        <text x="353" y="440" font-size="9" fill="#b83218">NO</text>
 
         <!-- STEP 3: Post GR MT 101 (Receiving) -->
-        <rect x="450" y="192" width="130" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
-        <rect x="450" y="192" width="130" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
-        <text x="515" y="205" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 3</text>
-        <text x="515" y="222" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Post GR</text>
-        <text x="515" y="237" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">MT 101</text>
-        <rect x="463" y="238" width="84" height="16" rx="3" fill="#0e1f35"/>
-        <text x="505" y="249" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">MIGO·101</text>
-        <line x1="580" y1="220" x2="618" y2="220" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#r-ab)"/>
+        <rect x="450" y="192" width="130" height="56" rx="5" fill="#e8f5ea" stroke="#1a7a2a" stroke-width="1.5"/>
+        <rect x="450" y="192" width="130" height="14" rx="5" fill="#1a7a2a" opacity="0.3"/>
+        <text x="515" y="205" font-size="9" fill="#1a7a2a" text-anchor="middle" font-weight="600">STEP 3</text>
+        <text x="515" y="222" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Post GR</text>
+        <text x="515" y="237" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">MT 101</text>
+        <rect x="463" y="238" width="84" height="16" rx="3" fill="#e2ecf8"/>
+        <text x="505" y="249" font-size="10" fill="#1558b0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">MIGO·101</text>
+        <line x1="580" y1="220" x2="618" y2="220" stroke="#1558b0" stroke-width="1.5" marker-end="url(#r-ab)"/>
 
         <!-- STEP 4: CHECKPOINT Validate Mat Doc (IC) -->
-        <rect x="620" y="192" width="150" height="66" rx="5" fill="#2d2510" stroke="#c8a84b" stroke-width="2"/>
-        <rect x="620" y="192" width="150" height="14" rx="5" fill="#c8a84b" opacity="0.35"/>
-        <text x="695" y="205" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="700">⚑ IC CHECKPOINT</text>
-        <text x="695" y="222" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Validate Material</text>
-        <text x="695" y="237" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Document</text>
-        <text x="695" y="251" font-size="10" fill="#a8a49c" text-anchor="middle">Qty · UoM · Loc · Batch</text>
+        <rect x="620" y="192" width="150" height="66" rx="5" fill="#fdf3d0" stroke="#8a6200" stroke-width="2"/>
+        <rect x="620" y="192" width="150" height="14" rx="5" fill="#8a6200" opacity="0.35"/>
+        <text x="695" y="205" font-size="9" fill="#8a6200" text-anchor="middle" font-weight="700">⚑ IC CHECKPOINT</text>
+        <text x="695" y="222" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Validate Material</text>
+        <text x="695" y="237" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Document</text>
+        <text x="695" y="251" font-size="10" fill="#46505f" text-anchor="middle">Qty · UoM · Loc · Batch</text>
         <!-- bridge to IC lane -->
-        <line x1="695" y1="258" x2="695" y2="320" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#r-ab)"/>
+        <line x1="695" y1="258" x2="695" y2="320" stroke="#1558b0" stroke-width="1.5" marker-end="url(#r-ab)"/>
 
         <!-- DECISION: Doc correct? -->
-        <polygon points="695,320 730,342 695,364 660,342" fill="#2d2510" stroke="#c8a84b" stroke-width="1.5"/>
-        <text x="695" y="338" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="600">Doc correct?</text>
+        <polygon points="695,320 730,342 695,364 660,342" fill="#fdf3d0" stroke="#8a6200" stroke-width="1.5"/>
+        <text x="695" y="338" font-size="9" fill="#8a6200" text-anchor="middle" font-weight="600">Doc correct?</text>
         <!-- YES right -->
-        <line x1="730" y1="342" x2="798" y2="342" stroke="#39b54a" stroke-width="1.5" marker-end="url(#r-ag)"/>
-        <text x="762" y="337" font-size="9" fill="#39b54a" text-anchor="middle">YES</text>
+        <line x1="730" y1="342" x2="798" y2="342" stroke="#1a7a2a" stroke-width="1.5" marker-end="url(#r-ag)"/>
+        <text x="762" y="337" font-size="9" fill="#1a7a2a" text-anchor="middle">YES</text>
         <!-- NO down -->
-        <line x1="695" y1="364" x2="695" y2="580" stroke="#e05c3a" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#r-ac)"/>
-        <text x="703" y="475" font-size="9" fill="#e05c3a">NO</text>
+        <line x1="695" y1="364" x2="695" y2="580" stroke="#b83218" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#r-ac)"/>
+        <text x="703" y="475" font-size="9" fill="#b83218">NO</text>
 
         <!-- STEP 5: CHECKPOINT Confirm Stock MMBE (IC lane) -->
-        <rect x="800" y="312" width="140" height="66" rx="5" fill="#2d2510" stroke="#c8a84b" stroke-width="2"/>
-        <rect x="800" y="312" width="140" height="14" rx="5" fill="#c8a84b" opacity="0.35"/>
-        <text x="870" y="325" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="700">⚑ IC CHECKPOINT</text>
-        <text x="870" y="342" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Confirm Stock</text>
-        <text x="870" y="357" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Updated MMBE</text>
-        <text x="870" y="371" font-size="10" fill="#a8a49c" text-anchor="middle">Unrestricted ↑ correct loc</text>
-        <line x1="870" y1="378" x2="870" y2="452" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#r-ab)"/>
+        <rect x="800" y="312" width="140" height="66" rx="5" fill="#fdf3d0" stroke="#8a6200" stroke-width="2"/>
+        <rect x="800" y="312" width="140" height="14" rx="5" fill="#8a6200" opacity="0.35"/>
+        <text x="870" y="325" font-size="9" fill="#8a6200" text-anchor="middle" font-weight="700">⚑ IC CHECKPOINT</text>
+        <text x="870" y="342" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Confirm Stock</text>
+        <text x="870" y="357" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Updated MMBE</text>
+        <text x="870" y="371" font-size="10" fill="#46505f" text-anchor="middle">Unrestricted ↑ correct loc</text>
+        <line x1="870" y1="378" x2="870" y2="452" stroke="#1558b0" stroke-width="1.5" marker-end="url(#r-ab)"/>
 
         <!-- STEP 6: Physical Putaway (Receiving lane) -->
-        <rect x="800" y="452" width="140" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
-        <rect x="800" y="452" width="140" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
-        <text x="870" y="465" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 6</text>
-        <text x="870" y="482" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Physical Putaway</text>
-        <text x="870" y="497" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Stock Available</text>
-        <line x1="940" y1="480" x2="978" y2="480" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#r-ab)"/>
+        <rect x="800" y="452" width="140" height="56" rx="5" fill="#e8f5ea" stroke="#1a7a2a" stroke-width="1.5"/>
+        <rect x="800" y="452" width="140" height="14" rx="5" fill="#1a7a2a" opacity="0.3"/>
+        <text x="870" y="465" font-size="9" fill="#1a7a2a" text-anchor="middle" font-weight="600">STEP 6</text>
+        <text x="870" y="482" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Physical Putaway</text>
+        <text x="870" y="497" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Stock Available</text>
+        <line x1="940" y1="480" x2="978" y2="480" stroke="#1558b0" stroke-width="1.5" marker-end="url(#r-ab)"/>
 
         <!-- STEP 7: Invoice Verification AP -->
-        <rect x="980" y="452" width="140" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
-        <rect x="980" y="452" width="140" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
-        <text x="1050" y="465" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 7</text>
-        <text x="1050" y="482" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Invoice Verification</text>
-        <text x="1050" y="497" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">3-Way Match</text>
-        <rect x="994" y="498" width="56" height="14" rx="3" fill="#0e1f35"/>
-        <text x="1022" y="508" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">MIRO</text>
+        <rect x="980" y="452" width="140" height="56" rx="5" fill="#e8f5ea" stroke="#1a7a2a" stroke-width="1.5"/>
+        <rect x="980" y="452" width="140" height="14" rx="5" fill="#1a7a2a" opacity="0.3"/>
+        <text x="1050" y="465" font-size="9" fill="#1a7a2a" text-anchor="middle" font-weight="600">STEP 7</text>
+        <text x="1050" y="482" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Invoice Verification</text>
+        <text x="1050" y="497" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">3-Way Match</text>
+        <rect x="994" y="498" width="56" height="14" rx="3" fill="#e2ecf8"/>
+        <text x="1022" y="508" font-size="10" fill="#1558b0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">MIRO</text>
         <!-- DECISION -->
-        <polygon points="1050,518 1085,540 1050,562 1015,540" fill="#2d2510" stroke="#c8a84b" stroke-width="1.5"/>
-        <text x="1050" y="536" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="600">Match OK?</text>
-        <line x1="1050" y1="508" x2="1050" y2="518" stroke="#c8a84b" stroke-width="1.5"/>
+        <polygon points="1050,518 1085,540 1050,562 1015,540" fill="#fdf3d0" stroke="#8a6200" stroke-width="1.5"/>
+        <text x="1050" y="536" font-size="9" fill="#8a6200" text-anchor="middle" font-weight="600">Match OK?</text>
+        <line x1="1050" y1="508" x2="1050" y2="518" stroke="#8a6200" stroke-width="1.5"/>
         <!-- YES right -->
-        <line x1="1085" y1="540" x2="1148" y2="540" stroke="#39b54a" stroke-width="1.5" marker-end="url(#r-ag)"/>
-        <text x="1115" y="535" font-size="9" fill="#39b54a" text-anchor="middle">YES</text>
+        <line x1="1085" y1="540" x2="1148" y2="540" stroke="#1a7a2a" stroke-width="1.5" marker-end="url(#r-ag)"/>
+        <text x="1115" y="535" font-size="9" fill="#1a7a2a" text-anchor="middle">YES</text>
         <!-- NO down -->
-        <line x1="1050" y1="562" x2="1050" y2="580" stroke="#e05c3a" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#r-ac)"/>
-        <text x="1058" y="574" font-size="9" fill="#e05c3a">NO</text>
+        <line x1="1050" y1="562" x2="1050" y2="580" stroke="#b83218" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#r-ac)"/>
+        <text x="1058" y="574" font-size="9" fill="#b83218">NO</text>
 
         <!-- STEP 8: Complete -->
-        <rect x="1150" y="462" width="130" height="56" rx="5" fill="#1e1535" stroke="#9b6dff" stroke-width="2"/>
-        <rect x="1150" y="462" width="130" height="14" rx="5" fill="#9b6dff" opacity="0.3"/>
-        <text x="1215" y="475" font-size="9" fill="#9b6dff" text-anchor="middle" font-weight="600">COMPLETE</text>
-        <text x="1215" y="492" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Receipt</text>
-        <text x="1215" y="507" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Processed ✓</text>
+        <rect x="1150" y="462" width="130" height="56" rx="5" fill="#ede8fa" stroke="#5c34b0" stroke-width="2"/>
+        <rect x="1150" y="462" width="130" height="14" rx="5" fill="#5c34b0" opacity="0.3"/>
+        <text x="1215" y="475" font-size="9" fill="#5c34b0" text-anchor="middle" font-weight="600">COMPLETE</text>
+        <text x="1215" y="492" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Receipt</text>
+        <text x="1215" y="507" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Processed ✓</text>
 
         <!-- RCA Lane -->
-        <rect x="270" y="580" width="200" height="90" rx="5" fill="#2d150e" stroke="#e05c3a" stroke-width="1.5"/>
-        <text x="370" y="600" font-size="10" fill="#e05c3a" text-anchor="middle" font-weight="700">RCA: Dock Discrepancy</text>
-        <text x="282" y="618" font-size="10" fill="#a8a49c">→ Short/wrong/damaged?</text>
-        <text x="282" y="634" font-size="10" fill="#a8a49c">→ Contact Purchasing</text>
-        <text x="282" y="650" font-size="11" fill="#39b54a" font-weight="600">✓ Partial GR · MT 103 blocked</text>
-        <text x="282" y="664" font-size="11" fill="#39b54a" font-weight="600">✓ Do NOT post if wrong material</text>
+        <rect x="270" y="580" width="200" height="90" rx="5" fill="#fce8e3" stroke="#b83218" stroke-width="1.5"/>
+        <text x="370" y="600" font-size="10" fill="#b83218" text-anchor="middle" font-weight="700">RCA: Dock Discrepancy</text>
+        <text x="282" y="618" font-size="10" fill="#46505f">→ Short/wrong/damaged?</text>
+        <text x="282" y="634" font-size="10" fill="#46505f">→ Contact Purchasing</text>
+        <text x="282" y="650" font-size="11" fill="#1a7a2a" font-weight="600">✓ Partial GR · MT 103 blocked</text>
+        <text x="282" y="664" font-size="11" fill="#1a7a2a" font-weight="600">✓ Do NOT post if wrong material</text>
 
-        <rect x="620" y="580" width="200" height="90" rx="5" fill="#2d150e" stroke="#e05c3a" stroke-width="1.5"/>
-        <text x="720" y="600" font-size="10" fill="#e05c3a" text-anchor="middle" font-weight="700">RCA: Posting Error</text>
-        <text x="632" y="618" font-size="10" fill="#a8a49c">→ Wrong UoM? (cases/lbs)</text>
-        <text x="632" y="634" font-size="10" fill="#a8a49c">→ Wrong storage location?</text>
-        <text x="632" y="650" font-size="11" fill="#39b54a" font-weight="600">✓ Reverse MT 102 immediately</text>
-        <text x="632" y="664" font-size="11" fill="#39b54a" font-weight="600">✓ Repost with correct values</text>
+        <rect x="620" y="580" width="200" height="90" rx="5" fill="#fce8e3" stroke="#b83218" stroke-width="1.5"/>
+        <text x="720" y="600" font-size="10" fill="#b83218" text-anchor="middle" font-weight="700">RCA: Posting Error</text>
+        <text x="632" y="618" font-size="10" fill="#46505f">→ Wrong UoM? (cases/lbs)</text>
+        <text x="632" y="634" font-size="10" fill="#46505f">→ Wrong storage location?</text>
+        <text x="632" y="650" font-size="11" fill="#1a7a2a" font-weight="600">✓ Reverse MT 102 immediately</text>
+        <text x="632" y="664" font-size="11" fill="#1a7a2a" font-weight="600">✓ Repost with correct values</text>
 
-        <rect x="980" y="580" width="200" height="90" rx="5" fill="#2d150e" stroke="#e05c3a" stroke-width="1.5"/>
-        <text x="1080" y="600" font-size="10" fill="#e05c3a" text-anchor="middle" font-weight="700">RCA: 3-Way Match Fail</text>
-        <text x="992" y="618" font-size="10" fill="#a8a49c">→ GR not posted same day?</text>
-        <text x="992" y="634" font-size="10" fill="#a8a49c">→ Price variance on PO?</text>
-        <text x="992" y="650" font-size="11" fill="#39b54a" font-weight="600">✓ Post missing GR · MB51 check</text>
-        <text x="992" y="664" font-size="11" fill="#39b54a" font-weight="600">✓ Purchasing updates PO price</text>
+        <rect x="980" y="580" width="200" height="90" rx="5" fill="#fce8e3" stroke="#b83218" stroke-width="1.5"/>
+        <text x="1080" y="600" font-size="10" fill="#b83218" text-anchor="middle" font-weight="700">RCA: 3-Way Match Fail</text>
+        <text x="992" y="618" font-size="10" fill="#46505f">→ GR not posted same day?</text>
+        <text x="992" y="634" font-size="10" fill="#46505f">→ Price variance on PO?</text>
+        <text x="992" y="650" font-size="11" fill="#1a7a2a" font-weight="600">✓ Post missing GR · MB51 check</text>
+        <text x="992" y="664" font-size="11" fill="#1a7a2a" font-weight="600">✓ Purchasing updates PO price</text>
 
         <!-- IC Daily bar -->
-        <rect x="100" y="726" width="1220" height="40" rx="5" fill="#0e1f35" stroke="#4a9eff" stroke-width="1" stroke-dasharray="5 3"/>
-        <text x="120" y="742" font-size="10" fill="#4a9eff" font-weight="700" letter-spacing="1">⚑ IC DAILY: MB51 → MT 101 → today's date. Every physical receipt must have a posted GR before end of shift.</text>
-        <text x="120" y="758" font-size="11" fill="#a8a49c">Unposted GR = phantom inventory shortage + blocked AP invoice. No exceptions on same-day posting.</text>
+        <rect x="100" y="726" width="1220" height="40" rx="5" fill="#e2ecf8" stroke="#1558b0" stroke-width="1" stroke-dasharray="5 3"/>
+        <text x="120" y="742" font-size="10" fill="#1558b0" font-weight="700" letter-spacing="1">⚑ IC DAILY: MB51 → MT 101 → today's date. Every physical receipt must have a posted GR before end of shift.</text>
+        <text x="120" y="758" font-size="11" fill="#46505f">Unposted GR = phantom inventory shortage + blocked AP invoice. No exceptions on same-day posting.</text>
       </svg>
     </div><!-- /dpanel-receiving -->
 
     <!-- ════════════ SHIPPING DIAGRAM ════════════ -->
-    <div id="dpanel-shipping" style="display:none;padding:28px 32px;overflow-x:auto;">
-      <svg viewBox="0 0 1340 820" xmlns="http://www.w3.org/2000/svg" style="min-width:900px;width:100%;height:auto;font-family:'Inter',sans-serif;">
+    <div id="dpanel-shipping" style="display:none;padding:0;overflow-x:auto;">
+      <svg viewBox="0 0 1340 820" xmlns="http://www.w3.org/2000/svg" style="min-width:960px;width:100%;height:auto;font-family:'Inter',sans-serif;">
         <defs>
-          <marker id="s-ab" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#4a9eff"/></marker>
-          <marker id="s-ac" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#e05c3a"/></marker>
-          <marker id="s-ag" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#39b54a"/></marker>
+          <marker id="s-ab" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#1558b0"/></marker>
+          <marker id="s-ac" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#b83218"/></marker>
+          <marker id="s-ag" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#1a7a2a"/></marker>
         </defs>
-        <rect width="1340" height="820" fill="#0D1117"/>
+        <rect width="1340" height="820" fill="#f4f6f9"/>
 
         <!-- Swim lanes -->
-        <rect x="0" y="40" width="80" height="130" fill="#161b22"/><text x="40" y="108" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,108)" font-weight="600" letter-spacing="1">SALES</text>
-        <rect x="0" y="170" width="80" height="130" fill="#0D1117"/><text x="40" y="238" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,238)" font-weight="600" letter-spacing="1">WAREHOUSE</text>
-        <rect x="0" y="300" width="80" height="130" fill="#161b22"/><text x="40" y="368" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,368)" font-weight="600" letter-spacing="1">IC LEAD</text>
-        <rect x="0" y="430" width="80" height="130" fill="#0D1117"/><text x="40" y="498" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,498)" font-weight="600" letter-spacing="1">FINANCE</text>
-        <rect x="0" y="560" width="80" height="240" fill="#161b22"/><text x="40" y="682" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,682)" font-weight="600" letter-spacing="1">RCA / RESOLUTION</text>
-        <line x1="80" y1="40" x2="1340" y2="40" stroke="#2a3040" stroke-width="1"/>
-        <line x1="80" y1="170" x2="1340" y2="170" stroke="#2a3040" stroke-width="1"/>
-        <line x1="80" y1="300" x2="1340" y2="300" stroke="#2a3040" stroke-width="1"/>
-        <line x1="80" y1="430" x2="1340" y2="430" stroke="#2a3040" stroke-width="1"/>
-        <line x1="80" y1="560" x2="1340" y2="560" stroke="#2a3040" stroke-width="1"/>
-        <line x1="80" y1="800" x2="1340" y2="800" stroke="#2a3040" stroke-width="1"/>
-        <line x1="80" y1="40" x2="80" y2="800" stroke="#2a3040" stroke-width="1"/>
+        <rect x="0" y="40" width="80" height="130" fill="#ffffff"/><text x="40" y="108" font-size="10" fill="#828899" text-anchor="middle" transform="rotate(-90,40,108)" font-weight="600" letter-spacing="1">SALES</text>
+        <rect x="0" y="170" width="80" height="130" fill="#f4f6f9"/><text x="40" y="238" font-size="10" fill="#828899" text-anchor="middle" transform="rotate(-90,40,238)" font-weight="600" letter-spacing="1">WAREHOUSE</text>
+        <rect x="0" y="300" width="80" height="130" fill="#ffffff"/><text x="40" y="368" font-size="10" fill="#828899" text-anchor="middle" transform="rotate(-90,40,368)" font-weight="600" letter-spacing="1">IC LEAD</text>
+        <rect x="0" y="430" width="80" height="130" fill="#f4f6f9"/><text x="40" y="498" font-size="10" fill="#828899" text-anchor="middle" transform="rotate(-90,40,498)" font-weight="600" letter-spacing="1">FINANCE</text>
+        <rect x="0" y="560" width="80" height="240" fill="#ffffff"/><text x="40" y="682" font-size="10" fill="#828899" text-anchor="middle" transform="rotate(-90,40,682)" font-weight="600" letter-spacing="1">RCA / RESOLUTION</text>
+        <line x1="80" y1="40" x2="1340" y2="40" stroke="#d4d8e2" stroke-width="1"/>
+        <line x1="80" y1="170" x2="1340" y2="170" stroke="#d4d8e2" stroke-width="1"/>
+        <line x1="80" y1="300" x2="1340" y2="300" stroke="#d4d8e2" stroke-width="1"/>
+        <line x1="80" y1="430" x2="1340" y2="430" stroke="#d4d8e2" stroke-width="1"/>
+        <line x1="80" y1="560" x2="1340" y2="560" stroke="#d4d8e2" stroke-width="1"/>
+        <line x1="80" y1="800" x2="1340" y2="800" stroke="#d4d8e2" stroke-width="1"/>
+        <line x1="80" y1="40" x2="80" y2="800" stroke="#d4d8e2" stroke-width="1"/>
 
         <!-- STEP 1: Sales Order -->
-        <rect x="100" y="72" width="130" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
-        <rect x="100" y="72" width="130" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
-        <text x="165" y="85" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 1</text>
-        <text x="165" y="102" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Sales Order</text>
-        <text x="165" y="117" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Exists</text>
-        <rect x="113" y="118" width="56" height="14" rx="3" fill="#0e1f35"/>
-        <text x="141" y="128" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">VA03</text>
-        <line x1="230" y1="100" x2="268" y2="100" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#s-ab)"/>
+        <rect x="100" y="72" width="130" height="56" rx="5" fill="#e8f5ea" stroke="#1a7a2a" stroke-width="1.5"/>
+        <rect x="100" y="72" width="130" height="14" rx="5" fill="#1a7a2a" opacity="0.3"/>
+        <text x="165" y="85" font-size="9" fill="#1a7a2a" text-anchor="middle" font-weight="600">STEP 1</text>
+        <text x="165" y="102" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Sales Order</text>
+        <text x="165" y="117" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Exists</text>
+        <rect x="113" y="118" width="56" height="14" rx="3" fill="#e2ecf8"/>
+        <text x="141" y="128" font-size="10" fill="#1558b0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">VA03</text>
+        <line x1="230" y1="100" x2="268" y2="100" stroke="#1558b0" stroke-width="1.5" marker-end="url(#s-ab)"/>
 
         <!-- STEP 2: Outbound Delivery (Sales) -->
-        <rect x="270" y="72" width="130" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
-        <rect x="270" y="72" width="130" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
-        <text x="335" y="85" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 2</text>
-        <text x="335" y="102" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Outbound</text>
-        <text x="335" y="117" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Delivery Created</text>
-        <rect x="283" y="118" width="56" height="14" rx="3" fill="#0e1f35"/>
-        <text x="311" y="128" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">VL01N</text>
+        <rect x="270" y="72" width="130" height="56" rx="5" fill="#e8f5ea" stroke="#1a7a2a" stroke-width="1.5"/>
+        <rect x="270" y="72" width="130" height="14" rx="5" fill="#1a7a2a" opacity="0.3"/>
+        <text x="335" y="85" font-size="9" fill="#1a7a2a" text-anchor="middle" font-weight="600">STEP 2</text>
+        <text x="335" y="102" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Outbound</text>
+        <text x="335" y="117" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Delivery Created</text>
+        <rect x="283" y="118" width="56" height="14" rx="3" fill="#e2ecf8"/>
+        <text x="311" y="128" font-size="10" fill="#1558b0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">VL01N</text>
         <!-- drop to IC lane for stock check -->
-        <line x1="335" y1="128" x2="335" y2="320" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#s-ab)"/>
+        <line x1="335" y1="128" x2="335" y2="320" stroke="#1558b0" stroke-width="1.5" marker-end="url(#s-ab)"/>
 
         <!-- STEP 3: CHECKPOINT Stock Check (IC lane) -->
-        <rect x="270" y="322" width="150" height="66" rx="5" fill="#2d2510" stroke="#c8a84b" stroke-width="2"/>
-        <rect x="270" y="322" width="150" height="14" rx="5" fill="#c8a84b" opacity="0.35"/>
-        <text x="345" y="335" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="700">⚑ IC CHECKPOINT</text>
-        <text x="345" y="353" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Stock Availability</text>
-        <text x="345" y="368" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Check</text>
-        <text x="345" y="382" font-size="10" fill="#a8a49c" text-anchor="middle">MMBE before picking</text>
+        <rect x="270" y="322" width="150" height="66" rx="5" fill="#fdf3d0" stroke="#8a6200" stroke-width="2"/>
+        <rect x="270" y="322" width="150" height="14" rx="5" fill="#8a6200" opacity="0.35"/>
+        <text x="345" y="335" font-size="9" fill="#8a6200" text-anchor="middle" font-weight="700">⚑ IC CHECKPOINT</text>
+        <text x="345" y="353" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Stock Availability</text>
+        <text x="345" y="368" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Check</text>
+        <text x="345" y="382" font-size="10" fill="#46505f" text-anchor="middle">MMBE before picking</text>
         <!-- DECISION -->
-        <polygon points="345,396 380,418 345,440 310,418" fill="#2d2510" stroke="#c8a84b" stroke-width="1.5"/>
-        <text x="345" y="414" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="600">Stock OK?</text>
-        <line x1="345" y1="388" x2="345" y2="396" stroke="#c8a84b" stroke-width="1.5"/>
+        <polygon points="345,396 380,418 345,440 310,418" fill="#fdf3d0" stroke="#8a6200" stroke-width="1.5"/>
+        <text x="345" y="414" font-size="9" fill="#8a6200" text-anchor="middle" font-weight="600">Stock OK?</text>
+        <line x1="345" y1="388" x2="345" y2="396" stroke="#8a6200" stroke-width="1.5"/>
         <!-- YES right to warehouse picking -->
-        <line x1="380" y1="418" x2="448" y2="418" stroke="#39b54a" stroke-width="1.5" marker-end="url(#s-ag)"/>
-        <text x="412" y="413" font-size="9" fill="#39b54a" text-anchor="middle">YES</text>
+        <line x1="380" y1="418" x2="448" y2="418" stroke="#1a7a2a" stroke-width="1.5" marker-end="url(#s-ag)"/>
+        <text x="412" y="413" font-size="9" fill="#1a7a2a" text-anchor="middle">YES</text>
         <!-- NO down -->
-        <line x1="345" y1="440" x2="345" y2="580" stroke="#e05c3a" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#s-ac)"/>
-        <text x="353" y="510" font-size="9" fill="#e05c3a">NO</text>
+        <line x1="345" y1="440" x2="345" y2="580" stroke="#b83218" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#s-ac)"/>
+        <text x="353" y="510" font-size="9" fill="#b83218">NO</text>
 
         <!-- STEP 4: Picking (Warehouse) — YES path drops back up to warehouse lane -->
-        <rect x="450" y="192" width="130" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
-        <rect x="450" y="192" width="130" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
-        <text x="515" y="205" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 4</text>
-        <text x="515" y="222" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Picking</text>
-        <text x="515" y="237" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Physical Pull</text>
-        <rect x="463" y="238" width="56" height="14" rx="3" fill="#0e1f35"/>
-        <text x="491" y="248" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">VL06O</text>
+        <rect x="450" y="192" width="130" height="56" rx="5" fill="#e8f5ea" stroke="#1a7a2a" stroke-width="1.5"/>
+        <rect x="450" y="192" width="130" height="14" rx="5" fill="#1a7a2a" opacity="0.3"/>
+        <text x="515" y="205" font-size="9" fill="#1a7a2a" text-anchor="middle" font-weight="600">STEP 4</text>
+        <text x="515" y="222" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Picking</text>
+        <text x="515" y="237" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Physical Pull</text>
+        <rect x="463" y="238" width="56" height="14" rx="3" fill="#e2ecf8"/>
+        <text x="491" y="248" font-size="10" fill="#1558b0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">VL06O</text>
         <!-- connect from YES (step up) -->
-        <line x1="515" y1="418" x2="515" y2="248" stroke="#39b54a" stroke-width="1.5" marker-end="url(#s-ag)"/>
-        <line x1="580" y1="220" x2="618" y2="220" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#s-ab)"/>
+        <line x1="515" y1="418" x2="515" y2="248" stroke="#1a7a2a" stroke-width="1.5" marker-end="url(#s-ag)"/>
+        <line x1="580" y1="220" x2="618" y2="220" stroke="#1558b0" stroke-width="1.5" marker-end="url(#s-ab)"/>
 
         <!-- STEP 5: CHECKPOINT Load Verify (Warehouse) -->
-        <rect x="620" y="192" width="150" height="66" rx="5" fill="#2d2510" stroke="#c8a84b" stroke-width="2"/>
-        <rect x="620" y="192" width="150" height="14" rx="5" fill="#c8a84b" opacity="0.35"/>
-        <text x="695" y="205" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="700">⚑ CHECKPOINT</text>
-        <text x="695" y="222" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Load Verification</text>
-        <text x="695" y="237" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Before Truck Leaves</text>
-        <text x="695" y="251" font-size="10" fill="#a8a49c" text-anchor="middle">SKU · Qty · Customer</text>
+        <rect x="620" y="192" width="150" height="66" rx="5" fill="#fdf3d0" stroke="#8a6200" stroke-width="2"/>
+        <rect x="620" y="192" width="150" height="14" rx="5" fill="#8a6200" opacity="0.35"/>
+        <text x="695" y="205" font-size="9" fill="#8a6200" text-anchor="middle" font-weight="700">⚑ CHECKPOINT</text>
+        <text x="695" y="222" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Load Verification</text>
+        <text x="695" y="237" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Before Truck Leaves</text>
+        <text x="695" y="251" font-size="10" fill="#46505f" text-anchor="middle">SKU · Qty · Customer</text>
         <!-- DECISION -->
-        <polygon points="695,264 730,286 695,308 660,286" fill="#2d2510" stroke="#c8a84b" stroke-width="1.5"/>
-        <text x="695" y="282" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="600">Load correct?</text>
-        <line x1="695" y1="258" x2="695" y2="264" stroke="#c8a84b" stroke-width="1.5"/>
+        <polygon points="695,264 730,286 695,308 660,286" fill="#fdf3d0" stroke="#8a6200" stroke-width="1.5"/>
+        <text x="695" y="282" font-size="9" fill="#8a6200" text-anchor="middle" font-weight="600">Load correct?</text>
+        <line x1="695" y1="258" x2="695" y2="264" stroke="#8a6200" stroke-width="1.5"/>
         <!-- YES right -->
-        <line x1="730" y1="286" x2="798" y2="286" stroke="#39b54a" stroke-width="1.5" marker-end="url(#s-ag)"/>
-        <text x="762" y="281" font-size="9" fill="#39b54a" text-anchor="middle">YES</text>
+        <line x1="730" y1="286" x2="798" y2="286" stroke="#1a7a2a" stroke-width="1.5" marker-end="url(#s-ag)"/>
+        <text x="762" y="281" font-size="9" fill="#1a7a2a" text-anchor="middle">YES</text>
         <!-- NO down -->
-        <line x1="695" y1="308" x2="695" y2="580" stroke="#e05c3a" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#s-ac)"/>
-        <text x="703" y="445" font-size="9" fill="#e05c3a">NO</text>
+        <line x1="695" y1="308" x2="695" y2="580" stroke="#b83218" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#s-ac)"/>
+        <text x="703" y="445" font-size="9" fill="#b83218">NO</text>
 
         <!-- STEP 6: Post GI MT 601 (Warehouse) -->
-        <rect x="800" y="192" width="130" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
-        <rect x="800" y="192" width="130" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
-        <text x="865" y="205" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 6</text>
-        <text x="865" y="222" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Post Goods Issue</text>
-        <text x="865" y="237" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">MT 601</text>
-        <rect x="813" y="238" width="84" height="16" rx="3" fill="#0e1f35"/>
-        <text x="855" y="249" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">VL02N·601</text>
-        <line x1="930" y1="220" x2="968" y2="220" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#s-ab)"/>
+        <rect x="800" y="192" width="130" height="56" rx="5" fill="#e8f5ea" stroke="#1a7a2a" stroke-width="1.5"/>
+        <rect x="800" y="192" width="130" height="14" rx="5" fill="#1a7a2a" opacity="0.3"/>
+        <text x="865" y="205" font-size="9" fill="#1a7a2a" text-anchor="middle" font-weight="600">STEP 6</text>
+        <text x="865" y="222" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Post Goods Issue</text>
+        <text x="865" y="237" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">MT 601</text>
+        <rect x="813" y="238" width="84" height="16" rx="3" fill="#e2ecf8"/>
+        <text x="855" y="249" font-size="10" fill="#1558b0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">VL02N·601</text>
+        <line x1="930" y1="220" x2="968" y2="220" stroke="#1558b0" stroke-width="1.5" marker-end="url(#s-ab)"/>
 
         <!-- STEP 7: IC Daily Open Delivery Check (IC lane) -->
-        <rect x="970" y="312" width="150" height="66" rx="5" fill="#2d2510" stroke="#c8a84b" stroke-width="2"/>
-        <rect x="970" y="312" width="150" height="14" rx="5" fill="#c8a84b" opacity="0.35"/>
-        <text x="1045" y="325" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="700">⚑ IC DAILY ROUTINE</text>
-        <text x="1045" y="342" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Open Delivery</text>
-        <text x="1045" y="357" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Check</text>
-        <text x="1045" y="371" font-size="10" fill="#a8a49c" text-anchor="middle">VL06O — GI posted?</text>
+        <rect x="970" y="312" width="150" height="66" rx="5" fill="#fdf3d0" stroke="#8a6200" stroke-width="2"/>
+        <rect x="970" y="312" width="150" height="14" rx="5" fill="#8a6200" opacity="0.35"/>
+        <text x="1045" y="325" font-size="9" fill="#8a6200" text-anchor="middle" font-weight="700">⚑ IC DAILY ROUTINE</text>
+        <text x="1045" y="342" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Open Delivery</text>
+        <text x="1045" y="357" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Check</text>
+        <text x="1045" y="371" font-size="10" fill="#46505f" text-anchor="middle">VL06O — GI posted?</text>
         <!-- bridge from step 6 down to IC lane -->
-        <line x1="1045" y1="220" x2="1045" y2="312" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#s-ab)"/>
+        <line x1="1045" y1="220" x2="1045" y2="312" stroke="#1558b0" stroke-width="1.5" marker-end="url(#s-ab)"/>
         <!-- DECISION -->
-        <polygon points="1045,384 1080,406 1045,428 1010,406" fill="#2d2510" stroke="#c8a84b" stroke-width="1.5"/>
-        <text x="1045" y="402" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="600">GI posted?</text>
-        <line x1="1045" y1="378" x2="1045" y2="384" stroke="#c8a84b" stroke-width="1.5"/>
+        <polygon points="1045,384 1080,406 1045,428 1010,406" fill="#fdf3d0" stroke="#8a6200" stroke-width="1.5"/>
+        <text x="1045" y="402" font-size="9" fill="#8a6200" text-anchor="middle" font-weight="600">GI posted?</text>
+        <line x1="1045" y1="378" x2="1045" y2="384" stroke="#8a6200" stroke-width="1.5"/>
         <!-- YES right -->
-        <line x1="1080" y1="406" x2="1148" y2="406" stroke="#39b54a" stroke-width="1.5" marker-end="url(#s-ag)"/>
-        <text x="1112" y="401" font-size="9" fill="#39b54a" text-anchor="middle">YES</text>
+        <line x1="1080" y1="406" x2="1148" y2="406" stroke="#1a7a2a" stroke-width="1.5" marker-end="url(#s-ag)"/>
+        <text x="1112" y="401" font-size="9" fill="#1a7a2a" text-anchor="middle">YES</text>
         <!-- NO down -->
-        <line x1="1045" y1="428" x2="1045" y2="580" stroke="#e05c3a" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#s-ac)"/>
-        <text x="1053" y="505" font-size="9" fill="#e05c3a">NO</text>
+        <line x1="1045" y1="428" x2="1045" y2="580" stroke="#b83218" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#s-ac)"/>
+        <text x="1053" y="505" font-size="9" fill="#b83218">NO</text>
 
         <!-- STEP 8: Billing Finance -->
-        <rect x="1150" y="452" width="130" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
-        <rect x="1150" y="452" width="130" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
-        <text x="1215" y="465" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 8</text>
-        <text x="1215" y="482" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Billing Document</text>
-        <text x="1215" y="497" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Created</text>
-        <rect x="1163" y="498" width="56" height="14" rx="3" fill="#0e1f35"/>
-        <text x="1191" y="508" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">VF01</text>
+        <rect x="1150" y="452" width="130" height="56" rx="5" fill="#e8f5ea" stroke="#1a7a2a" stroke-width="1.5"/>
+        <rect x="1150" y="452" width="130" height="14" rx="5" fill="#1a7a2a" opacity="0.3"/>
+        <text x="1215" y="465" font-size="9" fill="#1a7a2a" text-anchor="middle" font-weight="600">STEP 8</text>
+        <text x="1215" y="482" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Billing Document</text>
+        <text x="1215" y="497" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Created</text>
+        <rect x="1163" y="498" width="56" height="14" rx="3" fill="#e2ecf8"/>
+        <text x="1191" y="508" font-size="10" fill="#1558b0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">VF01</text>
         <!-- bridge from IC check YES up to Finance lane -->
-        <line x1="1215" y1="406" x2="1215" y2="452" stroke="#39b54a" stroke-width="1.5" marker-end="url(#s-ag)"/>
+        <line x1="1215" y1="406" x2="1215" y2="452" stroke="#1a7a2a" stroke-width="1.5" marker-end="url(#s-ag)"/>
 
         <!-- RCA Lane -->
-        <rect x="270" y="580" width="210" height="90" rx="5" fill="#2d150e" stroke="#e05c3a" stroke-width="1.5"/>
-        <text x="375" y="600" font-size="10" fill="#e05c3a" text-anchor="middle" font-weight="700">RCA: Stock Shortage</text>
-        <text x="282" y="618" font-size="10" fill="#a8a49c">→ FG GR not posted?</text>
-        <text x="282" y="634" font-size="10" fill="#a8a49c">→ Wrong location? (MMBE)</text>
-        <text x="282" y="650" font-size="11" fill="#39b54a" font-weight="600">✓ MB51 MT 101 · MT 311 transfer</text>
+        <rect x="270" y="580" width="210" height="90" rx="5" fill="#fce8e3" stroke="#b83218" stroke-width="1.5"/>
+        <text x="375" y="600" font-size="10" fill="#b83218" text-anchor="middle" font-weight="700">RCA: Stock Shortage</text>
+        <text x="282" y="618" font-size="10" fill="#46505f">→ FG GR not posted?</text>
+        <text x="282" y="634" font-size="10" fill="#46505f">→ Wrong location? (MMBE)</text>
+        <text x="282" y="650" font-size="11" fill="#1a7a2a" font-weight="600">✓ MB51 MT 101 · MT 311 transfer</text>
 
-        <rect x="620" y="580" width="210" height="90" rx="5" fill="#2d150e" stroke="#e05c3a" stroke-width="1.5"/>
-        <text x="725" y="600" font-size="10" fill="#e05c3a" text-anchor="middle" font-weight="700">RCA: Load Error</text>
-        <text x="632" y="618" font-size="10" fill="#a8a49c">→ Wrong SKU? Short load?</text>
-        <text x="632" y="634" font-size="10" fill="#a8a49c">→ Correct before GI post</text>
-        <text x="632" y="650" font-size="11" fill="#39b54a" font-weight="600">✓ Amend delivery · recheck</text>
+        <rect x="620" y="580" width="210" height="90" rx="5" fill="#fce8e3" stroke="#b83218" stroke-width="1.5"/>
+        <text x="725" y="600" font-size="10" fill="#b83218" text-anchor="middle" font-weight="700">RCA: Load Error</text>
+        <text x="632" y="618" font-size="10" fill="#46505f">→ Wrong SKU? Short load?</text>
+        <text x="632" y="634" font-size="10" fill="#46505f">→ Correct before GI post</text>
+        <text x="632" y="650" font-size="11" fill="#1a7a2a" font-weight="600">✓ Amend delivery · recheck</text>
 
-        <rect x="970" y="580" width="210" height="90" rx="5" fill="#2d150e" stroke="#e05c3a" stroke-width="1.5"/>
-        <text x="1075" y="600" font-size="10" fill="#e05c3a" text-anchor="middle" font-weight="700">RCA: Phantom Stock</text>
-        <text x="982" y="618" font-size="10" fill="#a8a49c">→ Truck left · GI not posted</text>
-        <text x="982" y="634" font-size="10" fill="#a8a49c">→ Book inflated · Billing blocked</text>
-        <text x="982" y="650" font-size="11" fill="#39b54a" font-weight="600">✓ Post GI VL02N · MT 602 if returned</text>
+        <rect x="970" y="580" width="210" height="90" rx="5" fill="#fce8e3" stroke="#b83218" stroke-width="1.5"/>
+        <text x="1075" y="600" font-size="10" fill="#b83218" text-anchor="middle" font-weight="700">RCA: Phantom Stock</text>
+        <text x="982" y="618" font-size="10" fill="#46505f">→ Truck left · GI not posted</text>
+        <text x="982" y="634" font-size="10" fill="#46505f">→ Book inflated · Billing blocked</text>
+        <text x="982" y="650" font-size="11" fill="#1a7a2a" font-weight="600">✓ Post GI VL02N · MT 602 if returned</text>
 
         <!-- IC daily bar -->
-        <rect x="100" y="726" width="1220" height="40" rx="5" fill="#0e1f35" stroke="#4a9eff" stroke-width="1" stroke-dasharray="5 3"/>
-        <text x="120" y="742" font-size="10" fill="#4a9eff" font-weight="700" letter-spacing="1">⚑ IC DAILY: VL06O end of shift — flag any open delivery where GI not posted.</text>
-        <text x="120" y="758" font-size="11" fill="#a8a49c">Truck left + no GI post = phantom FG stock + blocked billing. This is the #1 source of FG book discrepancy.</text>
+        <rect x="100" y="726" width="1220" height="40" rx="5" fill="#e2ecf8" stroke="#1558b0" stroke-width="1" stroke-dasharray="5 3"/>
+        <text x="120" y="742" font-size="10" fill="#1558b0" font-weight="700" letter-spacing="1">⚑ IC DAILY: VL06O end of shift — flag any open delivery where GI not posted.</text>
+        <text x="120" y="758" font-size="11" fill="#46505f">Truck left + no GI post = phantom FG stock + blocked billing. This is the #1 source of FG book discrepancy.</text>
       </svg>
     </div><!-- /dpanel-shipping -->
 
     <!-- ════════════ CYCLE COUNT DIAGRAM ════════════ -->
-    <div id="dpanel-cyclecounts" style="display:none;padding:28px 32px;overflow-x:auto;">
-      <svg viewBox="0 0 1340 820" xmlns="http://www.w3.org/2000/svg" style="min-width:900px;width:100%;height:auto;font-family:'Inter',sans-serif;">
+    <div id="dpanel-cyclecounts" style="display:none;padding:0;overflow-x:auto;">
+      <svg viewBox="0 0 1340 820" xmlns="http://www.w3.org/2000/svg" style="min-width:960px;width:100%;height:auto;font-family:'Inter',sans-serif;">
         <defs>
-          <marker id="c-ab" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#4a9eff"/></marker>
-          <marker id="c-ac" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#e05c3a"/></marker>
-          <marker id="c-ag" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#39b54a"/></marker>
-          <marker id="c-ap" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#9b6dff"/></marker>
+          <marker id="c-ab" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#1558b0"/></marker>
+          <marker id="c-ac" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#b83218"/></marker>
+          <marker id="c-ag" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#1a7a2a"/></marker>
+          <marker id="c-ap" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#5c34b0"/></marker>
         </defs>
-        <rect width="1340" height="820" fill="#0D1117"/>
+        <rect width="1340" height="820" fill="#f4f6f9"/>
 
         <!-- Swim lanes -->
-        <rect x="0" y="40" width="80" height="130" fill="#161b22"/><text x="40" y="108" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,108)" font-weight="600" letter-spacing="1">IC LEAD</text>
-        <rect x="0" y="170" width="80" height="130" fill="#0D1117"/><text x="40" y="238" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,238)" font-weight="600" letter-spacing="1">COUNTERS</text>
-        <rect x="0" y="300" width="80" height="130" fill="#161b22"/><text x="40" y="368" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,368)" font-weight="600" letter-spacing="1">IC LEAD</text>
-        <rect x="0" y="430" width="80" height="130" fill="#0D1117"/><text x="40" y="498" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,498)" font-weight="600" letter-spacing="1">ANALYSIS</text>
-        <rect x="0" y="560" width="80" height="240" fill="#161b22"/><text x="40" y="682" font-size="10" fill="#6b6660" text-anchor="middle" transform="rotate(-90,40,682)" font-weight="600" letter-spacing="1">RCA / RESOLUTION</text>
-        <line x1="80" y1="40" x2="1340" y2="40" stroke="#2a3040" stroke-width="1"/>
-        <line x1="80" y1="170" x2="1340" y2="170" stroke="#2a3040" stroke-width="1"/>
-        <line x1="80" y1="300" x2="1340" y2="300" stroke="#2a3040" stroke-width="1"/>
-        <line x1="80" y1="430" x2="1340" y2="430" stroke="#2a3040" stroke-width="1"/>
-        <line x1="80" y1="560" x2="1340" y2="560" stroke="#2a3040" stroke-width="1"/>
-        <line x1="80" y1="800" x2="1340" y2="800" stroke="#2a3040" stroke-width="1"/>
-        <line x1="80" y1="40" x2="80" y2="800" stroke="#2a3040" stroke-width="1"/>
+        <rect x="0" y="40" width="80" height="130" fill="#ffffff"/><text x="40" y="108" font-size="10" fill="#828899" text-anchor="middle" transform="rotate(-90,40,108)" font-weight="600" letter-spacing="1">IC LEAD</text>
+        <rect x="0" y="170" width="80" height="130" fill="#f4f6f9"/><text x="40" y="238" font-size="10" fill="#828899" text-anchor="middle" transform="rotate(-90,40,238)" font-weight="600" letter-spacing="1">COUNTERS</text>
+        <rect x="0" y="300" width="80" height="130" fill="#ffffff"/><text x="40" y="368" font-size="10" fill="#828899" text-anchor="middle" transform="rotate(-90,40,368)" font-weight="600" letter-spacing="1">IC LEAD</text>
+        <rect x="0" y="430" width="80" height="130" fill="#f4f6f9"/><text x="40" y="498" font-size="10" fill="#828899" text-anchor="middle" transform="rotate(-90,40,498)" font-weight="600" letter-spacing="1">ANALYSIS</text>
+        <rect x="0" y="560" width="80" height="240" fill="#ffffff"/><text x="40" y="682" font-size="10" fill="#828899" text-anchor="middle" transform="rotate(-90,40,682)" font-weight="600" letter-spacing="1">RCA / RESOLUTION</text>
+        <line x1="80" y1="40" x2="1340" y2="40" stroke="#d4d8e2" stroke-width="1"/>
+        <line x1="80" y1="170" x2="1340" y2="170" stroke="#d4d8e2" stroke-width="1"/>
+        <line x1="80" y1="300" x2="1340" y2="300" stroke="#d4d8e2" stroke-width="1"/>
+        <line x1="80" y1="430" x2="1340" y2="430" stroke="#d4d8e2" stroke-width="1"/>
+        <line x1="80" y1="560" x2="1340" y2="560" stroke="#d4d8e2" stroke-width="1"/>
+        <line x1="80" y1="800" x2="1340" y2="800" stroke="#d4d8e2" stroke-width="1"/>
+        <line x1="80" y1="40" x2="80" y2="800" stroke="#d4d8e2" stroke-width="1"/>
 
         <!-- PREREQ -->
-        <rect x="100" y="52" width="180" height="44" rx="5" fill="#2d2510" stroke="#c8a84b" stroke-width="1" stroke-dasharray="4 3"/>
-        <text x="190" y="68" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="700">PREREQUISITE</text>
-        <text x="190" y="84" font-size="10" fill="#a8a49c" text-anchor="middle">A/B/C/D indicators set</text>
-        <text x="190" y="96" font-size="10" fill="#a8a49c" text-anchor="middle">MM02 → Plant Data/Storage 1</text>
-        <line x1="280" y1="74" x2="318" y2="74" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#c-ab)"/>
+        <rect x="100" y="52" width="180" height="44" rx="5" fill="#fdf3d0" stroke="#8a6200" stroke-width="1" stroke-dasharray="4 3"/>
+        <text x="190" y="68" font-size="9" fill="#8a6200" text-anchor="middle" font-weight="700">PREREQUISITE</text>
+        <text x="190" y="84" font-size="10" fill="#46505f" text-anchor="middle">A/B/C/D indicators set</text>
+        <text x="190" y="96" font-size="10" fill="#46505f" text-anchor="middle">MM02 → Plant Data/Storage 1</text>
+        <line x1="280" y1="74" x2="318" y2="74" stroke="#1558b0" stroke-width="1.5" marker-end="url(#c-ab)"/>
 
         <!-- STEP 1: Generate PI Docs (IC Lead) -->
-        <rect x="320" y="52" width="140" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
-        <rect x="320" y="52" width="140" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
-        <text x="390" y="65" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 1 · Weekly</text>
-        <text x="390" y="82" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Generate PI</text>
-        <text x="390" y="97" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Documents</text>
-        <rect x="334" y="98" width="110" height="14" rx="3" fill="#0e1f35"/>
-        <text x="389" y="108" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">Fiori: Create PI CC</text>
-        <line x1="460" y1="80" x2="498" y2="80" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#c-ab)"/>
+        <rect x="320" y="52" width="140" height="56" rx="5" fill="#e8f5ea" stroke="#1a7a2a" stroke-width="1.5"/>
+        <rect x="320" y="52" width="140" height="14" rx="5" fill="#1a7a2a" opacity="0.3"/>
+        <text x="390" y="65" font-size="9" fill="#1a7a2a" text-anchor="middle" font-weight="600">STEP 1 · Weekly</text>
+        <text x="390" y="82" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Generate PI</text>
+        <text x="390" y="97" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Documents</text>
+        <rect x="334" y="98" width="110" height="14" rx="3" fill="#e2ecf8"/>
+        <text x="389" y="108" font-size="10" fill="#1558b0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">Fiori: Create PI CC</text>
+        <line x1="460" y1="80" x2="498" y2="80" stroke="#1558b0" stroke-width="1.5" marker-end="url(#c-ab)"/>
 
         <!-- STEP 2: Distribute (IC Lead) -->
-        <rect x="500" y="52" width="140" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
-        <rect x="500" y="52" width="140" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
-        <text x="570" y="65" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 2</text>
-        <text x="570" y="82" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Distribute to</text>
-        <text x="570" y="97" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Counters</text>
-        <rect x="514" y="98" width="110" height="14" rx="3" fill="#0e1f35"/>
-        <text x="569" y="108" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">Fiori: Print PI</text>
+        <rect x="500" y="52" width="140" height="56" rx="5" fill="#e8f5ea" stroke="#1a7a2a" stroke-width="1.5"/>
+        <rect x="500" y="52" width="140" height="14" rx="5" fill="#1a7a2a" opacity="0.3"/>
+        <text x="570" y="65" font-size="9" fill="#1a7a2a" text-anchor="middle" font-weight="600">STEP 2</text>
+        <text x="570" y="82" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Distribute to</text>
+        <text x="570" y="97" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Counters</text>
+        <rect x="514" y="98" width="110" height="14" rx="3" fill="#e2ecf8"/>
+        <text x="569" y="108" font-size="10" fill="#1558b0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">Fiori: Print PI</text>
         <!-- drop to counters lane -->
-        <line x1="570" y1="108" x2="570" y2="192" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#c-ab)"/>
+        <line x1="570" y1="108" x2="570" y2="192" stroke="#1558b0" stroke-width="1.5" marker-end="url(#c-ab)"/>
 
         <!-- STEP 3: CHECKPOINT Blind Count (Counters) -->
-        <rect x="500" y="192" width="150" height="66" rx="5" fill="#2d2510" stroke="#c8a84b" stroke-width="2"/>
-        <rect x="500" y="192" width="150" height="14" rx="5" fill="#c8a84b" opacity="0.35"/>
-        <text x="575" y="205" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="700">⚑ BLIND COUNT</text>
-        <text x="575" y="223" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Physical Count</text>
-        <text x="575" y="238" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">No book qty visible</text>
-        <rect x="514" y="250" width="110" height="14" rx="3" fill="#0e1f35"/>
-        <text x="569" y="260" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">Fiori: Count PI List</text>
+        <rect x="500" y="192" width="150" height="66" rx="5" fill="#fdf3d0" stroke="#8a6200" stroke-width="2"/>
+        <rect x="500" y="192" width="150" height="14" rx="5" fill="#8a6200" opacity="0.35"/>
+        <text x="575" y="205" font-size="9" fill="#8a6200" text-anchor="middle" font-weight="700">⚑ BLIND COUNT</text>
+        <text x="575" y="223" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Physical Count</text>
+        <text x="575" y="238" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">No book qty visible</text>
+        <rect x="514" y="250" width="110" height="14" rx="3" fill="#e2ecf8"/>
+        <text x="569" y="260" font-size="10" fill="#1558b0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">Fiori: Count PI List</text>
         <!-- back up to IC lane for review -->
-        <line x1="575" y1="258" x2="575" y2="320" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#c-ab)"/>
+        <line x1="575" y1="258" x2="575" y2="320" stroke="#1558b0" stroke-width="1.5" marker-end="url(#c-ab)"/>
 
         <!-- STEP 4: CHECKPOINT Review Variances (IC Lead) -->
-        <rect x="500" y="322" width="150" height="66" rx="5" fill="#2d2510" stroke="#c8a84b" stroke-width="2"/>
-        <rect x="500" y="322" width="150" height="14" rx="5" fill="#c8a84b" opacity="0.35"/>
-        <text x="575" y="335" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="700">⚑ IC REVIEW</text>
-        <text x="575" y="353" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Review Variances</text>
-        <text x="575" y="368" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Apply Tolerance</text>
-        <rect x="510" y="380" width="128" height="14" rx="3" fill="#0e1f35"/>
-        <text x="574" y="390" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">Fiori: Process PI Results</text>
+        <rect x="500" y="322" width="150" height="66" rx="5" fill="#fdf3d0" stroke="#8a6200" stroke-width="2"/>
+        <rect x="500" y="322" width="150" height="14" rx="5" fill="#8a6200" opacity="0.35"/>
+        <text x="575" y="335" font-size="9" fill="#8a6200" text-anchor="middle" font-weight="700">⚑ IC REVIEW</text>
+        <text x="575" y="353" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Review Variances</text>
+        <text x="575" y="368" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Apply Tolerance</text>
+        <rect x="510" y="380" width="128" height="14" rx="3" fill="#e2ecf8"/>
+        <text x="574" y="390" font-size="10" fill="#1558b0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">Fiori: Process PI Results</text>
 
         <!-- DECISION: Within tolerance? -->
-        <polygon points="575,404 615,428 575,452 535,428" fill="#2d2510" stroke="#c8a84b" stroke-width="1.5"/>
-        <text x="575" y="424" font-size="9" fill="#c8a84b" text-anchor="middle" font-weight="600">In tolerance?</text>
-        <line x1="575" y1="394" x2="575" y2="404" stroke="#c8a84b" stroke-width="1.5"/>
+        <polygon points="575,404 615,428 575,452 535,428" fill="#fdf3d0" stroke="#8a6200" stroke-width="1.5"/>
+        <text x="575" y="424" font-size="9" fill="#8a6200" text-anchor="middle" font-weight="600">In tolerance?</text>
+        <line x1="575" y1="394" x2="575" y2="404" stroke="#8a6200" stroke-width="1.5"/>
         <!-- YES right → post -->
-        <line x1="615" y1="428" x2="768" y2="428" stroke="#39b54a" stroke-width="1.5" marker-end="url(#c-ag)"/>
-        <text x="690" y="423" font-size="9" fill="#39b54a" text-anchor="middle">YES → Post</text>
+        <line x1="615" y1="428" x2="768" y2="428" stroke="#1a7a2a" stroke-width="1.5" marker-end="url(#c-ag)"/>
+        <text x="690" y="423" font-size="9" fill="#1a7a2a" text-anchor="middle">YES → Post</text>
         <!-- NO left → recount -->
-        <line x1="535" y1="428" x2="388" y2="428" stroke="#e05c3a" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#c-ac)"/>
-        <text x="460" y="423" font-size="9" fill="#e05c3a" text-anchor="middle">NO → Recount</text>
+        <line x1="535" y1="428" x2="388" y2="428" stroke="#b83218" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#c-ac)"/>
+        <text x="460" y="423" font-size="9" fill="#b83218" text-anchor="middle">NO → Recount</text>
 
         <!-- STEP 5: Recount (IC Lead) — NO path -->
-        <rect x="280" y="402" width="100" height="52" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
-        <text x="330" y="418" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 5</text>
-        <text x="330" y="434" font-size="11" fill="#e8e6e0" text-anchor="middle" font-weight="700">Recount</text>
-        <text x="330" y="448" font-size="10" fill="#a8a49c" text-anchor="middle">Different counter</text>
+        <rect x="280" y="402" width="100" height="52" rx="5" fill="#e8f5ea" stroke="#1a7a2a" stroke-width="1.5"/>
+        <text x="330" y="418" font-size="9" fill="#1a7a2a" text-anchor="middle" font-weight="600">STEP 5</text>
+        <text x="330" y="434" font-size="11" fill="#1a1d24" text-anchor="middle" font-weight="700">Recount</text>
+        <text x="330" y="448" font-size="10" fill="#46505f" text-anchor="middle">Different counter</text>
         <!-- loop back up to counters lane -->
-        <path d="M 330 402 Q 330 330 390 290 Q 440 260 500 225" fill="none" stroke="#4a9eff" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#c-ab)"/>
-        <text x="360" y="340" font-size="9" fill="#4a9eff" opacity="0.7">recount loop</text>
+        <path d="M 330 402 Q 330 330 390 290 Q 440 260 500 225" fill="none" stroke="#1558b0" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#c-ab)"/>
+        <text x="360" y="340" font-size="9" fill="#1558b0" opacity="0.7">recount loop</text>
 
         <!-- STEP 6: Post Differences (IC Lead) -->
-        <rect x="770" y="400" width="140" height="56" rx="5" fill="#1e3a22" stroke="#39b54a" stroke-width="1.5"/>
-        <rect x="770" y="400" width="140" height="14" rx="5" fill="#39b54a" opacity="0.3"/>
-        <text x="840" y="413" font-size="9" fill="#39b54a" text-anchor="middle" font-weight="600">STEP 6</text>
-        <text x="840" y="430" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Post Differences</text>
-        <text x="840" y="445" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">+ Reason Codes</text>
-        <rect x="784" y="447" width="110" height="14" rx="3" fill="#0e1f35"/>
-        <text x="839" y="457" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">Fiori: Process PI</text>
-        <text x="840" y="472" font-size="9" fill="#c8a84b" text-anchor="middle">⚑ Always use reason codes</text>
-        <line x1="910" y1="428" x2="968" y2="428" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#c-ab)"/>
+        <rect x="770" y="400" width="140" height="56" rx="5" fill="#e8f5ea" stroke="#1a7a2a" stroke-width="1.5"/>
+        <rect x="770" y="400" width="140" height="14" rx="5" fill="#1a7a2a" opacity="0.3"/>
+        <text x="840" y="413" font-size="9" fill="#1a7a2a" text-anchor="middle" font-weight="600">STEP 6</text>
+        <text x="840" y="430" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Post Differences</text>
+        <text x="840" y="445" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">+ Reason Codes</text>
+        <rect x="784" y="447" width="110" height="14" rx="3" fill="#e2ecf8"/>
+        <text x="839" y="457" font-size="10" fill="#1558b0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">Fiori: Process PI</text>
+        <text x="840" y="472" font-size="9" fill="#8a6200" text-anchor="middle">⚑ Always use reason codes</text>
+        <line x1="910" y1="428" x2="968" y2="428" stroke="#1558b0" stroke-width="1.5" marker-end="url(#c-ab)"/>
 
         <!-- STEP 7: Monthly Analysis (Analysis lane) -->
-        <rect x="970" y="452" width="160" height="66" rx="5" fill="#1e1535" stroke="#9b6dff" stroke-width="2"/>
-        <rect x="970" y="452" width="160" height="14" rx="5" fill="#9b6dff" opacity="0.3"/>
-        <text x="1050" y="465" font-size="9" fill="#9b6dff" text-anchor="middle" font-weight="600">STEP 7 · Monthly</text>
-        <text x="1050" y="483" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">Trend Analysis</text>
-        <text x="1050" y="498" font-size="12" fill="#e8e6e0" text-anchor="middle" font-weight="700">by Reason Code</text>
-        <rect x="984" y="510" width="130" height="14" rx="3" fill="#0e1f35"/>
-        <text x="1049" y="520" font-size="10" fill="#4a9eff" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">Manage PI / MI24</text>
+        <rect x="970" y="452" width="160" height="66" rx="5" fill="#ede8fa" stroke="#5c34b0" stroke-width="2"/>
+        <rect x="970" y="452" width="160" height="14" rx="5" fill="#5c34b0" opacity="0.3"/>
+        <text x="1050" y="465" font-size="9" fill="#5c34b0" text-anchor="middle" font-weight="600">STEP 7 · Monthly</text>
+        <text x="1050" y="483" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">Trend Analysis</text>
+        <text x="1050" y="498" font-size="12" fill="#1a1d24" text-anchor="middle" font-weight="700">by Reason Code</text>
+        <rect x="984" y="510" width="130" height="14" rx="3" fill="#e2ecf8"/>
+        <text x="1049" y="520" font-size="10" fill="#1558b0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="700">Manage PI / MI24</text>
         <!-- drop from posting to analysis lane -->
-        <line x1="1050" y1="428" x2="1050" y2="452" stroke="#9b6dff" stroke-width="1.5" marker-end="url(#c-ap)"/>
-        <line x1="1130" y1="485" x2="1198" y2="485" stroke="#9b6dff" stroke-width="1.5" marker-end="url(#c-ap)"/>
+        <line x1="1050" y1="428" x2="1050" y2="452" stroke="#5c34b0" stroke-width="1.5" marker-end="url(#c-ap)"/>
+        <line x1="1130" y1="485" x2="1198" y2="485" stroke="#5c34b0" stroke-width="1.5" marker-end="url(#c-ap)"/>
 
         <!-- STEP 8: Adjust CC Indicators -->
-        <rect x="1200" y="462" width="120" height="56" rx="5" fill="#1e1535" stroke="#9b6dff" stroke-width="2"/>
-        <rect x="1200" y="462" width="120" height="14" rx="5" fill="#9b6dff" opacity="0.3"/>
-        <text x="1260" y="475" font-size="9" fill="#9b6dff" text-anchor="middle" font-weight="600">CONTINUOUS</text>
-        <text x="1260" y="492" font-size="11" fill="#e8e6e0" text-anchor="middle" font-weight="700">Adjust CC</text>
-        <text x="1260" y="507" font-size="11" fill="#e8e6e0" text-anchor="middle" font-weight="700">Indicators</text>
+        <rect x="1200" y="462" width="120" height="56" rx="5" fill="#ede8fa" stroke="#5c34b0" stroke-width="2"/>
+        <rect x="1200" y="462" width="120" height="14" rx="5" fill="#5c34b0" opacity="0.3"/>
+        <text x="1260" y="475" font-size="9" fill="#5c34b0" text-anchor="middle" font-weight="600">CONTINUOUS</text>
+        <text x="1260" y="492" font-size="11" fill="#1a1d24" text-anchor="middle" font-weight="700">Adjust CC</text>
+        <text x="1260" y="507" font-size="11" fill="#1a1d24" text-anchor="middle" font-weight="700">Indicators</text>
 
         <!-- RCA Lane -->
-        <rect x="500" y="580" width="260" height="110" rx="5" fill="#2d150e" stroke="#e05c3a" stroke-width="1.5"/>
-        <text x="630" y="600" font-size="10" fill="#e05c3a" text-anchor="middle" font-weight="700">RCA: Count Variance Investigation</text>
-        <text x="512" y="618" font-size="10" fill="#a8a49c">→ Unposted GI or GR same day? (MB51)</text>
-        <text x="512" y="634" font-size="10" fill="#a8a49c">→ Wrong UoM counted? (cases vs. lbs)</text>
-        <text x="512" y="650" font-size="10" fill="#a8a49c">→ Material in wrong location? (MMBE)</text>
-        <text x="512" y="666" font-size="11" fill="#39b54a" font-weight="600">✓ Trigger recount (different counter)</text>
-        <text x="512" y="682" font-size="11" fill="#39b54a" font-weight="600">✓ Post variance + reason code after confirmed</text>
+        <rect x="500" y="580" width="260" height="110" rx="5" fill="#fce8e3" stroke="#b83218" stroke-width="1.5"/>
+        <text x="630" y="600" font-size="10" fill="#b83218" text-anchor="middle" font-weight="700">RCA: Count Variance Investigation</text>
+        <text x="512" y="618" font-size="10" fill="#46505f">→ Unposted GI or GR same day? (MB51)</text>
+        <text x="512" y="634" font-size="10" fill="#46505f">→ Wrong UoM counted? (cases vs. lbs)</text>
+        <text x="512" y="650" font-size="10" fill="#46505f">→ Material in wrong location? (MMBE)</text>
+        <text x="512" y="666" font-size="11" fill="#1a7a2a" font-weight="600">✓ Trigger recount (different counter)</text>
+        <text x="512" y="682" font-size="11" fill="#1a7a2a" font-weight="600">✓ Post variance + reason code after confirmed</text>
 
         <!-- Pattern box -->
-        <rect x="800" y="580" width="500" height="110" rx="5" fill="#1e1535" stroke="#9b6dff" stroke-width="1.5"/>
-        <text x="1050" y="600" font-size="10" fill="#9b6dff" text-anchor="middle" font-weight="700">Reason Code → Root Cause Pattern</text>
-        <text x="812" y="618" font-size="10" fill="#39b54a" font-weight="600">Unposted GI/GR  </text><text x="892" y="618" font-size="10" fill="#a8a49c">→ Posting discipline failure in production or receiving</text>
-        <text x="812" y="634" font-size="10" fill="#39b54a" font-weight="600">Wrong location    </text><text x="880" y="634" font-size="10" fill="#a8a49c">→ Putaway process or label clarity issue</text>
-        <text x="812" y="650" font-size="10" fill="#39b54a" font-weight="600">BOM variance      </text><text x="876" y="650" font-size="10" fill="#a8a49c">→ Recipe or master data error — escalate to PP/MM</text>
-        <text x="812" y="666" font-size="10" fill="#39b54a" font-weight="600">Recurring surplus  </text><text x="892" y="666" font-size="10" fill="#a8a49c">→ Unreported returns or production by-product</text>
-        <text x="812" y="682" font-size="10" fill="#c8a84b" font-weight="600">Same mat. every cycle </text><text x="916" y="682" font-size="10" fill="#a8a49c">→ Systemic upstream failure — escalate immediately</text>
+        <rect x="800" y="580" width="500" height="110" rx="5" fill="#ede8fa" stroke="#5c34b0" stroke-width="1.5"/>
+        <text x="1050" y="600" font-size="10" fill="#5c34b0" text-anchor="middle" font-weight="700">Reason Code → Root Cause Pattern</text>
+        <text x="812" y="618" font-size="10" fill="#1a7a2a" font-weight="600">Unposted GI/GR  </text><text x="892" y="618" font-size="10" fill="#46505f">→ Posting discipline failure in production or receiving</text>
+        <text x="812" y="634" font-size="10" fill="#1a7a2a" font-weight="600">Wrong location    </text><text x="880" y="634" font-size="10" fill="#46505f">→ Putaway process or label clarity issue</text>
+        <text x="812" y="650" font-size="10" fill="#1a7a2a" font-weight="600">BOM variance      </text><text x="876" y="650" font-size="10" fill="#46505f">→ Recipe or master data error — escalate to PP/MM</text>
+        <text x="812" y="666" font-size="10" fill="#1a7a2a" font-weight="600">Recurring surplus  </text><text x="892" y="666" font-size="10" fill="#46505f">→ Unreported returns or production by-product</text>
+        <text x="812" y="682" font-size="10" fill="#8a6200" font-weight="600">Same mat. every cycle </text><text x="916" y="682" font-size="10" fill="#46505f">→ Systemic upstream failure — escalate immediately</text>
 
         <!-- IC bar -->
-        <rect x="100" y="730" width="1220" height="40" rx="5" fill="#0e1f35" stroke="#4a9eff" stroke-width="1" stroke-dasharray="5 3"/>
-        <text x="120" y="746" font-size="10" fill="#4a9eff" font-weight="700" letter-spacing="1">⚑ PROGRAM CADENCE</text>
-        <text x="120" y="762" font-size="11" fill="#a8a49c">A indicators: monthly  ·  B indicators: quarterly  ·  C indicators: annually  ·  Run Fiori "Create PI Cycle Counting" tile weekly to auto-generate all due documents</text>
+        <rect x="100" y="730" width="1220" height="40" rx="5" fill="#e2ecf8" stroke="#1558b0" stroke-width="1" stroke-dasharray="5 3"/>
+        <text x="120" y="746" font-size="10" fill="#1558b0" font-weight="700" letter-spacing="1">⚑ PROGRAM CADENCE</text>
+        <text x="120" y="762" font-size="11" fill="#46505f">A indicators: monthly  ·  B indicators: quarterly  ·  C indicators: annually  ·  Run Fiori "Create PI Cycle Counting" tile weekly to auto-generate all due documents</text>
       </svg>
     </div><!-- /dpanel-cyclecounts -->
 
@@ -2689,6 +2801,104 @@ body {
 <div id="page-diag-receiving" class="page"></div>
 <div id="page-diag-shipping" class="page"></div>
 <div id="page-diag-cyclecounts" class="page"></div>
+
+<!-- ══════════════════════════════════════════════════════
+     PROBLEM LOG PAGE
+═══════════════════════════════════════════════════════ -->
+<div id="page-problemlog" class="page">
+  <div class="page-header">
+    <div class="page-eyebrow">My IC Log · Plant 1730</div>
+    <div class="page-title">Problem Log</div>
+    <div class="page-sub">Document discrepancies, root causes, and resolutions — saved locally in your browser</div>
+  </div>
+  <div class="content" style="max-width:860px;">
+
+    <!-- ADD NEW ENTRY FORM -->
+    <div id="pl-form" style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:28px;">
+      <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:16px;display:flex;align-items:center;gap:8px;">
+        <span style="background:var(--green-dim);color:var(--green);padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;">New Entry</span>
+        <span id="pl-edit-label" style="display:none;background:var(--amber-dim);color:var(--amber);padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;">Editing</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+        <div>
+          <label style="font-size:11px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:5px;">Date</label>
+          <input id="pl-date" type="date" style="width:100%;padding:9px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:5px;font-size:13px;color:var(--txt);font-family:'Inter',sans-serif;outline:none;"/>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:5px;">Process Area</label>
+          <select id="pl-process" style="width:100%;padding:9px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:5px;font-size:13px;color:var(--txt);font-family:'Inter',sans-serif;outline:none;cursor:pointer;">
+            <option value="">— Select —</option>
+            <option>Production Floor</option>
+            <option>Receiving</option>
+            <option>Shipping</option>
+            <option>Cycle Count</option>
+            <option>MIGO / Movement</option>
+            <option>Invoice / AP</option>
+            <option>Master Data</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <label style="font-size:11px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:5px;">Problem / Symptom <span style="color:var(--coral);">*</span></label>
+        <input id="pl-problem" type="text" placeholder="e.g. Cycle count showed 200-case shortage on tomato paste" style="width:100%;padding:9px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:5px;font-size:13px;color:var(--txt);font-family:'Inter',sans-serif;outline:none;"/>
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <label style="font-size:11px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:5px;">Root Cause Found</label>
+        <input id="pl-cause" type="text" placeholder="e.g. Backflush failed on Process Order 1000234 — MT 261 never posted" style="width:100%;padding:9px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:5px;font-size:13px;color:var(--txt);font-family:'Inter',sans-serif;outline:none;"/>
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <label style="font-size:11px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:5px;">SAP Transactions Used</label>
+        <input id="pl-tcodes" type="text" placeholder="e.g. MB51, MIGO MT 261, COR3" style="width:100%;padding:9px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:5px;font-size:13px;color:var(--txt);font-family:'Inter',sans-serif;outline:none;"/>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <label style="font-size:11px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:5px;">Resolution &amp; Actions Taken</label>
+        <textarea id="pl-resolution" rows="3" placeholder="e.g. Posted MT 261 manually for 200 cases against order. Confirmed stock adjusted in MMBE. Notified production supervisor to monitor backflush config." style="width:100%;padding:9px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:5px;font-size:13px;color:var(--txt);font-family:'Inter',sans-serif;outline:none;resize:vertical;"></textarea>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button onclick="plSave()" style="padding:9px 22px;background:var(--green);color:#fff;border:none;border-radius:5px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;">Save Entry</button>
+        <button onclick="plCancelEdit()" id="pl-cancel-btn" style="display:none;padding:9px 18px;background:var(--bg3);color:var(--txt2);border:1px solid var(--border);border-radius:5px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;">Cancel Edit</button>
+        <span id="pl-msg" style="font-size:12px;color:var(--green);display:none;font-weight:600;">✓ Saved</span>
+        <span id="pl-err" style="font-size:12px;color:var(--coral);display:none;font-weight:600;">Problem field is required.</span>
+      </div>
+    </div>
+
+    <!-- FILTERS + SEARCH -->
+    <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center;">
+      <input id="pl-search" type="text" placeholder="Search entries…" oninput="plRender()" style="flex:1;min-width:180px;padding:8px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:5px;font-size:13px;color:var(--txt);font-family:'Inter',sans-serif;outline:none;"/>
+      <select id="pl-filter-process" onchange="plRender()" style="padding:8px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:5px;font-size:13px;color:var(--txt);font-family:'Inter',sans-serif;cursor:pointer;outline:none;">
+        <option value="">All Areas</option>
+        <option>Production Floor</option>
+        <option>Receiving</option>
+        <option>Shipping</option>
+        <option>Cycle Count</option>
+        <option>MIGO / Movement</option>
+        <option>Invoice / AP</option>
+        <option>Master Data</option>
+        <option>Other</option>
+      </select>
+      <span id="pl-count-label" style="font-size:12px;color:var(--txt3);white-space:nowrap;"></span>
+    </div>
+
+    <!-- ENTRIES LIST -->
+    <div id="pl-list"></div>
+
+    <!-- EMPTY STATE -->
+    <div id="pl-empty" style="display:none;text-align:center;padding:60px 20px;color:var(--txt3);">
+      <div style="font-size:36px;margin-bottom:12px;">📋</div>
+      <div style="font-size:15px;font-weight:600;margin-bottom:6px;color:var(--txt2);">No entries yet</div>
+      <div style="font-size:13px;">Use the form above to log your first problem and resolution.</div>
+    </div>
+
+  </div>
+</div>
+
 </main>
 
 <script>
@@ -2707,6 +2917,151 @@ function showPage(id) {
   window.scrollTo(0,0);
 }
 </script>
+
+<script>
+// ── PROBLEM LOG ──────────────────────────────────────────────────────────────
+var PL_KEY = 'sap_ops_problem_log_v1';
+var plEditId = null;
+
+function plLoad() {
+  try { return JSON.parse(localStorage.getItem(PL_KEY) || '[]'); } catch(e) { return []; }
+}
+function plSave2(entries) {
+  localStorage.setItem(PL_KEY, JSON.stringify(entries));
+}
+
+function plSave() {
+  var problem = document.getElementById('pl-problem').value.trim();
+  var msg = document.getElementById('pl-msg');
+  var err = document.getElementById('pl-err');
+  msg.style.display = 'none'; err.style.display = 'none';
+  if (!problem) { err.style.display = 'inline'; return; }
+
+  var entry = {
+    id:         plEditId || Date.now().toString(),
+    date:       document.getElementById('pl-date').value,
+    process:    document.getElementById('pl-process').value,
+    problem:    problem,
+    cause:      document.getElementById('pl-cause').value.trim(),
+    tcodes:     document.getElementById('pl-tcodes').value.trim(),
+    resolution: document.getElementById('pl-resolution').value.trim(),
+    created:    plEditId ? undefined : new Date().toISOString(),
+    updated:    new Date().toISOString()
+  };
+
+  var entries = plLoad();
+  if (plEditId) {
+    var idx = entries.findIndex(function(e){ return e.id === plEditId; });
+    if (idx > -1) { entry.created = entries[idx].created; entries[idx] = entry; }
+  } else {
+    entries.unshift(entry);
+  }
+  plSave2(entries);
+  plClearForm();
+  plRender();
+  msg.style.display = 'inline';
+  setTimeout(function(){ msg.style.display = 'none'; }, 2500);
+}
+
+function plClearForm() {
+  ['pl-date','pl-process','pl-problem','pl-cause','pl-tcodes','pl-resolution'].forEach(function(id){
+    document.getElementById(id).value = '';
+  });
+  // set date to today
+  document.getElementById('pl-date').value = new Date().toISOString().split('T')[0];
+  plEditId = null;
+  document.getElementById('pl-edit-label').style.display = 'none';
+  document.getElementById('pl-cancel-btn').style.display = 'none';
+}
+
+function plCancelEdit() { plClearForm(); }
+
+function plEdit(id) {
+  var entries = plLoad();
+  var e = entries.find(function(x){ return x.id === id; });
+  if (!e) return;
+  document.getElementById('pl-date').value = e.date || '';
+  document.getElementById('pl-process').value = e.process || '';
+  document.getElementById('pl-problem').value = e.problem || '';
+  document.getElementById('pl-cause').value = e.cause || '';
+  document.getElementById('pl-tcodes').value = e.tcodes || '';
+  document.getElementById('pl-resolution').value = e.resolution || '';
+  plEditId = id;
+  document.getElementById('pl-edit-label').style.display = 'inline';
+  document.getElementById('pl-cancel-btn').style.display = 'inline';
+  document.getElementById('pl-form').scrollIntoView({ behavior: 'smooth' });
+}
+
+function plDelete(id) {
+  if (!confirm('Delete this entry?')) return;
+  var entries = plLoad().filter(function(e){ return e.id !== id; });
+  plSave2(entries);
+  plRender();
+}
+
+function plRender() {
+  var search  = (document.getElementById('pl-search')  || {value:''}).value.toLowerCase();
+  var process = (document.getElementById('pl-filter-process') || {value:''}).value;
+  var entries = plLoad();
+
+  var filtered = entries.filter(function(e) {
+    var matchProcess = !process || e.process === process;
+    var matchSearch  = !search  ||
+      (e.problem    || '').toLowerCase().includes(search) ||
+      (e.cause      || '').toLowerCase().includes(search) ||
+      (e.resolution || '').toLowerCase().includes(search) ||
+      (e.tcodes     || '').toLowerCase().includes(search);
+    return matchProcess && matchSearch;
+  });
+
+  var lbl = document.getElementById('pl-count-label');
+  if (lbl) lbl.textContent = filtered.length + ' entr' + (filtered.length === 1 ? 'y' : 'ies');
+
+  var list  = document.getElementById('pl-list');
+  var empty = document.getElementById('pl-empty');
+  if (!list) return;
+
+  if (filtered.length === 0) {
+    list.innerHTML = '';
+    if (empty) empty.style.display = 'block';
+    return;
+  }
+  if (empty) empty.style.display = 'none';
+
+  list.innerHTML = filtered.map(function(e) {
+    var chips = (e.tcodes || '').split(',').map(function(t){ t = t.trim(); return t ? '<span class="pl-tcode-chip">' + t + '</span>' : ''; }).join('');
+    return '<div class="pl-entry">' +
+      '<div class="pl-entry-header">' +
+        '<div class="pl-entry-meta">' +
+          (e.date    ? '<span class="pl-badge pl-date-badge">'    + e.date    + '</span>' : '') +
+          (e.process ? '<span class="pl-badge pl-process-badge">' + e.process + '</span>' : '') +
+        '</div>' +
+        '<div class="pl-entry-actions">' +
+          '<button class="pl-btn" onclick="plEdit('' + e.id + '')">Edit</button>' +
+          '<button class="pl-btn delete" onclick="plDelete('' + e.id + '')">Delete</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="pl-problem-text">' + escHtml(e.problem) + '</div>' +
+      (e.cause ? '<div class="pl-field"><div class="pl-field-label">Root Cause</div><div class="pl-field-val cause">' + escHtml(e.cause) + '</div></div>' : '') +
+      (chips   ? '<div class="pl-field"><div class="pl-field-label">SAP Transactions</div><div class="pl-tcodes">' + chips + '</div></div>' : '') +
+      (e.resolution ? '<div class="pl-field"><div class="pl-field-label">Resolution</div><div class="pl-field-val resolution">' + escHtml(e.resolution) + '</div></div>' : '') +
+    '</div>';
+  }).join('');
+}
+
+function escHtml(s) {
+  return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// Init on load
+document.addEventListener('DOMContentLoaded', function() {
+  var today = new Date().toISOString().split('T')[0];
+  var dateEl = document.getElementById('pl-date');
+  if (dateEl) dateEl.value = today;
+  plRender();
+});
+</script>
+
 </body>
 </html>
 <script>
